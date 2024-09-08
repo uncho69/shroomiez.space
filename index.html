@@ -3,18 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Shroomiez</title>
-    <link rel="stylesheet" href="style.css"> <!-- Se hai un file CSS -->
+    <title>Animated Text</title>
+    <link rel="stylesheet" href="style.css"> <!-- Collega il file CSS -->
+    <style>
+        /* CSS per il testo animato e centrato */
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #282c34;
+            color: #61dafb;
+            font-family: Arial, sans-serif;
+            overflow: hidden; /* Per evitare le barre di scorrimento */
+        }
+
+        .animated-text {
+            font-size: 2rem;
+            text-align: center;
+            white-space: nowrap; /* Impedisce la rottura del testo su più righe */
+            animation: move 5s linear infinite;
+        }
+
+        @keyframes move {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to Shroomiez</h1>
-    </header>
-    <main>
-        <p>This is a placeholder for your content. Add your graphics and text here.</p>
-    </main>
-    <footer>
-        <p>&copy; 2024 Shroomiez</p>
-    </footer>
+    <div class="animated-text">Benvenuto su Shroomiez!</div>
 </body>
 </html>
