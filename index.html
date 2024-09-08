@@ -26,8 +26,7 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-            transform: scale(0);
-            animation: pop-up 2s ease-out forwards;
+            animation: pop-up 2s ease-out forwards, move-text 4s infinite alternate;
         }
 
         @keyframes pop-up {
@@ -44,9 +43,18 @@
                 opacity: 1;
             }
         }
+
+        @keyframes move-text {
+            0% {
+                transform: translateX(-50px);
+            }
+            100% {
+                transform: translateX(50px);
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="animated-text">Henlo, Welcome to Shroomiez!</div>
+    <div class="animated-text">Henlo mothafucka, Welcome to Shroomiez!</div>
 </body>
 </html>
