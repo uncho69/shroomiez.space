@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shroomiez</title>
+    <style>
+        /* CSS per il testo animato e centrato */
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #282c34;
+            color: #61dafb;
+            font-family: Arial, sans-serif;
+            overflow: hidden; /* Per evitare le barre di scorrimento */
+        }
+
+        .animated-text {
+            font-size: 2rem;
+            text-align: center;
+            color: #61dafb;
+            background-color: #282c34;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            transform: scale(0);
+            animation: pop-up 2s ease-out forwards;
+        }
+
+        @keyframes pop-up {
+            0% {
+                transform: scale(0) translateY(-50px);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.1) translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-text">Henlo, Welcome to Shroomiez!</div>
+</body>
+</html>
