@@ -13,9 +13,11 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #ffffff; /* Sfondo bianco iniziale */
+            background-image: url('bgsitotastierino.jpg');
+            background-size: cover;
+            background-position: center;
             overflow: hidden;
-            transition: background-image 1s ease; /* Transizione per lo sfondo */
+            transition: background-image 1s ease;
         }
 
         .image-container {
@@ -38,42 +40,50 @@
 
         .animated-image {
             position: absolute;
-            width: 100px; /* Dimensione iniziale dell'immagine */
+            width: 100px;
+            height: auto;
+            object-fit: cover;
             opacity: 1;
-            animation: grow-and-fade 4s ease forwards; /* Durata dell'animazione */
+            animation: grow-and-fade 4s ease forwards;
         }
 
         @keyframes grow-and-fade {
             0% {
                 width: 100px;
+                height: auto;
                 opacity: 1;
             }
             50% {
-                width: 100vw; /* L'immagine si allarga fino a riempire lo schermo */
+                width: 100vw;
+                height: auto;
                 opacity: 1;
             }
             100% {
                 width: 100vw;
-                opacity: 0; /* L'immagine scompare */
+                height: auto;
+                opacity: 0;
             }
         }
 
         @media (min-width: 1024px) {
             .animated-image {
-                width: 200px; /* Dimensione iniziale dell'immagine per desktop */
+                width: 200px;
             }
 
             @keyframes grow-and-fade {
                 0% {
                     width: 200px;
+                    height: auto;
                     opacity: 1;
                 }
                 50% {
                     width: 70vw;
+                    height: auto;
                     opacity: 1;
                 }
                 100% {
                     width: 70vw;
+                    height: auto;
                     opacity: 0;
                 }
             }
@@ -81,20 +91,23 @@
 
         @media (max-width: 1023px) {
             .animated-image {
-                width: 100px; /* Dimensione iniziale dell'immagine per telefoni */
+                width: 100px;
             }
 
             @keyframes grow-and-fade {
                 0% {
                     width: 100px;
+                    height: auto;
                     opacity: 1;
                 }
                 50% {
                     width: 100vw;
+                    height: auto;
                     opacity: 1;
                 }
                 100% {
                     width: 100vw;
+                    height: auto;
                     opacity: 0;
                 }
             }
@@ -110,7 +123,7 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            background-color: rgba(0, 0, 0, 0.8); /* Sfondo scuro per la schermata di accesso */
+            background-color: rgba(0, 0, 0, 0.8);
             color: white;
             font-family: Arial, sans-serif;
             z-index: 1;
@@ -193,7 +206,7 @@
         <button id="submitCode">Submit</button>
         <p id="message"></p>
     </div>
-
+    
     <div class="image-container">
         <img src="logo_color.jpg" alt="Logo" class="animated-image">
     </div>
@@ -219,8 +232,8 @@
                 if (codeInput.value === 'MYCELIUM') {
                     message.textContent = 'Access Granted!';
                     message.style.color = 'green';
-
-                    // Nascondi il tastierino e sfondo
+                    
+                    // Nascondi il tastierino
                     accessContainer.style.opacity = '0';
                     accessContainer.style.visibility = 'hidden';
 
