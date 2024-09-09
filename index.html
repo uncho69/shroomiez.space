@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shroomiez</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Aggiungi questa linea -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <style>
-        /* CSS per il corpo e l'immagine di sfondo */
         body {
             margin: 0;
             padding: 0;
@@ -14,9 +13,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-image: url('bgsitotastierino.jpg'); /* Immagine di sfondo */
-            background-size: cover; /* Copre tutto lo schermo */
-            background-position: center; /* Centra l'immagine di sfondo */
+            background-image: url('bgsitotastierino.jpg');
+            background-size: cover;
+            background-position: center;
             overflow: hidden;
         }
 
@@ -27,10 +26,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden; /* Per evitare che l'immagine fuoriesca */
-            visibility: hidden; /* Nascosta inizialmente */
+            overflow: hidden;
+            visibility: hidden;
             opacity: 0;
-            transition: opacity 1s ease; /* Transizione per la visibilità */
+            transition: opacity 1s ease;
         }
 
         .image-container.visible {
@@ -40,11 +39,11 @@
 
         .animated-image {
             position: absolute;
-            width: 100px; /* Dimensione iniziale dell'immagine */
+            width: 100px;
             height: auto;
-            object-fit: cover; /* Mantiene le proporzioni e adatta l'immagine */
+            object-fit: cover;
             opacity: 1;
-            animation: grow-and-fade 4s ease forwards; /* Durata dell'animazione */
+            animation: grow-and-fade 4s ease forwards;
         }
 
         @keyframes grow-and-fade {
@@ -54,22 +53,20 @@
                 opacity: 1;
             }
             50% {
-                width: 100vw; /* L'immagine si allarga fino a riempire il 100% dello schermo */
-                height: auto; /* Mantiene le proporzioni */
+                width: 100vw;
+                height: auto;
                 opacity: 1;
             }
             100% {
                 width: 100vw;
                 height: auto;
-                opacity: 0; /* L'immagine scompare */
+                opacity: 0;
             }
         }
 
-        /* Media Query per Desktop */
         @media (min-width: 1024px) {
             .animated-image {
-                width: 200px; /* Dimensione iniziale dell'immagine per desktop */
-                height: auto;
+                width: 200px;
             }
 
             @keyframes grow-and-fade {
@@ -79,23 +76,21 @@
                     opacity: 1;
                 }
                 50% {
-                    width: 70vw; /* L'immagine si allarga fino a 70% della larghezza dello schermo per desktop */
-                    height: auto; /* Mantiene le proporzioni */
+                    width: 70vw;
+                    height: auto;
                     opacity: 1;
                 }
                 100% {
                     width: 70vw;
                     height: auto;
-                    opacity: 0; /* L'immagine scompare */
+                    opacity: 0;
                 }
             }
         }
 
-        /* Media Query per Telefono */
         @media (max-width: 1023px) {
             .animated-image {
-                width: 100px; /* Dimensione iniziale dell'immagine per telefoni */
-                height: auto;
+                width: 100px;
             }
 
             @keyframes grow-and-fade {
@@ -105,19 +100,18 @@
                     opacity: 1;
                 }
                 50% {
-                    width: 100vw; /* L'immagine si allarga fino a riempire il 100% dello schermo per telefoni */
-                    height: auto; /* Mantiene le proporzioni */
+                    width: 100vw;
+                    height: auto;
                     opacity: 1;
                 }
                 100% {
                     width: 100vw;
                     height: auto;
-                    opacity: 0; /* L'immagine scompare */
+                    opacity: 0;
                 }
             }
         }
 
-        /* CSS per il tastierino con lettere e la schermata di accesso */
         .access-container {
             position: absolute;
             top: 0;
@@ -128,10 +122,10 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            background-color: rgba(0, 0, 0, 0.8); /* Sfondo scuro per la schermata di accesso */
+            background-color: rgba(0, 0, 0, 0.8);
             color: white;
             font-family: Arial, sans-serif;
-            z-index: 1; /* Assicurati che il tastierino sia sopra l'immagine */
+            z-index: 1;
         }
 
         .keypad {
@@ -162,7 +156,7 @@
             border: none;
             border-radius: 5px;
             margin-bottom: 20px;
-            background-color: #222; /* Sfondo scuro per il campo di input */
+            background-color: #222;
             color: white;
         }
 
@@ -213,7 +207,6 @@
     </div>
     
     <div class="image-container">
-        <!-- Inserisci qui il percorso dell'immagine -->
         <img src="logo_color.jpg" alt="Logo" class="animated-image">
     </div>
 
@@ -237,7 +230,14 @@
                 if (codeInput.value === 'MYCELIUM') {
                     message.textContent = 'Access Granted!';
                     message.style.color = 'green';
-                    // Nascondi il tastierino e mostra l'animazione dell'immagine
+
+                    // Nascondi il tastierino
+                    accessContainer.style.opacity = '0';
+                    
+                    // Forza un reflow per applicare le modifiche di stile
+                    accessContainer.offsetHeight; // Trigger reflow
+
+                    // Aggiungi la classe per mostrare l'immagine e avviare l'animazione
                     accessContainer.style.visibility = 'hidden';
                     imageContainer.classList.add('visible');
                 } else {
