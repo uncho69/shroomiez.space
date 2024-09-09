@@ -9,15 +9,27 @@
         body {
             margin: 0;
             background-color: #0a0a0a; /* Colore di sfondo simile a Kali Linux */
-            color: #c9d1d9; /* Colore del testo simile a Kali Linux */
             font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
         #terminal-container {
-            height: 100vh;
-            width: 100%;
+            width: 80%;
+            max-width: 800px;
+            height: 400px;
+            background-color: #1e1e1e; /* Sfondo del terminale simile a Kali */
+            border: 3px solid #0a0a0a; /* Bordo */
+            padding: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 255, 0, 0.5);
+            border-radius: 5px;
         }
         .xterm {
-            border: 2px solid #0a0a0a; /* Bordo del terminale */
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .xterm-rows {
+            color: #00ff00; /* Colore verde per il testo */
         }
     </style>
 </head>
@@ -25,14 +37,21 @@
     <div id="terminal-container"></div>
     <script src="https://cdn.jsdelivr.net/npm/xterm/lib/xterm.js"></script>
     <script>
-        const { Terminal } = require('xterm');
-        const terminal = new Terminal();
+        const terminal = new Terminal({
+            theme: {
+                background: '#1e1e1e',  // Sfondo del terminale
+                foreground: '#00ff00',  // Testo verde
+            }
+        });
 
         terminal.open(document.getElementById('terminal-container'));
 
+        // Testo che appare nel terminale
         terminal.write('Benvenuto nel terminale Kali Linux!\r\n');
         terminal.write('Scrivi "help" per i comandi disponibili.\r\n');
+        terminal.write('\r\nvirus\r\n');
 
+        // Gestione comandi
         terminal.onData(data => {
             // Rimuovi il ritorno a capo
             data = data.replace(/\r/g, '');
@@ -49,11 +68,11 @@
                 terminal.write('\r\nComando non riconosciuto. Scrivi "help" per i comandi disponibili.\r\n');
             }
 
-            // Aggiungi un prompt
+            // Prompt successivo
             terminal.write('\r\n$ ');
         });
 
-        // Aggiungi un prompt iniziale
+        // Prompt iniziale
         terminal.write('$ ');
     </script>
 </body>
