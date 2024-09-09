@@ -88,50 +88,6 @@
             font-size: 1.5rem;
             margin-top: 10px;
         }
-
-        /* CSS per l'animazione dell'immagine */
-        .image-container {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            visibility: hidden;
-            opacity: 0;
-            transition: opacity 1s ease, visibility 1s ease;
-        }
-
-        .image-container.visible {
-            visibility: visible;
-            opacity: 1;
-        }
-
-        .animated-image {
-            width: 100px;
-            height: auto;
-            object-fit: cover;
-            animation: grow-and-fade 4s ease forwards;
-        }
-
-        @keyframes grow-and-fade {
-            0% {
-                width: 100px;
-                height: auto;
-                opacity: 1;
-            }
-            50% {
-                width: 100vw;
-                height: auto;
-                opacity: 1;
-            }
-            100% {
-                width: 100vw;
-                height: auto;
-                opacity: 0;
-            }
-        }
     </style>
 </head>
 <body>
@@ -159,15 +115,10 @@
         <button id="submitCode">Submit</button>
         <p id="message"></p>
     </div>
-    
-    <div class="image-container">
-        <img src="logo_color.jpg" alt="Logo" class="animated-image">
-    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const accessContainer = document.querySelector('.access-container');
-            const imageContainer = document.querySelector('.image-container');
             const codeInput = document.getElementById('codeInput');
             const submitButton = document.getElementById('submitCode');
             const message = document.getElementById('message');
@@ -190,14 +141,11 @@
                     accessContainer.style.opacity = '0';
                     accessContainer.style.visibility = 'hidden';
 
-                    // Cambia lo sfondo e mostra l'immagine
+                    // Cambia lo sfondo
                     body.style.backgroundImage = 'none'; // Rimuove l'immagine di sfondo
 
                     // Forza un reflow per applicare le modifiche di stile
                     accessContainer.offsetHeight; // Trigger reflow
-                    
-                    // Mostra l'animazione dell'immagine
-                    imageContainer.classList.add('visible');
                 } else {
                     message.textContent = 'Access Denied!';
                     message.style.color = 'red';
@@ -206,5 +154,6 @@
             });
         });
     </script>
+    
 </body>
 </html>
