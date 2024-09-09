@@ -6,6 +6,7 @@
     <title>Shroomiez</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <style>
+        /* CSS per il background e il tastierino */
         body {
             margin: 0;
             padding: 0;
@@ -13,105 +14,13 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-image: url('bgsitotastierino.jpg');
+            background-image: url('bgtastierino.jpg'); /* Sfondo iniziale */
             background-size: cover;
             background-position: center;
             overflow: hidden;
         }
 
-        .image-container {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            visibility: hidden;
-            opacity: 0;
-            transition: opacity 1s ease;
-        }
-
-        .image-container.visible {
-            visibility: visible;
-            opacity: 1;
-        }
-
-        .animated-image {
-            position: absolute;
-            width: 100px;
-            height: auto;
-            object-fit: cover;
-            opacity: 1;
-            animation: grow-and-fade 4s ease forwards;
-        }
-
-        @keyframes grow-and-fade {
-            0% {
-                width: 100px;
-                height: auto;
-                opacity: 1;
-            }
-            50% {
-                width: 100vw;
-                height: auto;
-                opacity: 1;
-            }
-            100% {
-                width: 100vw;
-                height: auto;
-                opacity: 0;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .animated-image {
-                width: 200px;
-            }
-
-            @keyframes grow-and-fade {
-                0% {
-                    width: 200px;
-                    height: auto;
-                    opacity: 1;
-                }
-                50% {
-                    width: 70vw;
-                    height: auto;
-                    opacity: 1;
-                }
-                100% {
-                    width: 70vw;
-                    height: auto;
-                    opacity: 0;
-                }
-            }
-        }
-
-        @media (max-width: 1023px) {
-            .animated-image {
-                width: 100px;
-            }
-
-            @keyframes grow-and-fade {
-                0% {
-                    width: 100px;
-                    height: auto;
-                    opacity: 1;
-                }
-                50% {
-                    width: 100vw;
-                    height: auto;
-                    opacity: 1;
-                }
-                100% {
-                    width: 100vw;
-                    height: auto;
-                    opacity: 0;
-                }
-            }
-        }
-
+        .image-container,
         .access-container {
             position: absolute;
             top: 0;
@@ -121,11 +30,40 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-direction: column;
-            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .animated-image {
+            position: absolute;
+            width: 100px; /* Dimensione iniziale dell'immagine */
+            opacity: 1;
+            animation: grow-and-fade 4s ease forwards; /* Durata dell'animazione */
+        }
+
+        @keyframes grow-and-fade {
+            0% {
+                width: 100px;
+                opacity: 1;
+            }
+            50% {
+                width: 100vw; /* L'immagine si allarga fino a riempire lo schermo */
+                opacity: 1;
+            }
+            100% {
+                width: 100vw;
+                opacity: 0; /* L'immagine scompare */
+            }
+        }
+
+        .access-container {
+            background-color: rgba(0, 0, 0, 0.8); /* Sfondo scuro per il tastierino */
             color: white;
             font-family: Arial, sans-serif;
+            visibility: visible; /* Visibile inizialmente */
             z-index: 1;
+        }
+
+        .access-container.hidden {
+            display: none; /* Nasconde il contenuto quando l'accesso è concesso */
         }
 
         .keypad {
@@ -156,7 +94,7 @@
             border: none;
             border-radius: 5px;
             margin-bottom: 20px;
-            background-color: #222;
+            background-color: #222; /* Sfondo scuro per il campo di input */
             color: white;
         }
 
@@ -205,8 +143,9 @@
         <button id="submitCode">Submit</button>
         <p id="message"></p>
     </div>
-    
-    <div class="image-container">
+
+    <div class="image-container hidden">
+        <!-- Inserisci qui il percorso dell'immagine -->
         <img src="logo_color.jpg" alt="Logo" class="animated-image">
     </div>
 
@@ -230,16 +169,11 @@
                 if (codeInput.value === 'MYCELIUM') {
                     message.textContent = 'Access Granted!';
                     message.style.color = 'green';
-
-                    // Nascondi il tastierino
-                    accessContainer.style.opacity = '0';
-                    
-                    // Forza un reflow per applicare le modifiche di stile
-                    accessContainer.offsetHeight; // Trigger reflow
-
-                    // Aggiungi la classe per mostrare l'immagine e avviare l'animazione
-                    accessContainer.style.visibility = 'hidden';
-                    imageContainer.classList.add('visible');
+                    // Nasconde il tastierino e lo sfondo
+                    accessContainer.classList.add('hidden');
+                    document.body.style.backgroundImage = 'none'; // Rimuove lo sfondo
+                    // Mostra l'immagine con animazione
+                    imageContainer.classList.remove('hidden');
                 } else {
                     message.textContent = 'Access Denied!';
                     message.style.color = 'red';
@@ -250,3 +184,4 @@
     </script>
 </body>
 </html>
+
