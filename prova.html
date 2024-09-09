@@ -112,11 +112,11 @@
                 } else if (key === 'Backspace') {
                     // Cancella l'ultimo carattere
                     userInput = userInput.slice(0, -1);
-                    promptElement.innerHTML = $ ${userInput}<span class="cursor"></span>;
+                    promptElement.innerHTML = `$ ${userInput}<span class="cursor"></span>`;
                 } else if (key.length === 1) {
                     // Aggiungi il carattere digitato
                     userInput += key;
-                    promptElement.innerHTML = $ ${userInput}<span class="cursor"></span>;
+                    promptElement.innerHTML = `$ ${userInput}<span class="cursor"></span>`;
                 }
             }
         });
