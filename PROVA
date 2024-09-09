@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminale Web</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm/css/xterm.css" />
+    <style>
+        body {
+            margin: 0;
+            background-color: #0a0a0a; /* Colore di sfondo simile a Kali Linux */
+            color: #c9d1d9; /* Colore del testo simile a Kali Linux */
+            font-family: 'Courier New', Courier, monospace;
+        }
+        #terminal-container {
+            height: 100vh;
+            width: 100%;
+        }
+        .xterm {
+            border: 2px solid #0a0a0a; /* Bordo del terminale */
+        }
+    </style>
+</head>
+<body>
+    <div id="terminal-container"></div>
+    <script src="https://cdn.jsdelivr.net/npm/xterm/lib/xterm.js"></script>
+    <script>
+        const { Terminal } = require('xterm');
+        const terminal = new Terminal();
+
+        terminal.open(document.getElementById('terminal-container'));
+
+        terminal.write('Benvenuto nel terminale Kali Linux!\r\n');
+        terminal.write('Scrivi "help" per i comandi disponibili.\r\n');
+
+        terminal.onData(data => {
+            // Rimuovi il ritorno a capo
+            data = data.replace(/\r/g, '');
+
+            // Gestisci i comandi
+            if (data === 'help') {
+                terminal.write('\r\nComandi disponibili:\r\n');
+                terminal.write('help - Mostra questo messaggio\r\n');
+                terminal.write('echo [testo] - Ripeti il testo\r\n');
+            } else if (data.startsWith('echo ')) {
+                const textToEcho = data.substring(5);
+                terminal.write(`\r\n${textToEcho}\r\n`);
+            } else {
+                terminal.write('\r\nComando non riconosciuto. Scrivi "help" per i comandi disponibili.\r\n');
+            }
+
+            // Aggiungi un prompt
+            terminal.write('\r\n$ ');
+        });
+
+        // Aggiungi un prompt iniziale
+        terminal.write('$ ');
+    </script>
+</body>
+</html>
