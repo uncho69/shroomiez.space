@@ -146,6 +146,11 @@
 
                     // Forza un reflow per applicare le modifiche di stile
                     accessContainer.offsetHeight; // Trigger reflow
+                    
+                    // Reindirizza alla pagina hp.html
+                    setTimeout(() => {
+                        window.location.href = 'hp.html';
+                    }, 1000); // Ritardo per permettere l'animazione
                 } else {
                     message.textContent = 'Access Denied!';
                     message.style.color = 'red';
