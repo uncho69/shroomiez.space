@@ -1,3 +1,5 @@
+
+Copia codice
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -75,6 +77,32 @@
                 }
                 100% {
                     width: 60vw;
+                    height: auto;
+                    opacity: 0; /* L'immagine scompare */
+                }
+            }
+        }
+
+        /* Media Query per Telefono */
+        @media (max-width: 1023px) {
+            .animated-image {
+                width: 100px; /* Dimensione iniziale dell'immagine per telefoni */
+                height: auto;
+            }
+
+            @keyframes grow-and-fade {
+                0% {
+                    width: 100px;
+                    height: auto;
+                    opacity: 1;
+                }
+                50% {
+                    width: 100vw; /* L'immagine si allarga fino a riempire il 100% dello schermo per telefoni */
+                    height: auto; /* Mantiene le proporzioni */
+                    opacity: 1;
+                }
+                100% {
+                    width: 100vw;
                     height: auto;
                     opacity: 0; /* L'immagine scompare */
                 }
