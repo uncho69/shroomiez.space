@@ -27,6 +27,13 @@
             align-items: center;
             overflow: hidden; /* Per evitare che l'immagine fuoriesca */
             visibility: hidden; /* Nascosta inizialmente */
+            opacity: 0;
+            transition: opacity 1s ease; /* Transizione per la visibilità */
+        }
+
+        .image-container.visible {
+            visibility: visible;
+            opacity: 1;
         }
 
         .animated-image {
@@ -230,7 +237,7 @@
                     message.style.color = 'green';
                     // Nascondi il tastierino e mostra l'animazione dell'immagine
                     accessContainer.style.visibility = 'hidden';
-                    imageContainer.style.visibility = 'visible';
+                    imageContainer.classList.add('visible');
                 } else {
                     message.textContent = 'Access Denied!';
                     message.style.color = 'red';
@@ -241,3 +248,4 @@
     </script>
 </body>
 </html>
+
