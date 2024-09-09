@@ -3,70 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <title>Shroomiez Terminal</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm/css/xterm.css" />
     <style>
         body {
             margin: 0;
-            padding: 0;
-            height: 100vh;
-            background-image: url('henlo.jpg'); /* Sostituisci con il percorso della tua immagine */
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            background-image: url('hack-bg.png'); /* Immagine di sfondo */
+            background-size: cover; /* Copre l'intera pagina */
+            background-position: center; /* Centra l'immagine */
+            font-family: 'Courier New', Courier, monospace;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: white;
-            font-family: Arial, sans-serif;
-            position: relative; /* Necessario per posizionare il pulsante e il logo */
-            text-align: center; /* Centra il testo e gli elementi inline */
+            height: 100vh;
         }
 
-        h1 {
-            font-size: 3rem;
+        #terminal-container {
+            width: 80%;
+            max-width: 800px;
+            height: 400px;
+            background-color: #1e1e1e;
+            border: 3px solid #00ff00;
+            padding: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 255, 0, 0.5);
+            border-radius: 5px;
+            overflow: auto; /* Evita il testo che esce dai bordi */
         }
 
-        .button-container {
-            position: absolute;
-            top: 10px; /* Distanza dal bordo superiore */
-            left: 10px; /* Distanza dal bordo sinistro */
-            z-index: 10; /* Assicura che il pulsante sia sopra altri contenuti */
+        .typewriter {
+            color: #00ff00;
+            white-space: pre;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center; /* Centra il testo */
         }
 
-        .button-container a {
-            display: block;
-            width: 100px; /* Imposta la larghezza del pulsante */
-            height: 50px; /* Imposta l'altezza del pulsante */
-            background-image: url('button_menu.png'); /* Sostituisci con il percorso della tua immagine */
-            background-size: contain; /* Modifica da cover a contain per adattare l'immagine */
-            background-repeat: no-repeat;
-            text-indent: -9999px; /* Nasconde il testo all'interno del pulsante */
-            border: none;
-            cursor: pointer;
+        .cursor {
+            display: inline-block;
+            background-color: #00ff00;
+            width: 10px;
+            height: 1.2em;
+            animation: blink 1s step-start infinite;
+            vertical-align: bottom;
         }
 
-        .logo-container {
-            position: absolute;
-            top: 50%; /* Centrato verticalmente */
-            left: 50%; /* Centrato orizzontalmente */
-            transform: translate(-50%, -50%); /* Offset per centrare esattamente */
-            z-index: 5; /* Assicura che il logo sia sotto il pulsante */
-        }
-
-        .logo-container img {
-            width: 200px; /* Imposta la larghezza del logo, modifica se necessario */
-            height: auto; /* Mantiene le proporzioni dell'immagine */
+        @keyframes blink {
+            50% { opacity: 0; }
         }
     </style>
 </head>
 <body>
-    <div class="logo-container">
-        <img src="shroomiez_amanita.png" alt="Logo"> <!-- Sostituisci con il percorso della tua immagine del logo -->
+    <!-- Contenitore del terminale -->
+    <div id="terminal-container">
+        <div class="typewriter" id="typewriter"></div>
+        <div class="typewriter" id="prompt" style="display: none;">
+            $ <span class="cursor"></span>
+        </div>
     </div>
-    <div class="button-container">
-        <a href="menu.html"></a>
-    </div>
-    <!-- Inserisci qui il contenuto della tua pagina -->
+
+    <script>
+        // Simulazione della scrittura lenta
+        function typeText(text, elementId, callback) {
+            let i = 0;
+            const speed = 100; // Velocità di scrittura
+            function typeLetter() {
+                if (i < text.length) {
+                    document.getElementById(elementId).innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(typeLetter, speed);
+                } else if (callback) {
+                    callback();
+                }
+            }
+            typeLetter();
+        }
+
+        // Messaggio di benvenuto
+        const welcomeText = "Welcome to Shroomiez, An0n\r\n";
+        const navigationText = "\r\nhome | about us | mint | berashroomiez | slick road\r\nType one of the texts above to navigate.\r\n";
+
+        // Funzione per far apparire il prompt interattivo
+        function showPrompt() {
+            const promptElement = document.getElementById('prompt');
+            promptElement.style.display = 'block';
+        }
+
+        // Esegui la scrittura lenta del messaggio di benvenuto e del testo di navigazione
+        typeText(welcomeText, "typewriter", function() {
+            typeText(navigationText, "typewriter", function() {
+                // Mostra il prompt interattivo dopo aver scritto tutto
+                showPrompt();
+            });
+        });
+
+        // Variabili per gestire l'input dell'utente
+        let userInput = '';
+        const promptElement = document.getElementById('prompt');
+
+        // Aggiungi l'ascoltatore di eventi per l'input dell'utente
+        document.addEventListener('keydown', function(event) {
+            // Solo gestire input se il prompt è visibile
+            if (promptElement.style.display !== 'none') {
+                const key = event.key;
+
+                if (key === 'Enter') {
+                    // Se l'utente preme invio, esegui il comando
+                    executeCommand(userInput);
+                    userInput = ''; // Resetta l'input dell'utente
+                } else if (key === 'Backspace') {
+                    // Cancella l'ultimo carattere
+                    userInput = userInput.slice(0, -1);
+                    promptElement.innerHTML = `$ ${userInput}<span class="cursor"></span>`;
+                } else if (key.length === 1) {
+                    // Aggiungi il carattere digitato
+                    userInput += key;
+                    promptElement.innerHTML = `$ ${userInput}<span class="cursor"></span>`;
+                }
+            }
+        });
+
+        // Funzione per gestire i comandi dell'utente
+        function executeCommand(command) {
+            const typewriterElement = document.getElementById('typewriter');
+            const promptElement = document.getElementById('prompt');
+
+            // Comandi disponibili
+            switch (command.toLowerCase()) {
+                case 'home':
+                    typeText("\r\nNavigating to Home...\r\n", "typewriter", showPrompt);
+                    break;
+                case 'about us':
+                    typeText("\r\nNavigating to About Us...\r\n", "typewriter", showPrompt);
+                    break;
+                case 'mint':
+                    typeText("\r\nNavigating to Mint...\r\n", "typewriter", showPrompt);
+                    break;
+                case 'berashroomiez':
+                    typeText("\r\nNavigating to BeraShroomiez...\r\n", "typewriter", showPrompt);
+                    break;
+                case 'slick road':
+                    typeText("\r\nNavigating to Slick Road...\r\n", "typewriter", showPrompt);
+                    break;
+                default:
+                    typeText("\r\nUnknown command. Please type one of the available options.\r\n", "typewriter", showPrompt);
+                    break;
+            }
+
+            // Nascondi il prompt durante l'esecuzione del comando
+            promptElement.style.display = 'none';
+        }
+    </script>
 </body>
 </html>
