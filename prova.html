@@ -27,8 +27,7 @@
             padding: 10px;
             box-shadow: 0px 0px 10px rgba(0, 255, 0, 0.5);
             border-radius: 5px;
-            position: relative; /* Necessario per il posizionamento del prompt e dell'immagine */
-            overflow: hidden; /* Nasconde il contenuto che esce dai bordi */
+            overflow: auto; /* Evita il testo che esce dai bordi */
         }
 
         .typewriter {
@@ -36,20 +35,6 @@
             white-space: pre;
             font-family: 'Courier New', Courier, monospace;
             text-align: center; /* Centra il testo */
-        }
-
-        #prompt-container {
-            display: flex;
-            flex-direction: column; /* Cambia la direzione in colonna */
-            align-items: center;
-            position: absolute;
-            bottom: 20px; /* Spostato verso l'alto */
-            left: 0;
-            right: 0;
-        }
-
-        #prompt {
-            color: #00ff00;
         }
 
         .cursor {
@@ -64,35 +49,15 @@
         @keyframes blink {
             50% { opacity: 0; }
         }
-
-        /* Stile per l'immagine del funghetto */
-        #shroom-img {
-            position: absolute;
-            right: 20px; /* Distanza dal lato destro aumentata */
-            bottom: 10px; /* Distanza dal fondo */
-            width: 150px; /* Larghezza dell'immagine (aumentata) */
-            opacity: 0.7; /* Opacità dell'immagine */
-        }
-
-        /* Margine aggiuntivo per il prompt */
-        #prompt-spacing {
-            margin-top: 10px; /* Spazio sopra il prompt */
-        }
     </style>
 </head>
 <body>
     <!-- Contenitore del terminale -->
     <div id="terminal-container">
         <div class="typewriter" id="typewriter"></div>
-        <div id="prompt-container" style="display: none;">
-            <div id="prompt">
-                <div id="prompt-spacing">
-                    $ <span class="cursor"></span>
-                </div>
-            </div>
+        <div class="typewriter" id="prompt" style="display: none;">
+            $ <span class="cursor"></span>
         </div>
-        <!-- Immagine del funghetto -->
-        <img id="shroom-img" src="anon_shroom.png" alt="Funghetto">
     </div>
 
     <script>
@@ -118,7 +83,8 @@
 
         // Funzione per far apparire il prompt interattivo
         function showPrompt() {
-            document.getElementById('prompt-container').style.display = 'flex'; // Mostra il prompt centrato
+            const promptElement = document.getElementById('prompt');
+            promptElement.style.display = 'block';
         }
 
         // Esegui la scrittura lenta del messaggio di benvenuto e del testo di navigazione
@@ -136,7 +102,7 @@
         // Aggiungi l'ascoltatore di eventi per l'input dell'utente
         document.addEventListener('keydown', function(event) {
             // Solo gestire input se il prompt è visibile
-            if (document.getElementById('prompt-container').style.display !== 'none') {
+            if (promptElement.style.display !== 'none') {
                 const key = event.key;
 
                 if (key === 'Enter') {
@@ -158,7 +124,7 @@
         // Funzione per gestire i comandi dell'utente
         function executeCommand(command) {
             const typewriterElement = document.getElementById('typewriter');
-            const promptContainer = document.getElementById('prompt-container');
+            const promptElement = document.getElementById('prompt');
 
             // Comandi disponibili
             switch (command.toLowerCase()) {
@@ -180,7 +146,7 @@
             }
 
             // Nascondi il prompt durante l'esecuzione del comando
-            promptContainer.style.display = 'none';
+            promptElement.style.display = 'none';
         }
     </script>
 </body>
