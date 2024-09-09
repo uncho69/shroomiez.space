@@ -6,6 +6,7 @@
     <title>Shroomiez</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <style>
+        /* CSS per lo sfondo e il tastierino */
         body {
             margin: 0;
             padding: 0;
@@ -18,99 +19,6 @@
             background-position: center;
             overflow: hidden;
             transition: background-image 1s ease;
-        }
-
-        .image-container {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            visibility: hidden;
-            opacity: 0;
-            transition: opacity 1s ease, visibility 1s ease;
-        }
-
-        .image-container.visible {
-            visibility: visible;
-            opacity: 1;
-        }
-
-        .animated-image {
-            position: absolute;
-            width: 100px;
-            height: auto;
-            object-fit: cover;
-            opacity: 1;
-            animation: grow-and-fade 4s ease forwards;
-        }
-
-        @keyframes grow-and-fade {
-            0% {
-                width: 100px;
-                height: auto;
-                opacity: 1;
-            }
-            50% {
-                width: 100vw;
-                height: auto;
-                opacity: 1;
-            }
-            100% {
-                width: 100vw;
-                height: auto;
-                opacity: 0;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .animated-image {
-                width: 200px;
-            }
-
-            @keyframes grow-and-fade {
-                0% {
-                    width: 200px;
-                    height: auto;
-                    opacity: 1;
-                }
-                50% {
-                    width: 70vw;
-                    height: auto;
-                    opacity: 1;
-                }
-                100% {
-                    width: 70vw;
-                    height: auto;
-                    opacity: 0;
-                }
-            }
-        }
-
-        @media (max-width: 1023px) {
-            .animated-image {
-                width: 100px;
-            }
-
-            @keyframes grow-and-fade {
-                0% {
-                    width: 100px;
-                    height: auto;
-                    opacity: 1;
-                }
-                50% {
-                    width: 100vw;
-                    height: auto;
-                    opacity: 1;
-                }
-                100% {
-                    width: 100vw;
-                    height: auto;
-                    opacity: 0;
-                }
-            }
         }
 
         .access-container {
@@ -127,6 +35,7 @@
             color: white;
             font-family: Arial, sans-serif;
             z-index: 1;
+            transition: opacity 1s ease, visibility 1s ease;
         }
 
         .keypad {
@@ -179,6 +88,96 @@
         #message {
             font-size: 1.5rem;
             margin-top: 10px;
+        }
+
+        /* CSS per l'animazione dell'immagine */
+        .image-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 1s ease, visibility 1s ease;
+        }
+
+        .image-container.visible {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .animated-image {
+            width: 100px;
+            height: auto;
+            object-fit: cover;
+            animation: grow-and-fade 4s ease forwards;
+        }
+
+        @keyframes grow-and-fade {
+            0% {
+                width: 100px;
+                height: auto;
+                opacity: 1;
+            }
+            50% {
+                width: 100vw;
+                height: auto;
+                opacity: 1;
+            }
+            100% {
+                width: 100vw;
+                height: auto;
+                opacity: 0;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .animated-image {
+                width: 200px;
+            }
+            @keyframes grow-and-fade {
+                0% {
+                    width: 200px;
+                    height: auto;
+                    opacity: 1;
+                }
+                50% {
+                    width: 70vw;
+                    height: auto;
+                    opacity: 1;
+                }
+                100% {
+                    width: 70vw;
+                    height: auto;
+                    opacity: 0;
+                }
+            }
+        }
+
+        @media (max-width: 1023px) {
+            .animated-image {
+                width: 100px;
+            }
+            @keyframes grow-and-fade {
+                0% {
+                    width: 100px;
+                    height: auto;
+                    opacity: 1;
+                }
+                50% {
+                    width: 100vw;
+                    height: auto;
+                    opacity: 1;
+                }
+                100% {
+                    width: 100vw;
+                    height: auto;
+                    opacity: 0;
+                }
+            }
         }
     </style>
 </head>
@@ -233,7 +232,7 @@
                     message.textContent = 'Access Granted!';
                     message.style.color = 'green';
                     
-                    // Nascondi il tastierino
+                    // Nascondi il tastierino e cambia lo sfondo
                     accessContainer.style.opacity = '0';
                     accessContainer.style.visibility = 'hidden';
 
