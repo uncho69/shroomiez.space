@@ -133,7 +133,7 @@
         <button class="key">A</button>
         <button class="key">O</button>
     </div>
-    <input type="text" id="codeInput" placeholder="Enter code" />
+    <input type="text" id="codeInput" placeholder="Enter code" readonly />
     <button id="submitCode">Submit</button>
     <p id="message"></p>
 </div>
@@ -223,6 +223,8 @@
         border: none;
         border-radius: 5px;
         margin-bottom: 20px;
+        background-color: #222; /* Sfondo scuro per il campo di input */
+        color: white;
     }
 
     #submitCode {
