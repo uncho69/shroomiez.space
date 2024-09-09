@@ -6,7 +6,6 @@
     <title>Shroomiez</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <style>
-        /* CSS per lo sfondo e il tastierino */
         body {
             margin: 0;
             padding: 0;
@@ -133,58 +132,13 @@
                 opacity: 0;
             }
         }
-
-        @media (min-width: 1024px) {
-            .animated-image {
-                width: 200px;
-            }
-            @keyframes grow-and-fade {
-                0% {
-                    width: 200px;
-                    height: auto;
-                    opacity: 1;
-                }
-                50% {
-                    width: 70vw;
-                    height: auto;
-                    opacity: 1;
-                }
-                100% {
-                    width: 70vw;
-                    height: auto;
-                    opacity: 0;
-                }
-            }
-        }
-
-        @media (max-width: 1023px) {
-            .animated-image {
-                width: 100px;
-            }
-            @keyframes grow-and-fade {
-                0% {
-                    width: 100px;
-                    height: auto;
-                    opacity: 1;
-                }
-                50% {
-                    width: 100vw;
-                    height: auto;
-                    opacity: 1;
-                }
-                100% {
-                    width: 100vw;
-                    height: auto;
-                    opacity: 0;
-                }
-            }
-        }
     </style>
 </head>
 <body>
     <div class="access-container">
         <h2>Enter Code to Access</h2>
         <div class="keypad">
+            <!-- Bottoni del tastierino -->
             <button class="key">C</button>
             <button class="key">E</button>
             <button class="key">M</button>
@@ -236,12 +190,14 @@
                     accessContainer.style.opacity = '0';
                     accessContainer.style.visibility = 'hidden';
 
-                    // Forza un reflow per applicare le modifiche di stile
-                    accessContainer.offsetHeight; // Trigger reflow
-
                     // Cambia lo sfondo e mostra l'immagine
                     body.style.backgroundImage = 'none'; // Rimuove l'immagine di sfondo
-                    imageContainer.classList.add('visible'); // Mostra l'animazione dell'immagine
+
+                    // Forza un reflow per applicare le modifiche di stile
+                    accessContainer.offsetHeight; // Trigger reflow
+                    
+                    // Mostra l'animazione dell'immagine
+                    imageContainer.classList.add('visible');
                 } else {
                     message.textContent = 'Access Denied!';
                     message.style.color = 'red';
