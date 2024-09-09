@@ -79,7 +79,7 @@
 
         // Messaggio di benvenuto
         const welcomeText = "Welcome to Shroomiez, An0n\r\n";
-        const navigationText = "\r\nhome | about us | mint | berashroomiez\r\nType one of the texts above to navigate.\r\n";
+        const navigationText = "\r\nhome | about us | mint | berashroomiez | slick road\r\nType one of the texts above to navigate.\r\n";
 
         // Funzione per far apparire il prompt interattivo
         function showPrompt() {
@@ -139,6 +139,9 @@
                     break;
                 case 'berashroomiez':
                     typeText("\r\nNavigating to BeraShroomiez...\r\n", "typewriter", showPrompt);
+                    break;
+                case 'slick road':
+                    typeText("\r\nNavigating to Slick Road...\r\n", "typewriter", showPrompt);
                     break;
                 default:
                     typeText("\r\nUnknown command. Please type one of the available options.\r\n", "typewriter", showPrompt);
