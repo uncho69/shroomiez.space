@@ -6,7 +6,7 @@
     <title>Shroomiez</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Aggiungi questa linea -->
     <style>
-        /* CSS per l'animazione dell'immagine */
+        /* CSS per il corpo e l'animazione dell'immagine */
         body {
             margin: 0;
             padding: 0;
@@ -19,13 +19,14 @@
         }
 
         .image-container {
-            position: relative;
+            position: absolute;
             width: 100%;
             height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden; /* Per evitare che l'immagine fuoriesca */
+            visibility: hidden; /* Nascosta inizialmente */
         }
 
         .animated-image {
@@ -69,7 +70,7 @@
                     opacity: 1;
                 }
                 50% {
-                    width: 70vw; /* L'immagine si allarga fino a 60% della larghezza dello schermo per desktop */
+                    width: 70vw; /* L'immagine si allarga fino a 70% della larghezza dello schermo per desktop */
                     height: auto; /* Mantiene le proporzioni */
                     opacity: 1;
                 }
@@ -121,12 +122,7 @@
             background-color: rgba(0, 0, 0, 0.8); /* Sfondo scuro per la schermata di accesso */
             color: white;
             font-family: Arial, sans-serif;
-            visibility: visible; /* Visibile fino a quando il codice corretto non viene inserito */
-            z-index: 2;
-        }
-
-        .access-container.active {
-            visibility: hidden; /* Nascosto quando il codice corretto viene inserito */
+            z-index: 1; /* Assicurati che il tastierino sia sopra l'immagine */
         }
 
         .keypad {
@@ -233,8 +229,7 @@
                     message.textContent = 'Access Granted!';
                     message.style.color = 'green';
                     // Nascondi il tastierino e mostra l'animazione dell'immagine
-                    accessContainer.classList.add('active');
-                    // Mostra il contenitore dell'immagine
+                    accessContainer.style.visibility = 'hidden';
                     imageContainer.style.visibility = 'visible';
                 } else {
                     message.textContent = 'Access Denied!';
