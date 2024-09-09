@@ -37,6 +37,21 @@
             text-align: center; /* Centra il testo */
         }
 
+        #prompt-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+        }
+
+        #prompt {
+            display: inline;
+            color: #00ff00;
+        }
+
         .cursor {
             display: inline-block;
             background-color: #00ff00;
@@ -55,8 +70,10 @@
     <!-- Contenitore del terminale -->
     <div id="terminal-container">
         <div class="typewriter" id="typewriter"></div>
-        <div class="typewriter" id="prompt" style="display: none;">
-            $ <span class="cursor"></span>
+        <div id="prompt-container" style="display: none;">
+            <div id="prompt">
+                $ <span class="cursor"></span>
+            </div>
         </div>
     </div>
 
@@ -83,8 +100,7 @@
 
         // Funzione per far apparire il prompt interattivo
         function showPrompt() {
-            const promptElement = document.getElementById('prompt');
-            promptElement.style.display = 'block';
+            document.getElementById('prompt-container').style.display = 'flex'; // Mostra il prompt centrato
         }
 
         // Esegui la scrittura lenta del messaggio di benvenuto e del testo di navigazione
@@ -102,7 +118,7 @@
         // Aggiungi l'ascoltatore di eventi per l'input dell'utente
         document.addEventListener('keydown', function(event) {
             // Solo gestire input se il prompt è visibile
-            if (promptElement.style.display !== 'none') {
+            if (document.getElementById('prompt-container').style.display !== 'none') {
                 const key = event.key;
 
                 if (key === 'Enter') {
@@ -124,7 +140,7 @@
         // Funzione per gestire i comandi dell'utente
         function executeCommand(command) {
             const typewriterElement = document.getElementById('typewriter');
-            const promptElement = document.getElementById('prompt');
+            const promptContainer = document.getElementById('prompt-container');
 
             // Comandi disponibili
             switch (command.toLowerCase()) {
@@ -146,9 +162,8 @@
             }
 
             // Nascondi il prompt durante l'esecuzione del comando
-            promptElement.style.display = 'none';
+            promptContainer.style.display = 'none';
         }
     </script>
 </body>
 </html>
-
