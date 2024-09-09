@@ -19,7 +19,8 @@
             align-items: center;
             color: white;
             font-family: Arial, sans-serif;
-            position: relative; /* Necessario per posizionare il pulsante */
+            position: relative; /* Necessario per posizionare il pulsante e il logo */
+            text-align: center; /* Centra il testo e gli elementi inline */
         }
 
         h1 {
@@ -44,9 +45,25 @@
             border: none;
             cursor: pointer;
         }
+
+        .logo-container {
+            position: absolute;
+            top: 50%; /* Centrato verticalmente */
+            left: 50%; /* Centrato orizzontalmente */
+            transform: translate(-50%, -50%); /* Offset per centrare esattamente */
+            z-index: 5; /* Assicura che il logo sia sotto il pulsante */
+        }
+
+        .logo-container img {
+            width: 200px; /* Imposta la larghezza del logo, modifica se necessario */
+            height: auto; /* Mantiene le proporzioni dell'immagine */
+        }
     </style>
 </head>
 <body>
+    <div class="logo-container">
+        <img src="shroomiez_amanita.png" alt="Logo"> <!-- Sostituisci con il percorso della tua immagine del logo -->
+    </div>
     <h1>Wellcum you dirty scumbag!</h1>
     <div class="button-container">
         <a href="menu.html"></a>
