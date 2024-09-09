@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -107,145 +106,143 @@
                 }
             }
         }
+
+        /* CSS per il tastierino con lettere e la schermata di accesso */
+        .access-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: rgba(0, 0, 0, 0.8); /* Sfondo scuro per la schermata di accesso */
+            color: white;
+            font-family: Arial, sans-serif;
+            visibility: visible; /* Visibile fino a quando il codice corretto non viene inserito */
+            z-index: 2;
+        }
+
+        .access-container.active {
+            visibility: hidden; /* Nascosto quando il codice corretto viene inserito */
+        }
+
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .key {
+            background-color: #333;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .key:hover {
+            background-color: #000;
+        }
+
+        #codeInput {
+            font-size: 1.5rem;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            background-color: #222; /* Sfondo scuro per il campo di input */
+            color: white;
+        }
+
+        #submitCode {
+            font-size: 1.5rem;
+            padding: 10px;
+            background-color: #333;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #submitCode:hover {
+            background-color: #555;
+        }
+
+        #message {
+            font-size: 1.5rem;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
+    <div class="access-container">
+        <h2>Enter Code to Access</h2>
+        <div class="keypad">
+            <button class="key">C</button>
+            <button class="key">E</button>
+            <button class="key">M</button>
+            <button class="key">B</button>
+            <button class="key">I</button>
+            <button class="key">L</button>
+            <button class="key">M</button>
+            <button class="key">L</button>
+            <button class="key">S</button>
+            <button class="key">Y</button>
+            <button class="key">C</button>
+            <button class="key">K</button>
+            <button class="key">U</button>
+            <button class="key">A</button>
+            <button class="key">O</button>
+        </div>
+        <input type="text" id="codeInput" placeholder="Enter code" readonly />
+        <button id="submitCode">Submit</button>
+        <p id="message"></p>
+    </div>
+    
     <div class="image-container">
         <!-- Inserisci qui il percorso dell'immagine -->
         <img src="logo_color.jpg" alt="Logo" class="animated-image">
     </div>
-    <div class="access-container">
-    <h2>Enter Code to Access</h2>
-    <div class="keypad">
-        <button class="key">C</button>
-        <button class="key">E</button>
-        <button class="key">M</button>
-        <button class="key">B</button>
-        <button class="key">I</button>
-        <button class="key">L</button>
-        <button class="key">M</button>
-        <button class="key">L</button>
-        <button class="key">S</button>
-        <button class="key">Y</button>
-        <button class="key">C</button>
-        <button class="key">K</button>
-        <button class="key">U</button>
-        <button class="key">A</button>
-        <button class="key">O</button>
-    </div>
-    <input type="text" id="codeInput" placeholder="Enter code" readonly />
-    <button id="submitCode">Submit</button>
-    <p id="message"></p>
-</div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const accessContainer = document.querySelector('.access-container');
-        const codeInput = document.getElementById('codeInput');
-        const submitButton = document.getElementById('submitCode');
-        const message = document.getElementById('message');
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const accessContainer = document.querySelector('.access-container');
+            const imageContainer = document.querySelector('.image-container');
+            const codeInput = document.getElementById('codeInput');
+            const submitButton = document.getElementById('submitCode');
+            const message = document.getElementById('message');
 
-        // Mostra il tastierino dopo l'animazione
-        setTimeout(() => {
-            accessContainer.classList.add('active');
-        }, 4000); // 4000 ms corrisponde alla durata dell'animazione dell'immagine
+            // Gestione dei clic sui tasti
+            document.querySelectorAll('.key').forEach(button => {
+                button.addEventListener('click', () => {
+                    codeInput.value += button.textContent;
+                });
+            });
 
-        // Gestione dei clic sui tasti
-        document.querySelectorAll('.key').forEach(button => {
-            button.addEventListener('click', () => {
-                codeInput.value += button.textContent;
+            // Gestione del submit del codice
+            submitButton.addEventListener('click', () => {
+                if (codeInput.value === 'MYCELIUM') {
+                    message.textContent = 'Access Granted!';
+                    message.style.color = 'green';
+                    // Nascondi il tastierino e mostra l'animazione dell'immagine
+                    accessContainer.classList.add('active');
+                    // Mostra il contenitore dell'immagine
+                    imageContainer.style.visibility = 'visible';
+                } else {
+                    message.textContent = 'Access Denied!';
+                    message.style.color = 'red';
+                    codeInput.value = ''; // Resetta il campo di input
+                }
             });
         });
-
-        // Gestione del submit del codice
-        submitButton.addEventListener('click', () => {
-            if (codeInput.value === 'MYCELIUM') {
-                message.textContent = 'Access Granted!';
-                message.style.color = 'green';
-                // Qui puoi aggiungere logica per accedere al sito
-            } else {
-                message.textContent = 'Access Denied!';
-                message.style.color = 'red';
-                codeInput.value = ''; // Resetta il campo di input
-            }
-        });
-    });
-</script>
-
-<style>
-    /* CSS per il tastierino con lettere e la schermata di accesso */
-    .access-container {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        background-color: rgba(0, 0, 0, 0.8); /* Sfondo scuro per la schermata di accesso */
-        color: white;
-        font-family: Arial, sans-serif;
-        visibility: hidden; /* Nascosto fino a quando l'animazione dell'immagine non è finita */
-        z-index: 1;
-    }
-
-    .access-container.active {
-        visibility: visible;
-    }
-
-    .keypad {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 10px;
-        margin-bottom: 20px;
-    }
-
-    .key {
-        background-color: #333;
-        border: none;
-        color: white;
-        font-size: 1.5rem;
-        padding: 10px;
-        cursor: pointer;
-        border-radius: 5px;
-        transition: background-color 0.3s;
-    }
-
-    .key:hover {
-        background-color: #000;
-    }
-
-    #codeInput {
-        font-size: 1.5rem;
-        padding: 10px;
-        border: none;
-        border-radius: 5px;
-        margin-bottom: 20px;
-        background-color: #222; /* Sfondo scuro per il campo di input */
-        color: white;
-    }
-
-    #submitCode {
-        font-size: 1.5rem;
-        padding: 10px;
-        background-color: #333;
-        border: none;
-        border-radius: 5px;
-        color: white;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-
-    #submitCode:hover {
-        background-color: #555;
-    }
-
-    #message {
-        font-size: 1.5rem;
-        margin-top: 10px;
-    }
-</style>
+    </script>
 </body>
 </html>
