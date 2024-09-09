@@ -31,6 +31,8 @@
         .animated-image {
             position: absolute;
             width: 100px; /* Dimensione iniziale dell'immagine */
+            height: auto;
+            object-fit: cover; /* Mantiene le proporzioni e adatta l'immagine */
             opacity: 1;
             animation: grow-and-fade 4s ease forwards; /* Durata dell'animazione */
         }
@@ -38,14 +40,17 @@
         @keyframes grow-and-fade {
             0% {
                 width: 100px;
+                height: auto;
                 opacity: 1;
             }
             50% {
-                width: 100vw; /* L'immagine si allarga fino a riempire lo schermo */
+                width: 75vw; /* L'immagine si allarga fino a 75% della larghezza dello schermo */
+                height: auto; /* Mantiene le proporzioni */
                 opacity: 1;
             }
             100% {
-                width: 100vw;
+                width: 75vw;
+                height: auto;
                 opacity: 0; /* L'immagine scompare */
             }
         }
@@ -54,19 +59,23 @@
         @media (min-width: 1024px) {
             .animated-image {
                 width: 200px; /* Dimensione iniziale dell'immagine per desktop */
+                height: auto;
             }
 
             @keyframes grow-and-fade {
                 0% {
                     width: 200px;
+                    height: auto;
                     opacity: 1;
                 }
                 50% {
-                    width: 100vw; /* L'immagine si allarga fino a riempire lo schermo */
+                    width: 60vw; /* L'immagine si allarga fino a 60% della larghezza dello schermo */
+                    height: auto; /* Mantiene le proporzioni */
                     opacity: 1;
                 }
                 100% {
-                    width: 100vw;
+                    width: 60vw;
+                    height: auto;
                     opacity: 0; /* L'immagine scompare */
                 }
             }
