@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+    <title>Welcome</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <style>
         body {
             margin: 0;
             padding: 0;
             height: 100vh;
-            background-image: url('henlo.jpg'); /* Sostituisci con il percorso della tua immagine */
+            background-image: url('background-image.jpg'); /* Sostituisci con il percorso della tua immagine */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -19,15 +19,37 @@
             align-items: center;
             color: white;
             font-family: Arial, sans-serif;
+            position: relative; /* Necessario per posizionare il pulsante */
         }
 
         h1 {
             font-size: 3rem;
         }
+
+        .button-container {
+            position: absolute;
+            top: 10px; /* Distanza dal bordo superiore */
+            left: 10px; /* Distanza dal bordo sinistro */
+        }
+
+        .button-container a {
+            display: block;
+            width: 100px; /* Imposta la larghezza del pulsante */
+            height: 50px; /* Imposta l'altezza del pulsante */
+            background-image: url('button-image.png'); /* Sostituisci con il percorso della tua immagine */
+            background-size: cover;
+            background-repeat: no-repeat;
+            text-indent: -9999px; /* Nasconde il testo all'interno del pulsante */
+            border: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
-    <h1>Welcome</h1>
+    <h1>HENLO</h1>
+    <div class="button-container">
+        <a href="menu.html"></a>
+    </div>
     <!-- Inserisci qui il contenuto della tua pagina -->
 </body>
 </html>
