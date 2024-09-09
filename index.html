@@ -56,3 +56,68 @@
     </div>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shroomiez Welcome Animation</title>
+    <style>
+        /* Stili generali */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000; /* Sfondo nero */
+            color: #61dafb; /* Colore del testo */
+            font-family: 'Courier New', Courier, monospace; /* Font stile computer */
+            font-size: 2rem;
+            overflow: hidden;
+        }
+
+        /* Stile del cursore */
+        .typewriter-container {
+            display: inline-block;
+            white-space: nowrap;
+            border-right: 2px solid; /* Cursore visibile */
+            font-family: 'Courier New', Courier, monospace; /* Font tipo computer */
+            animation: blink-cursor 0.75s step-end infinite;
+        }
+
+        /* Animazione lampeggiante del cursore */
+        @keyframes blink-cursor {
+            0%, 100% {
+                border-color: transparent;
+            }
+            50% {
+                border-color: #61dafb;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="animated-text" class="typewriter-container"></div>
+
+    <script>
+        // Testo da scrivere lettera per lettera
+        const text = "WELCOME TO SHROOMIEZ";
+        let index = 0;
+        const speed = 100; // Velocità di digitazione (in millisecondi)
+
+        // Funzione per scrivere il testo lettera per lettera
+        function typeWriter() {
+            if (index < text.length) {
+                document.getElementById("animated-text").textContent += text.charAt(index);
+                index++;
+                setTimeout(typeWriter, speed);
+            }
+        }
+
+        // Avvia la digitazione del testo dopo 4 secondi (quando l'animazione dell'immagine è terminata)
+        setTimeout(typeWriter, 4000); // Attendere 4 secondi
+    </script>
+</body>
+</html>
