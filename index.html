@@ -25,6 +25,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow: hidden; /* Per evitare che l'immagine fuoriesca */
         }
 
         .animated-image {
@@ -46,6 +47,28 @@
             100% {
                 width: 100vw;
                 opacity: 0; /* L'immagine scompare */
+            }
+        }
+
+        /* Media Query per Desktop */
+        @media (min-width: 1024px) {
+            .animated-image {
+                width: 200px; /* Dimensione iniziale dell'immagine per desktop */
+            }
+
+            @keyframes grow-and-fade {
+                0% {
+                    width: 200px;
+                    opacity: 1;
+                }
+                50% {
+                    width: 100vw; /* L'immagine si allarga fino a riempire lo schermo */
+                    opacity: 1;
+                }
+                100% {
+                    width: 100vw;
+                    opacity: 0; /* L'immagine scompare */
+                }
             }
         }
     </style>
