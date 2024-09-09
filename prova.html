@@ -28,10 +28,6 @@
             box-shadow: 0px 0px 10px rgba(0, 255, 0, 0.5);
             border-radius: 5px;
             overflow: auto; /* Evita il testo che esce dai bordi */
-            position: relative; /* Necessario per il posizionamento del prompt */
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end; /* Aggiunto per allineare il prompt al fondo */
         }
 
         .typewriter {
@@ -53,13 +49,6 @@
         @keyframes blink {
             50% { opacity: 0; }
         }
-
-        /* Stile per centrare il prompt */
-        #prompt {
-            text-align: center;
-            margin-top: 10px;
-        }
-
     </style>
 </head>
 <body>
@@ -123,11 +112,11 @@
                 } else if (key === 'Backspace') {
                     // Cancella l'ultimo carattere
                     userInput = userInput.slice(0, -1);
-                    promptElement.innerHTML = `$ ${userInput}<span class="cursor"></span>`;
+                    promptElement.innerHTML = $ ${userInput}<span class="cursor"></span>;
                 } else if (key.length === 1) {
                     // Aggiungi il carattere digitato
                     userInput += key;
-                    promptElement.innerHTML = `$ ${userInput}<span class="cursor"></span>`;
+                    promptElement.innerHTML = $ ${userInput}<span class="cursor"></span>;
                 }
             }
         });
