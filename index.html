@@ -3,58 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shroomiez</title>
+    <title>Image Animation</title>
     <style>
-        /* CSS per il testo animato e centrato */
+        /* CSS per l'animazione dell'immagine */
         body {
             margin: 0;
+            padding: 0;
             height: 100vh;
             display: flex;
-            align-items: center;
             justify-content: center;
-            background-color: #282c34;
-            color: #61dafb;
-            font-family: Arial, sans-serif;
-            overflow: hidden; /* Per evitare le barre di scorrimento */
+            align-items: center;
+            background-color: #ffffff; /* Sfondo bianco */
+            overflow: hidden;
         }
 
-        .animated-text {
-            font-size: 2rem;
-            text-align: center;
-            color: #61dafb;
-            background-color: #282c34;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-            animation: pop-up 2s ease-out forwards, move-text 4s infinite alternate;
+        .image-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        @keyframes pop-up {
+        .animated-image {
+            position: absolute;
+            width: 100px; /* Dimensione iniziale dell'immagine */
+            opacity: 1;
+            animation: grow-and-fade 4s ease forwards; /* Durata dell'animazione */
+        }
+
+        @keyframes grow-and-fade {
             0% {
-                transform: scale(0) translateY(-50px);
-                opacity: 0;
+                width: 100px;
+                opacity: 1;
             }
             50% {
-                transform: scale(1.1) translateY(0);
+                width: 100vw; /* L'immagine si allarga fino a riempire lo schermo */
                 opacity: 1;
             }
             100% {
-                transform: scale(1) translateY(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes move-text {
-            0% {
-                transform: translateX(-50px);
-            }
-            100% {
-                transform: translateX(50px);
+                width: 100vw;
+                opacity: 0; /* L'immagine scompare */
             }
         }
     </style>
 </head>
 <body>
-    <div class="animated-text">Henlo mothafucka, Welcome to Shroomiez!</div>
+    <div class="image-container">
+        <!-- Inserisci qui il percorso dell'immagine -->
+        <img src="logo_color.jpg" alt="Logo" class="animated-image">
+    </div>
 </body>
 </html>
