@@ -8,34 +8,34 @@
     <style>
         body {
             margin: 0;
-            background-color: #0a0a0a;
+            background-image: url('hack-bg.png'); /* Immagine di sfondo */
+            background-size: cover; /* Copre l'intera pagina */
+            background-position: center; /* Centra l'immagine */
             font-family: 'Courier New', Courier, monospace;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
         }
+
         #terminal-container {
             width: 80%;
             max-width: 800px;
             height: 400px;
-            background-color: #1e1e1e; /* Sfondo del terminale */
-            border: 3px solid #00ff00; /* Bordo verde */
+            background-color: #1e1e1e;
+            border: 3px solid #00ff00;
             padding: 10px;
             box-shadow: 0px 0px 10px rgba(0, 255, 0, 0.5);
             border-radius: 5px;
-            position: relative;
-            overflow: hidden;
+            overflow: auto; /* Evita il testo che esce dai bordi */
         }
-        .xterm {
-            font-family: 'Courier New', Courier, monospace;
-            color: #00ff00; /* Testo verde */
-        }
+
         .typewriter {
-            color: #00ff00; /* Colore del testo che viene scritto */
+            color: #00ff00;
             white-space: pre;
             font-family: 'Courier New', Courier, monospace;
         }
+
         .cursor {
             display: inline-block;
             background-color: #00ff00;
@@ -44,13 +44,9 @@
             animation: blink 1s step-start infinite;
             vertical-align: bottom;
         }
+
         @keyframes blink {
             50% { opacity: 0; }
-        }
-        .navigation {
-            text-align: center;
-            margin-top: 20px;
-            color: #00ff00;
         }
     </style>
 </head>
@@ -58,17 +54,13 @@
     <!-- Contenitore del terminale -->
     <div id="terminal-container">
         <div class="typewriter" id="typewriter"></div>
-        <div class="navigation">
-            home | about us | mint | berashroomiez<br>
-            <small>Type one of the texts above to navigate.</small>
-        </div>
-        <div class="typewriter" id="prompt">
-            <br>$ <span class="cursor"></span>
+        <div class="typewriter" id="prompt" style="display: none;">
+            $ <span class="cursor"></span>
         </div>
     </div>
 
     <script>
-        // Funzione per simulare la scrittura lenta
+        // Simulazione della scrittura lenta
         function typeText(text, elementId, callback) {
             let i = 0;
             const speed = 100; // Velocità di scrittura
@@ -84,25 +76,77 @@
             typeLetter();
         }
 
-        // Simula la scrittura del messaggio di benvenuto
+        // Messaggio di benvenuto
         const welcomeText = "Welcome to Shroomiez, An0n\r\n";
+        const navigationText = "\r\nhome | about us | mint | berashroomiez\r\nType one of the texts above to navigate.\r\n";
+
+        // Funzione per far apparire il prompt interattivo
+        function showPrompt() {
+            const promptElement = document.getElementById('prompt');
+            promptElement.style.display = 'block';
+        }
+
+        // Esegui la scrittura lenta del messaggio di benvenuto e del testo di navigazione
         typeText(welcomeText, "typewriter", function() {
-            // Callback dopo aver scritto il testo
-            document.getElementById("prompt").style.display = "block";
+            typeText(navigationText, "typewriter", function() {
+                // Mostra il prompt interattivo dopo aver scritto tutto
+                showPrompt();
+            });
         });
 
-        // Ascolta l'input dell'utente per i comandi
-        document.addEventListener("keydown", function(event) {
-            let input = event.key.toLowerCase();
-            const promptElement = document.getElementById("prompt");
+        // Variabili per gestire l'input dell'utente
+        let userInput = '';
+        const promptElement = document.getElementById('prompt');
 
-            if (input === 'enter') {
-                // Se l'utente preme invio, resetta il prompt
-                promptElement.innerHTML = "$ <span class='cursor'></span>";
+        // Aggiungi l'ascoltatore di eventi per l'input dell'utente
+        document.addEventListener('keydown', function(event) {
+            // Solo gestire input se il prompt è visibile
+            if (promptElement.style.display !== 'none') {
+                const key = event.key;
+
+                if (key === 'Enter') {
+                    // Se l'utente preme invio, esegui il comando
+                    executeCommand(userInput);
+                    userInput = ''; // Resetta l'input dell'utente
+                } else if (key === 'Backspace') {
+                    // Cancella l'ultimo carattere
+                    userInput = userInput.slice(0, -1);
+                    promptElement.innerHTML = `$ ${userInput}<span class="cursor"></span>`;
+                } else if (key.length === 1) {
+                    // Aggiungi il carattere digitato
+                    userInput += key;
+                    promptElement.innerHTML = `$ ${userInput}<span class="cursor"></span>`;
+                }
             }
         });
 
+        // Funzione per gestire i comandi dell'utente
+        function executeCommand(command) {
+            const typewriterElement = document.getElementById('typewriter');
+            const promptElement = document.getElementById('prompt');
+
+            // Comandi disponibili
+            switch (command.toLowerCase()) {
+                case 'home':
+                    typeText("\r\nNavigating to Home...\r\n", "typewriter", showPrompt);
+                    break;
+                case 'about us':
+                    typeText("\r\nNavigating to About Us...\r\n", "typewriter", showPrompt);
+                    break;
+                case 'mint':
+                    typeText("\r\nNavigating to Mint...\r\n", "typewriter", showPrompt);
+                    break;
+                case 'berashroomiez':
+                    typeText("\r\nNavigating to BeraShroomiez...\r\n", "typewriter", showPrompt);
+                    break;
+                default:
+                    typeText("\r\nUnknown command. Please type one of the available options.\r\n", "typewriter", showPrompt);
+                    break;
+            }
+
+            // Nascondi il prompt durante l'esecuzione del comando
+            promptElement.style.display = 'none';
+        }
     </script>
 </body>
 </html>
-
