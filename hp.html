@@ -69,7 +69,8 @@
             margin-top: 20px; /* Spazio tra il testo e la lista */
             color: #00ff00; /* Colore verde per i link */
             font-family: 'Courier New', Courier, monospace; /* Usa lo stesso font */
-            white-space: pre; /* Mantiene la lista sulla stessa riga */
+            display: inline-block; /* Assicura che i link siano su una linea */
+            white-space: nowrap; /* Impedisce che i link vadano a capo */
         }
     </style>
 </head>
@@ -111,7 +112,7 @@
         // Esegui la scrittura lenta del messaggio di benvenuto
         typeText(welcomeText, "typewriter", function() {
             // Dopo aver completato la scrittura del messaggio di benvenuto, mostra i link su una linea
-            document.getElementById('navigation').style.display = 'block';
+            document.getElementById('navigation').style.display = 'inline-block';
             document.getElementById('navigation').innerHTML = navigationText;
         });
     </script>
