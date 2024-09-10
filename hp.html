@@ -3,118 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShromeX</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm/css/xterm.css" />
+    <title>ShroomX</title>
     <style>
         body {
             margin: 0;
             background-image: url('wallpaper.png'); /* Immagine di sfondo */
             background-size: cover; /* Copre l'intera pagina */
-            background-position: center; /* Centra l'immagine */
+            background-position: center;
             font-family: 'Courier New', Courier, monospace;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            overflow: hidden;
-            flex-direction: column; /* Disposizione verticale per gli elementi */
         }
 
-        #terminal-container {
-            width: 80%;
-            max-width: 800px;
-            height: 400px;
-            background-color: #1e1e1e;
-            border: 3px solid #00ff00;
-            padding: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 255, 0, 0.5);
-            border-radius: 5px;
+        h1 {
+            color: #00ff00;
+            font-size: 3em;
             text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .button-container {
             display: flex;
-            flex-direction: column;
-            justify-content: center; /* Centro verticale del contenuto */
+            justify-content: center;
+            align-items: center;
+            gap: 20px; /* Spaziatura tra i bottoni */
         }
 
-        .typewriter {
+        button {
+            background-color: #1e1e1e;
+            border: 2px solid #00ff00;
             color: #00ff00;
-            white-space: pre;
+            font-size: 1.5em;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
             font-family: 'Courier New', Courier, monospace;
-            text-align: center;
         }
 
-        a {
-            color: #00ff00;
-            text-decoration: none; /* Rimuove la sottolineatura */
-            margin: 0 10px; /* Spaziatura tra i link */
-        }
-
-        a:hover {
-            text-decoration: underline; /* Sottolineatura al passaggio del mouse */
-        }
-
-        .cursor {
-            display: inline-block;
+        button:hover {
             background-color: #00ff00;
-            width: 10px;
-            height: 1.2em;
-            animation: blink 1s step-start infinite;
-            vertical-align: bottom;
-        }
-
-        @keyframes blink {
-            50% { opacity: 0; }
-        }
-
-        #navigation {
-            margin-top: 20px; /* Spazio tra il testo e la lista */
-            color: #00ff00; /* Colore verde per i link */
-            font-family: 'Courier New', Courier, monospace; /* Usa lo stesso font */
-            display: inline-block; /* Assicura che i link siano su una linea */
-            white-space: nowrap; /* Impedisce che i link vadano a capo */
+            color: #1e1e1e;
         }
     </style>
 </head>
 <body>
-    <!-- Contenitore del terminale -->
-    <div id="terminal-container">
-        <div class="typewriter" id="typewriter"></div>
-        <div class="typewriter" id="navigation" style="display: none;"></div> <!-- Nascondo inizialmente la lista -->
+
+    <!-- Scritta centrale in alto -->
+    <h1>WELCOME TO SHROOMIEZ</h1>
+
+    <!-- Bottoni centrati a metà pagina -->
+    <div class="button-container">
+        <button onclick="window.location.href='home.html'">home</button>
+        <button onclick="window.location.href='aboutus.html'">about us</button>
+        <button onclick="window.location.href='mint.html'">mint</button>
+        <button onclick="window.location.href='berashroomiez.html'">berashroomiez</button>
     </div>
 
-    <script>
-        // Funzione per effetto typewriter con velocità leggermente maggiore
-        function typeText(text, elementId, callback) {
-            let i = 0;
-            const speed = 50; // Velocità di scrittura aumentata
-            function typeLetter() {
-                if (i < text.length) {
-                    document.getElementById(elementId).innerHTML += text.charAt(i);
-                    i++;
-                    setTimeout(typeLetter, speed);
-                } else if (callback) {
-                    callback();
-                }
-            }
-            typeLetter();
-        }
-
-        // Messaggio di benvenuto
-        const welcomeText = "Welcome to Shroomiez, An0n\r\n";
-
-        // Lista di navigazione cliccabile su una riga
-        const navigationText = `
-        <a href="home.html">home</a> | 
-        <a href="aboutus.html">about us</a> | 
-        <a href="mint.html">mint</a> | 
-        <a href="berashroomiez.html">berashroomiez</a>
-        `;
-
-        // Esegui la scrittura lenta del messaggio di benvenuto
-        typeText(welcomeText, "typewriter", function() {
-            // Dopo aver completato la scrittura del messaggio di benvenuto, mostra i link su una linea
-            document.getElementById('navigation').style.display = 'inline-block';
-            document.getElementById('navigation').innerHTML = navigationText;
-        });
-    </script>
 </body>
 </html>
