@@ -39,7 +39,7 @@
 
         .side-image {
             flex: 1;
-            height: 100vh;
+            height: 100vh; /* Modificato per estendersi verticalmente all'altezza intera */
             background: url('trippy.png') no-repeat center center;
             background-size: cover;
         }
@@ -80,11 +80,10 @@
     <script>
         function typeText(text, elementId, callback) {
             let i = 0;
-            const speed = 100; // Velocità di scrittura
-            const element = document.getElementById(elementId);
+            const speed = 100;
             function typeLetter() {
                 if (i < text.length) {
-                    element.innerHTML += text.charAt(i);
+                    document.getElementById(elementId).innerHTML += text.charAt(i);
                     i++;
                     setTimeout(typeLetter, speed);
                 } else if (callback) {
