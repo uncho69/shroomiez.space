@@ -16,6 +16,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            overflow: hidden; /* Evita scrollbars */
         }
 
         #terminal-container {
@@ -28,6 +29,7 @@
             box-shadow: 0px 0px 10px rgba(0, 255, 0, 0.5);
             border-radius: 5px;
             overflow: auto; /* Evita il testo che esce dai bordi */
+            position: relative; /* Posiziona relativo per le immagini */
         }
 
         .typewriter {
@@ -49,9 +51,32 @@
         @keyframes blink {
             50% { opacity: 0; }
         }
+
+        .image-left,
+        .image-right {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .image-left {
+            left: -500px;
+            z-index: -1; /* Assicurati che l'immagine sia sotto il terminale */
+        }
+
+        .image-right {
+            right: -500px;
+            z-index: -1; /* Assicurati che l'immagine sia sotto il terminale */
+        }
     </style>
 </head>
 <body>
+    <!-- Immagini ai lati del terminale -->
+    <img src="trippy.png" class="image-left" alt="Trippy Image Left">
+    <img src="trippy.png" class="image-right" alt="Trippy Image Right">
+
     <!-- Contenitore del terminale -->
     <div id="terminal-container">
         <div class="typewriter" id="typewriter"></div>
