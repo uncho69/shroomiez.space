@@ -16,27 +16,27 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            position: relative; /* Aggiunto per il posizionamento delle immagini */
+            position: relative;
             overflow: hidden;
         }
 
         #terminal-container {
-            width: 80%;
-            max-width: 800px;
+            width: 800px; /* Larghezza fissa del terminale */
             height: 400px;
             background-color: #1e1e1e;
             border: 3px solid #00ff00;
             padding: 10px;
             box-shadow: 0px 0px 10px rgba(0, 255, 0, 0.5);
             border-radius: 5px;
-            z-index: 1; /* Assicurati che il terminale sia sopra le immagini */
+            position: relative;
+            z-index: 1;
         }
 
         .typewriter {
             color: #00ff00;
             white-space: pre;
             font-family: 'Courier New', Courier, monospace;
-            text-align: center; /* Centra il testo */
+            text-align: center;
         }
 
         .cursor {
@@ -54,18 +54,18 @@
 
         .side-image {
             position: absolute;
-            width: 20vw; /* Dimensione delle immagini relativa alla larghezza della finestra */
-            height: auto; /* Mantiene proporzione */
             top: 50%;
             transform: translateY(-50%);
+            width: 300px; /* Larghezza delle immagini fissa */
+            height: auto; /* Mantiene proporzione */
         }
 
         .image-left {
-            left: 5vw; /* Usa valori relativi per mantenere la stessa distanza in tutte le risoluzioni */
+            left: -350px; /* Posiziona fuori dal terminale, con distanza fissa */
         }
 
         .image-right {
-            right: 5vw; /* Usa valori relativi per mantenere la stessa distanza in tutte le risoluzioni */
+            right: -350px; /* Posiziona fuori dal terminale, con distanza fissa */
         }
     </style>
 </head>
