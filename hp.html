@@ -16,38 +16,27 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-        }
-
-        .container {
-            display: flex;
-            justify-content: space-between; /* Distribuisce equamente lo spazio tra gli elementi */
-            align-items: center;
-            width: 100%;
-            max-width: 1200px; /* Larghezza massima */
+            position: relative; /* Aggiunto per il posizionamento delle immagini */
+            overflow: hidden;
         }
 
         #terminal-container {
-            flex: 1;
-            max-width: 800px; /* Dimensione fissa del terminale */
+            width: 80%;
+            max-width: 800px;
             height: 400px;
             background-color: #1e1e1e;
             border: 3px solid #00ff00;
             padding: 10px;
             box-shadow: 0px 0px 10px rgba(0, 255, 0, 0.5);
             border-radius: 5px;
-            z-index: 1;
-        }
-
-        .side-image {
-            width: 20vw; /* Dimensione delle immagini relativa alla larghezza della finestra */
-            height: auto; /* Mantiene proporzione */
+            z-index: 1; /* Assicurati che il terminale sia sopra le immagini */
         }
 
         .typewriter {
             color: #00ff00;
             white-space: pre;
             font-family: 'Courier New', Courier, monospace;
-            text-align: center;
+            text-align: center; /* Centra il testo */
         }
 
         .cursor {
@@ -62,22 +51,35 @@
         @keyframes blink {
             50% { opacity: 0; }
         }
+
+        .side-image {
+            position: absolute;
+            width: 20vw; /* Dimensione delle immagini relativa alla larghezza della finestra */
+            height: auto; /* Mantiene proporzione */
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .image-left {
+            left: 5vw; /* Usa valori relativi per mantenere la stessa distanza in tutte le risoluzioni */
+        }
+
+        .image-right {
+            right: 5vw; /* Usa valori relativi per mantenere la stessa distanza in tutte le risoluzioni */
+        }
     </style>
 </head>
 <body>
-    <!-- Contenitore principale -->
-    <div class="container">
-        <!-- Immagini ai lati del terminale -->
-        <img src="trippy.png" class="side-image" alt="Trippy Image Left">
-        <!-- Contenitore del terminale -->
-        <div id="terminal-container">
-            <div class="typewriter" id="typewriter"></div>
-            <div class="typewriter" id="prompt" style="display: none;">
-                $ <span class="cursor"></span>
-            </div>
+    <!-- Immagini ai lati del terminale -->
+    <img src="trippy.png" class="side-image image-left" alt="Trippy Image Left">
+    <img src="trippy.png" class="side-image image-right" alt="Trippy Image Right">
+
+    <!-- Contenitore del terminale -->
+    <div id="terminal-container">
+        <div class="typewriter" id="typewriter"></div>
+        <div class="typewriter" id="prompt" style="display: none;">
+            $ <span class="cursor"></span>
         </div>
-        <!-- Seconda immagine -->
-        <img src="trippy.png" class="side-image" alt="Trippy Image Right">
     </div>
 
     <script>
