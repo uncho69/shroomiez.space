@@ -30,6 +30,7 @@
             border-radius: 5px;
             overflow: auto; /* Evita il testo che esce dai bordi */
             position: relative; /* Posiziona relativo per le immagini */
+            z-index: 1; /* Assicurati che il terminale sia sopra le immagini */
         }
 
         .typewriter {
@@ -59,16 +60,15 @@
             height: 500px;
             top: 50%;
             transform: translateY(-50%);
+            z-index: 0; /* Assicurati che le immagini siano sotto il terminale */
         }
 
         .image-left {
             left: -500px;
-            z-index: -1; /* Assicurati che l'immagine sia sotto il terminale */
         }
 
         .image-right {
             right: -500px;
-            z-index: -1; /* Assicurati che l'immagine sia sotto il terminale */
         }
     </style>
 </head>
