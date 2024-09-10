@@ -17,18 +17,18 @@
             align-items: center;
             height: 100vh;
             overflow: hidden;
+            flex-direction: column; /* Disposizione verticale per gli elementi */
         }
 
         #terminal-container {
             width: 80%;
             max-width: 800px;
-            height: 400px;
             background-color: #1e1e1e;
             border: 3px solid #00ff00;
             padding: 10px;
             box-shadow: 0px 0px 10px rgba(0, 255, 0, 0.5);
             border-radius: 5px;
-            text-align: center; /* Centra il testo */
+            text-align: center;
         }
 
         .typewriter {
@@ -60,13 +60,24 @@
         @keyframes blink {
             50% { opacity: 0; }
         }
+
+        #navigation {
+            margin-top: 50px; /* Sposta la lista in basso rispetto al contenuto */
+        }
     </style>
 </head>
 <body>
     <!-- Contenitore del terminale -->
     <div id="terminal-container">
         <div class="typewriter" id="typewriter"></div>
-        <div class="typewriter" id="prompt" style="display: none;"></div>
+    </div>
+
+    <!-- Lista navigazione centrata in basso -->
+    <div id="navigation">
+        <a href="home.html">home</a> | 
+        <a href="aboutus.html">about us</a> | 
+        <a href="mint.html">mint</a> | 
+        <a href="berashroomiez.html">berashroomiez</a>
     </div>
 
     <script>
@@ -88,26 +99,9 @@
 
         // Messaggio di benvenuto
         const welcomeText = "Welcome to Shroomiez, An0n\r\n";
-        const navigationText = "\r\nhome | about us | mint | berashroomiez\r\n";
 
-        // Funzione per far apparire il prompt interattivo
-        function showPrompt() {
-            const promptElement = document.getElementById('prompt');
-            promptElement.style.display = 'block';
-        }
-
-        // Esegui la scrittura lenta del messaggio di benvenuto e del testo di navigazione
-        typeText(welcomeText, "typewriter", function() {
-            typeText(navigationText, "typewriter", function() {
-                // Mostra i link cliccabili una volta completato l'effetto typewriter
-                document.getElementById('typewriter').innerHTML += `
-                    <a href="home.html">home</a> | 
-                    <a href="aboutus.html">about us</a> | 
-                    <a href="mint.html">mint</a> | 
-                    <a href="berashroomiez.html">berashroomiez</a>
-                `;
-            });
-        });
+        // Esegui la scrittura lenta del messaggio di benvenuto
+        typeText(welcomeText, "typewriter");
     </script>
 </body>
 </html>
