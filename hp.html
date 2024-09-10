@@ -16,21 +16,11 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            position: relative; /* Aggiunto per il posizionamento delle immagini */
             overflow: hidden;
         }
 
-        #content-wrapper {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-            position: relative;
-        }
-
         #terminal-container {
-            width: 60%;
+            width: 80%;
             max-width: 800px;
             height: 400px;
             background-color: #1e1e1e;
@@ -38,15 +28,24 @@
             padding: 10px;
             box-shadow: 0px 0px 10px rgba(0, 255, 0, 0.5);
             border-radius: 5px;
-            z-index: 1; /* Assicurati che il terminale sia sopra le immagini */
-            margin: 0 auto; /* Centra il terminale */
-            text-align: center; /* Centra il contenuto all'interno del terminale */
+            text-align: center; /* Centra il testo */
         }
 
         .typewriter {
             color: #00ff00;
             white-space: pre;
             font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+        }
+
+        a {
+            color: #00ff00;
+            text-decoration: none; /* Rimuove la sottolineatura */
+            margin: 0 10px;
+        }
+
+        a:hover {
+            text-decoration: underline; /* Sottolineatura al passaggio del mouse */
         }
 
         .cursor {
@@ -61,37 +60,20 @@
         @keyframes blink {
             50% { opacity: 0; }
         }
-
-        .side-image {
-            width: 15vw; /* Dimensione delle immagini relativa alla larghezza della finestra */
-            height: auto; /* Mantiene proporzione */
-        }
-
-        .image-left {
-            margin-right: 5vw; /* Aggiunge spazio tra immagine sinistra e il terminale */
-        }
-
-        .image-right {
-            margin-left: 5vw; /* Aggiunge spazio tra immagine destra e il terminale */
-        }
     </style>
 </head>
 <body>
-    <div id="content-wrapper">
-        <!-- Contenitore del terminale -->
-        <div id="terminal-container">
-            <div class="typewriter" id="typewriter"></div>
-            <div class="typewriter" id="prompt" style="display: none;">
-                $ <span class="cursor"></span>
-            </div>
-        </div>
- </div>
+    <!-- Contenitore del terminale -->
+    <div id="terminal-container">
+        <div class="typewriter" id="typewriter"></div>
+        <div class="typewriter" id="prompt" style="display: none;"></div>
+    </div>
 
     <script>
-        // Simulazione della scrittura lenta
+        // Funzione per effetto typewriter con velocità leggermente maggiore
         function typeText(text, elementId, callback) {
             let i = 0;
-            const speed = 100; // Velocità di scrittura
+            const speed = 50; // Velocità di scrittura aumentata
             function typeLetter() {
                 if (i < text.length) {
                     document.getElementById(elementId).innerHTML += text.charAt(i);
@@ -106,7 +88,7 @@
 
         // Messaggio di benvenuto
         const welcomeText = "Welcome to Shroomiez, An0n\r\n";
-        const navigationText = "\r\nhome | about us | mint | berashroomiez | slick road\r\nType one of the texts above to navigate.\r\n";
+        const navigationText = "\r\nhome | about us | mint | berashroomiez\r\n";
 
         // Funzione per far apparire il prompt interattivo
         function showPrompt() {
@@ -117,67 +99,15 @@
         // Esegui la scrittura lenta del messaggio di benvenuto e del testo di navigazione
         typeText(welcomeText, "typewriter", function() {
             typeText(navigationText, "typewriter", function() {
-                // Mostra il prompt interattivo dopo aver scritto tutto
-                showPrompt();
+                // Mostra i link cliccabili una volta completato l'effetto typewriter
+                document.getElementById('typewriter').innerHTML += `
+                    <a href="home.html">home</a> | 
+                    <a href="aboutus.html">about us</a> | 
+                    <a href="mint.html">mint</a> | 
+                    <a href="berashroomiez.html">berashroomiez</a>
+                `;
             });
         });
-
-        // Variabili per gestire l'input dell'utente
-        let userInput = '';
-        const promptElement = document.getElementById('prompt');
-
-        // Aggiungi l'ascoltatore di eventi per l'input dell'utente
-        document.addEventListener('keydown', function(event) {
-            // Solo gestire input se il prompt è visibile
-            if (promptElement.style.display !== 'none') {
-                const key = event.key;
-
-                if (key === 'Enter') {
-                    // Se l'utente preme invio, esegui il comando
-                    executeCommand(userInput);
-                    userInput = ''; // Resetta l'input dell'utente
-                } else if (key === 'Backspace') {
-                    // Cancella l'ultimo carattere
-                    userInput = userInput.slice(0, -1);
-                    promptElement.innerHTML = `$ ${userInput}<span class="cursor"></span>`;
-                } else if (key.length === 1) {
-                    // Aggiungi il carattere digitato
-                    userInput += key;
-                    promptElement.innerHTML = `$ ${userInput}<span class="cursor"></span>`;
-                }
-            }
-        });
-
-        // Funzione per gestire i comandi dell'utente
-        function executeCommand(command) {
-            const typewriterElement = document.getElementById('typewriter');
-            const promptElement = document.getElementById('prompt');
-
-            // Comandi disponibili
-            switch (command.toLowerCase()) {
-                case 'home':
-                    typeText("\r\nNavigating to Home...\r\n", "typewriter", showPrompt);
-                    break;
-                case 'about us':
-                    typeText("\r\nNavigating to About Us...\r\n", "typewriter", showPrompt);
-                    break;
-                case 'mint':
-                    typeText("\r\nNavigating to Mint...\r\n", "typewriter", showPrompt);
-                    break;
-                case 'berashroomiez':
-                    typeText("\r\nNavigating to BeraShroomiez...\r\n", "typewriter", showPrompt);
-                    break;
-                case 'slick road':
-                    typeText("\r\nNavigating to Slick Road...\r\n", "typewriter", showPrompt);
-                    break;
-                default:
-                    typeText("\r\nUnknown command. Please type one of the available options.\r\n", "typewriter", showPrompt);
-                    break;
-            }
-
-            // Nascondi il prompt durante l'esecuzione del comando
-            promptElement.style.display = 'none';
-        }
     </script>
 </body>
 </html>
