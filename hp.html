@@ -45,7 +45,7 @@
         a {
             color: #00ff00;
             text-decoration: none; /* Rimuove la sottolineatura */
-            margin: 0 10px;
+            margin: 0 10px; /* Spaziatura tra i link */
         }
 
         a:hover {
@@ -63,6 +63,10 @@
 
         @keyframes blink {
             50% { opacity: 0; }
+        }
+
+        #navigation {
+            margin-top: 20px; /* Spazio tra il testo e la lista */
         }
     </style>
 </head>
@@ -93,7 +97,7 @@
         // Messaggio di benvenuto
         const welcomeText = "Welcome to Shroomiez, An0n\r\n";
 
-        // Lista di navigazione cliccabile
+        // Lista di navigazione cliccabile su una riga
         const navigationText = `
         <a href="home.html">home</a> | 
         <a href="aboutus.html">about us</a> | 
@@ -103,7 +107,7 @@
 
         // Esegui la scrittura lenta del messaggio di benvenuto
         typeText(welcomeText, "typewriter", function() {
-            // Dopo aver completato la scrittura del messaggio di benvenuto, mostra i link
+            // Dopo aver completato la scrittura del messaggio di benvenuto, mostra i link su una linea
             document.getElementById('navigation').style.display = 'block';
             document.getElementById('navigation').innerHTML = navigationText;
         });
