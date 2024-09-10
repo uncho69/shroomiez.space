@@ -16,7 +16,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            position: relative;
+            position: relative; /* Aggiunto per il posizionamento delle immagini */
             overflow: hidden;
         }
 
@@ -30,7 +30,6 @@
             box-shadow: 0px 0px 10px rgba(0, 255, 0, 0.5);
             border-radius: 5px;
             z-index: 1; /* Assicurati che il terminale sia sopra le immagini */
-            position: relative;
         }
 
         .typewriter {
@@ -59,22 +58,21 @@
             height: 500px;
             top: 50%;
             transform: translateY(-50%);
-            z-index: 0;
         }
 
         .image-left {
-            left: -520px; /* Assicurati che sia completamente fuori dal contenitore del terminale */
+            left: 10px; /* Spostato leggermente a sinistra */
         }
 
         .image-right {
-            right: -520px; /* Assicurati che sia completamente fuori dal contenitore del terminale */
+            right: 10px; /* Spostato leggermente a destra */
         }
     </style>
 </head>
 <body>
     <!-- Immagini ai lati del terminale -->
-    <img src="images/trippy.png" class="side-image image-left" alt="Trippy Image Left">
-    <img src="images/trippy.png" class="side-image image-right" alt="Trippy Image Right">
+    <img src="trippy.png" class="side-image image-left" alt="Trippy Image Left">
+    <img src="trippy.png" class="side-image image-right" alt="Trippy Image Right">
 
     <!-- Contenitore del terminale -->
     <div id="terminal-container">
