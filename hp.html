@@ -8,9 +8,9 @@
     <style>
         body {
             margin: 0;
-            background-image: url('hack-bg.png');
-            background-size: cover;
-            background-position: center;
+            background-image: url('hack-bg.png'); /* Immagine di sfondo */
+            background-size: cover; /* Copre l'intera pagina */
+            background-position: center; /* Centra l'immagine */
             font-family: 'Courier New', Courier, monospace;
             display: flex;
             justify-content: center;
@@ -20,9 +20,8 @@
 
         .main-container {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
             width: 100%;
+            align-items: center;
         }
 
         #terminal-container {
@@ -34,21 +33,21 @@
             padding: 10px;
             box-shadow: 0px 0px 10px rgba(0, 255, 0, 0.5);
             border-radius: 5px;
-            overflow: auto;
+            overflow: auto; /* Evita il testo che esce dai bordi */
         }
 
         .side-image {
-            flex: 1;
-            height: 100vh; /* Modificato per estendersi verticalmente all'altezza intera */
+            flex-grow: 1;
             background: url('trippy.png') no-repeat center center;
             background-size: cover;
+            height: 100vh;
         }
 
         .typewriter {
             color: #00ff00;
             white-space: pre;
             font-family: 'Courier New', Courier, monospace;
-            text-align: center;
+            text-align: center; /* Centra il testo */
         }
 
         .cursor {
@@ -80,7 +79,7 @@
     <script>
         function typeText(text, elementId, callback) {
             let i = 0;
-            const speed = 100;
+            const speed = 100; // Velocità di scrittura
             function typeLetter() {
                 if (i < text.length) {
                     document.getElementById(elementId).innerHTML += text.charAt(i);
@@ -102,7 +101,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            typeText(welcomeText, "typewriter", () => {
+            typeText(welcomeText, "typewriter", function() {
                 typeText(navigationText, "typewriter", showPrompt);
             });
         });
