@@ -20,8 +20,17 @@
             overflow: hidden;
         }
 
+        #content-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
         #terminal-container {
-            width: 80%;
+            width: 60%;
             max-width: 800px;
             height: 400px;
             background-color: #1e1e1e;
@@ -30,13 +39,14 @@
             box-shadow: 0px 0px 10px rgba(0, 255, 0, 0.5);
             border-radius: 5px;
             z-index: 1; /* Assicurati che il terminale sia sopra le immagini */
+            margin: 0 auto; /* Centra il terminale */
+            text-align: center; /* Centra il contenuto all'interno del terminale */
         }
 
         .typewriter {
             color: #00ff00;
             white-space: pre;
             font-family: 'Courier New', Courier, monospace;
-            text-align: center; /* Centra il testo */
         }
 
         .cursor {
@@ -53,33 +63,34 @@
         }
 
         .side-image {
-            position: absolute;
-            width: 20vw; /* Dimensione delle immagini relativa alla larghezza della finestra */
+            width: 15vw; /* Dimensione delle immagini relativa alla larghezza della finestra */
             height: auto; /* Mantiene proporzione */
-            top: 50%;
-            transform: translateY(-50%);
         }
 
         .image-left {
-            left: 5vw; /* Usa valori relativi per mantenere la stessa distanza in tutte le risoluzioni */
+            margin-right: 5vw; /* Aggiunge spazio tra immagine sinistra e il terminale */
         }
 
         .image-right {
-            right: 6vw; /* Usa valori relativi per mantenere la stessa distanza in tutte le risoluzioni */
+            margin-left: 5vw; /* Aggiunge spazio tra immagine destra e il terminale */
         }
     </style>
 </head>
 <body>
-    <!-- Immagini ai lati del terminale -->
-    <img src="trippy.png" class="side-image image-left" alt="Trippy Image Left">
-    <img src="trippy.png" class="side-image image-right" alt="Trippy Image Right">
-
-    <!-- Contenitore del terminale -->
-    <div id="terminal-container">
-        <div class="typewriter" id="typewriter"></div>
-        <div class="typewriter" id="prompt" style="display: none;">
-            $ <span class="cursor"></span>
+    <div id="content-wrapper">
+        <!-- Immagine a sinistra -->
+        <img src="trippy.png" class="side-image image-left" alt="Trippy Image Left">
+        
+        <!-- Contenitore del terminale -->
+        <div id="terminal-container">
+            <div class="typewriter" id="typewriter"></div>
+            <div class="typewriter" id="prompt" style="display: none;">
+                $ <span class="cursor"></span>
+            </div>
         </div>
+
+        <!-- Immagine a destra -->
+        <img src="trippy.png" class="side-image image-right" alt="Trippy Image Right">
     </div>
 
     <script>
