@@ -13,16 +13,21 @@
             font-family: 'Courier New', Courier, monospace;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start; /* Porta gli elementi in alto */
             align-items: center;
             height: 100vh;
+            padding-top: 50px; /* Distanza dall'alto */
         }
 
         h1 {
             color: #00ff00;
             font-size: 3em;
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 30px; /* Spaziatura tra il titolo e i bottoni */
+            background-color: rgba(0, 0, 0, 0.8); /* Sfondo nero semi-trasparente */
+            padding: 10px 20px; /* Spazio attorno al testo */
+            border-radius: 5px; /* Bordo arrotondato */
+            display: inline-block;
         }
 
         .button-container {
@@ -51,10 +56,10 @@
 </head>
 <body>
 
-    <!-- Scritta centrale in alto -->
+    <!-- Scritta centrale in alto con sfondo nero -->
     <h1>WELCOME TO SHROOMIEZ</h1>
 
-    <!-- Bottoni centrati a metà pagina -->
+    <!-- Bottoni centrati più in alto -->
     <div class="button-container">
         <button onclick="window.location.href='home.html'">home</button>
         <button onclick="window.location.href='aboutus.html'">about us</button>
