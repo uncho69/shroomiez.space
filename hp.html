@@ -16,7 +16,8 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            overflow: hidden; /* Evita scrollbars */
+            position: relative; /* Aggiunto per il posizionamento delle immagini */
+            overflow: hidden;
         }
 
         #terminal-container {
@@ -28,8 +29,6 @@
             padding: 10px;
             box-shadow: 0px 0px 10px rgba(0, 255, 0, 0.5);
             border-radius: 5px;
-            overflow: auto; /* Evita il testo che esce dai bordi */
-            position: relative; /* Posiziona relativo per le immagini */
             z-index: 1; /* Assicurati che il terminale sia sopra le immagini */
         }
 
@@ -53,29 +52,27 @@
             50% { opacity: 0; }
         }
 
-        .image-left,
-        .image-right {
+        .side-image {
             position: absolute;
             width: 500px;
             height: 500px;
             top: 50%;
             transform: translateY(-50%);
-            z-index: 0; /* Assicurati che le immagini siano sotto il terminale */
         }
 
         .image-left {
-            left: -500px;
+            left: 10px; /* Spostato leggermente a sinistra */
         }
 
         .image-right {
-            right: -500px;
+            right: 10px; /* Spostato leggermente a destra */
         }
     </style>
 </head>
 <body>
     <!-- Immagini ai lati del terminale -->
-    <img src="trippy.png" class="image-left" alt="Trippy Image Left">
-    <img src="trippy.png" class="image-right" alt="Trippy Image Right">
+    <img src="trippy.png" class="side-image image-left" alt="Trippy Image Left">
+    <img src="trippy.png" class="side-image image-right" alt="Trippy Image Right">
 
     <!-- Contenitore del terminale -->
     <div id="terminal-container">
