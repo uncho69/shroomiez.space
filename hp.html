@@ -17,8 +17,6 @@
             align-items: center;
             height: 100vh;
             padding-top: 50px; /* Distanza dall'alto */
-            overflow: hidden; /* Evita lo scrolling */
-            position: relative; /* Permette il posizionamento delle nuvole */
         }
 
         h1 {
@@ -54,37 +52,9 @@
             background-color: #00ff00;
             color: #1e1e1e;
         }
-
-        /* Animazione per le nuvole */
-        .cloud-container {
-            position: absolute;
-            top: 20px; /* Posizionamento dall'alto */
-            left: -100%; /* Inizia fuori dalla pagina */
-            width: 200%; /* Dimensione ampia per coprire il movimento */
-            animation: moveClouds 60s linear infinite; /* Animazione di movimento */
-        }
-
-        .clouds {
-            width: 100%;
-            height: auto;
-        }
-
-        @keyframes moveClouds {
-            0% {
-                transform: translateX(0); /* Inizio da sinistra */
-            }
-            100% {
-                transform: translateX(-50%); /* Muovi a sinistra di metà pagina */
-            }
-        }
     </style>
 </head>
 <body>
-
-    <!-- Contenitore per le nuvole -->
-    <div class="cloud-container">
-        <img src="nuvole.png" class="clouds" alt="Nuvole">
-    </div>
 
     <!-- Scritta centrale in alto con sfondo nero -->
     <h1>WELCOME TO SHROOMIEZ</h1>
