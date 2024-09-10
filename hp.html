@@ -18,6 +18,13 @@
             height: 100vh;
         }
 
+        .main-container {
+            display: flex;
+            justify-content: space-between; /* Distribuisce gli spazi interni */
+            align-items: center; /* Allinea verticalmente */
+            width: 100%;
+        }
+
         #terminal-container {
             width: 80%;
             max-width: 800px;
@@ -28,6 +35,12 @@
             box-shadow: 0px 0px 10px rgba(0, 255, 0, 0.5);
             border-radius: 5px;
             overflow: auto; /* Evita il testo che esce dai bordi */
+        }
+
+        .side-image {
+            flex: 1; /* Occupa lo spazio disponibile */
+            background: url('trippy.png') no-repeat center center; /* Imposta l'immagine di sfondo */
+            background-size: cover; /* Copre l'intera area visibile */
         }
 
         .typewriter {
@@ -52,12 +65,16 @@
     </style>
 </head>
 <body>
-    <!-- Contenitore del terminale -->
-    <div id="terminal-container">
-        <div class="typewriter" id="typewriter"></div>
-        <div class="typewriter" id="prompt" style="display: none;">
-            $ <span class="cursor"></span>
+    <div class="main-container">
+        <div class="side-image"></div> <!-- Immagine a sinistra -->
+        <!-- Contenitore del terminale -->
+        <div id="terminal-container">
+            <div class="typewriter" id="typewriter"></div>
+            <div class="typewriter" id="prompt" style="display: none;">
+                $ <span class="cursor"></span>
+            </div>
         </div>
+        <div class="side-image"></div> <!-- Immagine a destra -->
     </div>
 
     <script>
@@ -116,7 +133,7 @@
                 } else if (key.length === 1) {
                     // Aggiungi il carattere digitato
                     userInput += key;
-                    promptElement.innerHTML = `$ ${userInput}<span class="cursor"></span>`;
+                    promptElement.innerHTML = `$ ${userInput}<span the="cursor"></span>`;
                 }
             }
         });
