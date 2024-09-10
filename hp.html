@@ -23,12 +23,16 @@
         #terminal-container {
             width: 80%;
             max-width: 800px;
+            height: 400px;
             background-color: #1e1e1e;
             border: 3px solid #00ff00;
             padding: 10px;
             box-shadow: 0px 0px 10px rgba(0, 255, 0, 0.5);
             border-radius: 5px;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Centro verticale del contenuto */
         }
 
         .typewriter {
@@ -60,24 +64,13 @@
         @keyframes blink {
             50% { opacity: 0; }
         }
-
-        #navigation {
-            margin-top: 50px; /* Sposta la lista in basso rispetto al contenuto */
-        }
     </style>
 </head>
 <body>
     <!-- Contenitore del terminale -->
     <div id="terminal-container">
         <div class="typewriter" id="typewriter"></div>
-    </div>
-
-    <!-- Lista navigazione centrata in basso -->
-    <div id="navigation">
-        <a href="home.html">home</a> | 
-        <a href="aboutus.html">about us</a> | 
-        <a href="mint.html">mint</a> | 
-        <a href="berashroomiez.html">berashroomiez</a>
+        <div class="typewriter" id="navigation" style="display: none;"></div> <!-- Nascondo inizialmente la lista -->
     </div>
 
     <script>
@@ -100,8 +93,20 @@
         // Messaggio di benvenuto
         const welcomeText = "Welcome to Shroomiez, An0n\r\n";
 
+        // Lista di navigazione cliccabile
+        const navigationText = `
+        <a href="home.html">home</a> | 
+        <a href="aboutus.html">about us</a> | 
+        <a href="mint.html">mint</a> | 
+        <a href="berashroomiez.html">berashroomiez</a>
+        `;
+
         // Esegui la scrittura lenta del messaggio di benvenuto
-        typeText(welcomeText, "typewriter");
+        typeText(welcomeText, "typewriter", function() {
+            // Dopo aver completato la scrittura del messaggio di benvenuto, mostra i link
+            document.getElementById('navigation').style.display = 'block';
+            document.getElementById('navigation').innerHTML = navigationText;
+        });
     </script>
 </body>
 </html>
