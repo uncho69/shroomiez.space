@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #e6f0fa;
+            background-color: #d8e7fa;
             margin: 0;
             padding: 0;
         }
@@ -44,10 +44,12 @@
             background-color: #d8e7fa;
             padding: 10px 20px;
             text-transform: uppercase;
-            font-size: 20px;
+            font-size: 24px;
             font-weight: bold;
             margin-top: 20px;
             margin-bottom: 10px;
+            border-left: 5px solid #0053a0;
+            padding-left: 15px;
         }
 
         /* About Section */
@@ -56,6 +58,7 @@
             padding: 20px;
             margin: 0 20px;
             border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         /* Specs Section */
@@ -66,15 +69,18 @@
             border-radius: 10px;
             display: flex;
             justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .specs-section p {
             max-width: 70%;
+            line-height: 1.5;
         }
 
         .specs-section img {
-            width: 150px;
-            height: 150px;
+            width: 200px;
+            height: 200px;
             border-radius: 10px;
         }
 
@@ -84,30 +90,38 @@
             padding: 20px;
             margin: 20px;
             border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         /* Team member container */
         .team-member-container {
             display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            margin-top: 10px;
+            justify-content: space-around;
+            margin-top: 20px;
         }
 
         .team-member {
             text-align: center;
-            width: 200px;
+            width: 150px;
+            margin-bottom: 20px;
         }
 
         .team-member img {
             width: 100px;
             height: 100px;
             border-radius: 50%;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         .team-member p {
-            margin-top: 10px;
             font-size: 14px;
+            line-height: 1.4;
+        }
+
+        /* Footer spacing */
+        .footer-spacing {
+            height: 50px;
         }
     </style>
 </head>
@@ -132,12 +146,15 @@
     </div>
 
     <!-- Specs Section -->
-    <div class="section-title">Specs</div>
-    <div class="specs-section">
+<div class="section-title">Specs</div>
+<div class="specs-section">
+    <div>
         <p>Each Shroomiez is uniquely hand-drawn, featuring realistic attributes such as the Species itself, the Cap, and the Spiking Activity, all of which come from 36 different mushroom species.</p>
         <p>The backgrounds are also hand-drawn, and are visual representations of primordial sound frequencies -- tuning each Shroomiez to its natural environment.</p>
-        <img src="shroomiez_specs.png" alt="Shroomiez Specs Image">
     </div>
+    <img src="shroomiez_specs.png" alt="Shroomiez Specs Image">
+</div>
+
 
     <!-- Team Section -->
     <div class="section-title">The Team</div>
@@ -165,6 +182,8 @@
             </div>
         </div>
     </div>
+
+    <div class="footer-spacing"></div>
 
 </body>
 </html>
