@@ -21,7 +21,6 @@
 
         #terminal-container {
             display: block;
-            flex-wrap: wrap;
             width: 100%;
             height: 100%;
             overflow: hidden;
@@ -34,24 +33,6 @@
             font-size: 1.2em;
             line-height: 1.2em;
             color: #00ff00;
-        }
-
-        #contacts-terminal {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 60%;
-            background-color: rgba(0, 0, 0, 0.9); 
-            padding: 20px;
-            color: #00ff00;
-            font-family: 'Courier New', Courier, monospace; 
-            font-size: 1.5em;
-            display: none; 
-            border: 2px solid #00ff00;
-            box-shadow: 0px 0px 15px #00ff00;
-            text-align: center;
-            z-index: 20;
         }
 
         #settings-panel {
@@ -99,7 +80,7 @@
             right: 20px;
         }
 
-        #settings-button:hover, #contacts-button:hover, #settings-panel button:hover {
+        #settings-button:hover, #contacts-button:hover {
             background: #00ff00;
             color: #0d0d0d;
         }
@@ -135,12 +116,6 @@
 </head>
 <body>
     <div id="terminal-container"></div>
-
-    <!-- Terminale per i CONTATTI -->
-    <div id="contacts-terminal">
-        <div id="contacts-text">CONTACTS</div>
-        <div id="email">shroomiez@proton.me</div>
-    </div>
 
     <!-- Pannello Settings -->
     <div id="settings-panel">
@@ -179,20 +154,19 @@
 
     <script>
         const container = document.getElementById("terminal-container");
-        let text = "SHROOMIEZ.SPACE COMING SOON "; // Testo da digitare
-        let speed = 100; // Velocità della digitazione in ms
-        let currentColor = "#00ff00"; // Colore predefinito
-        let currentFont = "'Courier New', Courier, monospace"; // Font predefinito
+        let text = "SHROOMIEZ.SPACE COMING SOON "; 
+        let speed = 80; 
+        let currentColor = "#00ff00"; 
+        let currentFont = "'Courier New', Courier, monospace"; 
         let lineIndex = 0;
-        let maxLines = 100; // Numero massimo di linee prima di pulire e ricominciare
         let intervalId;
 
-        // Funzione per digitare il testo
         function typeText() {
             clearInterval(intervalId);
-            if (lineIndex >= maxLines || container.scrollHeight >= window.innerHeight) {
+
+            if (container.scrollHeight >= window.innerHeight) {
                 container.innerHTML = ""; 
-                lineIndex = 0;
+                lineIndex = 0; 
             }
 
             const line = document.createElement("div");
@@ -209,11 +183,7 @@
                 } else {
                     clearInterval(typingInterval);
                     lineIndex++;
-                    if (container.scrollHeight >= window.innerHeight) {
-                        container.innerHTML = ""; // Pulisce il contenitore
-                        lineIndex = 0;
-                    }
-                    typeText(); // Ricomincia immediatamente
+                    typeText(); 
                 }
             }, speed); 
         }
@@ -247,7 +217,7 @@
         });
 
         speedSlider.addEventListener("input", () => {
-            speed = 250 / speedSlider.value; 
+            speed = 300 / speedSlider.value; 
             clearInterval(intervalId); 
             typeText(); 
         });
