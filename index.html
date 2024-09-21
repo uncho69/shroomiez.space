@@ -33,10 +33,7 @@
             line-height: 1.2em;
             position: relative;
             color: #00ff00;
-            /* Rimosso l'animazione glitch per ridurre il lag */
         }
-
-        /* Rimosso l'effetto glitch per ridurre il lag */
 
         /* Effetto lampeggiante per la pagina */
         @keyframes flicker {
@@ -93,6 +90,42 @@
         @keyframes blinkCursor {
             from { border-right-color: #00ff00; }
             to { border-right-color: transparent; }
+        }
+
+        /* Media queries per la versione mobile */
+        @media (max-width: 768px) {
+            .text {
+                font-size: 1em; /* Riduce la dimensione del testo per dispositivi mobili */
+                line-height: 1.1em;
+            }
+
+            #contacts-terminal {
+                width: 90%; /* Rende il box dei contatti più piccolo su dispositivi mobili */
+                padding: 10px;
+                font-size: 1em; /* Riduce la dimensione del testo all'interno del terminale */
+            }
+
+            #email {
+                display: block; /* Posiziona l'email su una nuova riga per dispositivi mobili */
+                margin: 5px 0 0 0;
+                border-right: none; /* Rimuove il cursore lampeggiante per migliorare la leggibilità */
+            }
+
+            body {
+                padding: 5px; /* Aggiusta il padding su dispositivi mobili */
+            }
+        }
+
+        /* Media query per tablet */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .text {
+                font-size: 1.1em; /* Adatta la dimensione del testo per tablet */
+            }
+
+            #contacts-terminal {
+                width: 70%; /* Adatta la larghezza del terminale per tablet */
+                font-size: 1.2em; /* Leggermente più piccolo sui tablet */
+            }
         }
     </style>
 </head>
