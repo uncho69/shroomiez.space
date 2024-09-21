@@ -188,11 +188,11 @@
     <script>
         const container = document.getElementById("terminal-container");
         let text = "SHROOMIEZ NFT SHROOMIEZ NFT ";
-        let speed = 40; // Velocità di digitazione in ms
+        let speed = 50; // Velocità di digitazione in ms
         let lineIndex = 0;
-        let maxLines = 3000; // Numero massimo di linee prima di pulire e ricominciare
+        let maxLines = 100; // Numero massimo di linee prima di pulire e ricominciare
         let intervalId;
-        
+
         function typeText() {
             clearInterval(intervalId); // Assicura che non ci siano più intervalli attivi
             intervalId = setInterval(() => {
@@ -204,10 +204,6 @@
                 const line = document.createElement("div");
                 line.className = "typed-line";
 
-                // Creazione del cursore lampeggiante
-                const cursor = document.createElement("span");
-                cursor.className = "blinking-cursor";
-
                 let charIndex = 0;
                 let currentText = '';
 
@@ -218,7 +214,7 @@
                         charIndex++;
                     } else {
                         clearInterval(typingInterval);
-                        line.appendChild(cursor);
+                        container.appendChild(line);
                         lineIndex++;
                         typeText(); // Inizia a scrivere la prossima linea
                     }
@@ -236,7 +232,12 @@
         const settingsButton = document.getElementById("settings-button");
         const contactsButton = document.getElementById("contacts-button");
         const settingsPanel = document.getElementById("settings-panel");
+        const closeButton = document.getElementById("close-button");
         const speedSlider = document.getElementById("speed-slider");
+        const fontSizeSlider = document.getElementById("font-size-slider");
+        const fontPicker = document.getElementById("font-picker");
+        const resetButton = document.getElementById("reset-button");
+        const colorChoices = document.querySelectorAll(".color-choice");
 
         settingsButton.addEventListener("click", () => {
             settingsPanel.style.display = "block";
@@ -249,14 +250,50 @@
         contactsButton.addEventListener("click", () => {
             text = "CONTACT SHROOMIEZ6969@PROTON.ME ";
             clearInterval(intervalId); // Ferma l'intervallo precedente
-            typeText(); // Ricomincia la digitazione
+            typeText(); // Ricomincia la digitazione con il nuovo testo
         });
 
         speedSlider.addEventListener("input", () => {
-            speed = 200 / speedSlider.value; // Cambia la velocità in base allo slider
+            speed = 300 / speedSlider.value; // Cambia la velocità in base allo slider
             clearInterval(intervalId); // Ferma l'intervallo corrente
             typeText(); // Riparte con la nuova velocità
+        });
+
+        fontSizeSlider.addEventListener("input", () => {
+            document.querySelectorAll('.typed-line').forEach(el => {
+                el.style.fontSize = fontSizeSlider.value + "px";
+            });
+        });
+
+        fontPicker.addEventListener("change", () => {
+            document.querySelectorAll('.typed-line').forEach(el => {
+                el.style.fontFamily = fontPicker.value;
+            });
+        });
+
+        resetButton.addEventListener("click", () => {
+            document.querySelectorAll('.typed-line').forEach(el => {
+                el.style.color = "#00ff00";
+                el.style.fontSize = "13px";
+                el.style.fontFamily = "'Courier New', Courier, monospace";
+            });
+            speed = 50; // Resetta la velocità
+            speedSlider.value = 4;
+            fontSizeSlider.value = 13;
+            fontPicker.value = "'Courier New', Courier, monospace";
+            clearInterval(intervalId); // Ferma l'intervallo corrente
+            typeText(); // Riparte con i valori predefiniti
+        });
+
+        colorChoices.forEach(choice => {
+            choice.addEventListener("click", () => {
+                const color = choice.getAttribute("data-color");
+                document.querySelectorAll('.typed-line').forEach(el => {
+                    el.style.color = color;
+                });
+            });
         });
     </script>
 </body>
 </html>
+
