@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -85,19 +86,27 @@
             font-size: 1em;
         }
 
-        #settings-button {
+        #settings-button, #contacts-button {
             position: fixed;
             bottom: 20px;
-            right: 20px;
             background: transparent;
             border: 2px solid #00ff00;
             color: #00ff00;
             padding: 5px 10px;
             cursor: pointer;
             font-size: 1em;
+            margin-right: 10px;
         }
 
-        #settings-button:hover, #settings-panel button:hover {
+        #settings-button {
+            right: 100px;
+        }
+
+        #contacts-button {
+            right: 20px;
+        }
+
+        #settings-button:hover, #contacts-button:hover, #settings-panel button:hover {
             background: #00ff00;
             color: #0d0d0d;
         }
@@ -154,24 +163,24 @@
         <button id="close-button">Close</button>
     </div>
 
-    <!-- Pulsante per aprire il pannello settings -->
+    <!-- Pulsanti per aprire il pannello settings e contacts -->
     <button id="settings-button">Settings</button>
+    <button id="contacts-button">Contacts</button>
 
     <script>
         const container = document.getElementById("terminal-container");
-        const text = "SHROOMIEZ NFT SHROOMIEZ NFT "; 
+        let text = "SHROOMIEZ NFT SHROOMIEZ NFT "; 
         const contactsTerminal = document.getElementById("contacts-terminal");
         let index = 0;
         let speed = 4;
         let intervalId;
 
         function fillScreen() {
-            if (intervalId) clearInterval(intervalId); // Clear any existing interval
+            if (intervalId) clearInterval(intervalId); 
             intervalId = setInterval(() => {
-                // Reimposta l'indice e ripulisce il contenitore quando arriva a 3000 per un loop infinito
                 if (index >= 3000) {
-                    container.innerHTML = ""; // Pulizia del contenitore
-                    index = 0; // Reset dell'indice
+                    container.innerHTML = ""; 
+                    index = 0; 
                 }
 
                 const span = document.createElement("span");
@@ -186,7 +195,7 @@
             setTimeout(() => {
                 contactsTerminal.style.display = 'block';
                 container.style.display = 'none'; 
-                clearInterval(intervalId); // Ferma il riempimento quando il terminale viene visualizzato
+                clearInterval(intervalId); 
             }, 1000); 
         }
 
@@ -196,6 +205,7 @@
 
         // Pannello settings
         const settingsButton = document.getElementById("settings-button");
+        const contactsButton = document.getElementById("contacts-button");
         const settingsPanel = document.getElementById("settings-panel");
         const speedSlider = document.getElementById("speed-slider");
         const fontSizeSlider = document.getElementById("font-size-slider");
@@ -223,7 +233,7 @@
 
         speedSlider.addEventListener("input", () => {
             speed = speedSlider.value;
-            fillScreen(); // Restart with updated speed
+            fillScreen(); 
         });
 
         fontSizeSlider.addEventListener("input", () => {
@@ -248,7 +258,12 @@
             speedSlider.value = 4;
             fontSizeSlider.value = 13;
             fontPicker.value = "'Courier New', Courier, monospace";
-            fillScreen(); // Restart with default settings
+            fillScreen(); 
+        });
+
+        contactsButton.addEventListener("click", () => {
+            text = "CONTACT SHROOMIEZ6969@PROTON.ME "; 
+            fillScreen(); // Restart with new text
         });
     </script>
 </body>
