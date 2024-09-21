@@ -78,15 +78,6 @@
             margin: 10px 0 5px;
         }
 
-        #settings-panel button {
-            margin-top: 10px;
-            cursor: pointer;
-            background: transparent;
-            border: none;
-            color: #00ff00;
-            font-size: 1em;
-        }
-
         #settings-button, #contacts-button {
             position: fixed;
             bottom: 20px;
@@ -108,7 +99,7 @@
             right: 20px;
         }
 
-        #settings-button:hover, #contacts-button:hover, #settings-panel button:hover {
+        #settings-button:hover, #contacts-button:hover {
             background: #00ff00;
             color: #0d0d0d;
         }
@@ -179,7 +170,6 @@
             <option value="'Lucida Console', Monaco, monospace">Lucida Console</option>
         </select>
 
-        <button id="reset-button">Reset</button>
         <button id="close-button">Close</button>
     </div>
 
@@ -190,7 +180,7 @@
     <script>
         const container = document.getElementById("terminal-container");
         let text = "SHROOMIEZ.SPACE COMING SOON "; // Testo da digitare
-        let speed = 120; // Velocità della digitazione in ms
+        let speed = 100; // Velocità della digitazione in ms (leggermente più veloce)
         let currentColor = "#00ff00"; // Colore predefinito
         let currentFont = "'Courier New', Courier, monospace"; // Font predefinito
         let lineIndex = 0;
@@ -235,7 +225,6 @@
         const speedSlider = document.getElementById("speed-slider");
         const fontSizeSlider = document.getElementById("font-size-slider");
         const fontPicker = document.getElementById("font-picker");
-        const resetButton = document.getElementById("reset-button");
         const colorChoices = document.querySelectorAll(".color-choice");
 
         settingsButton.addEventListener("click", () => {
@@ -253,7 +242,7 @@
         });
 
         speedSlider.addEventListener("input", () => {
-            speed = 300 / speedSlider.value; // Cambia la velocità in base allo slider
+            speed = 250 / speedSlider.value; // Cambia la velocità in base allo slider (leggermente più veloce)
             clearInterval(intervalId); 
             typeText(); 
         });
@@ -271,22 +260,6 @@
             });
         });
 
-        resetButton.addEventListener("click", () => {
-            currentColor = "#00ff00"; 
-            currentFont = "'Courier New', Courier, monospace";
-            speed = 120; 
-            document.querySelectorAll('.typed-line').forEach(el => {
-                el.style.color = currentColor;
-                el.style.fontSize = "13px";
-                el.style.fontFamily = currentFont;
-            });
-            speedSlider.value = 4;
-            fontSizeSlider.value = 13;
-            fontPicker.value = currentFont;
-            clearInterval(intervalId);
-            typeText(); 
-        });
-
         colorChoices.forEach(choice => {
             choice.addEventListener("click", () => {
                 currentColor = choice.getAttribute("data-color");
@@ -298,4 +271,3 @@
     </script>
 </body>
 </html>
-
