@@ -98,12 +98,23 @@
             display: none; /* Nascondi il terminale inizialmente */
             border: 2px solid #00ff00;
             box-shadow: 0px 0px 15px #00ff00;
+            text-align: center;
         }
 
         #contacts-text {
             white-space: pre-wrap; /* Mantieni il testo come nel terminale */
             animation: typing 2s steps(20, end) forwards, blinkCursor 0.7s steps(40) infinite normal;
             border-right: 2px solid #00ff00; /* Cursore lampeggiante */
+            display: inline;
+        }
+
+        #email {
+            margin-left: 10px;
+            color: #00ff00;
+            font-family: 'Courier New', Courier, monospace;
+            display: inline;
+            animation: typing 3s steps(40, end) forwards, blinkCursor 0.7s steps(40) infinite normal;
+            border-right: 2px solid #00ff00;
         }
 
         @keyframes typing {
@@ -123,6 +134,7 @@
     <!-- Terminale per i CONTATTI -->
     <div id="contacts-terminal">
         <div id="contacts-text">CONTACTS</div>
+        <div id="email">obsidianvortex@proton.me</div>
     </div>
 
     <script>
