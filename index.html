@@ -17,6 +17,7 @@
             align-items: flex-start;
             flex-wrap: wrap;
             height: 100vh;
+            cursor: url('cursor-hacker.png'), auto; /* Cursore personalizzato */
         }
 
         #terminal-container {
@@ -27,45 +28,29 @@
             overflow: hidden;
         }
 
+        /* Effetto ridotto per "unch4ined" */
         .text {
-            white-space: pre; /* Mantieni il testo senza interruzioni */
+            white-space: pre; 
             font-size: 1.2em;
             line-height: 1.2em;
             position: relative;
-            animation: glitch 1.5s infinite; /* Velocità dell'effetto glitch */
             color: #00ff00;
+            animation: simpleGlitch 1.5s infinite alternate;
         }
 
-        @keyframes glitch {
+        /* Semplificato l'effetto glitch */
+        @keyframes simpleGlitch {
             0% {
                 transform: none;
-                opacity: 1;
-                text-shadow: 0 0 1px #ff00ff, 0 0 2px #ff00ff, 0 0 3px #ff00ff;
+                text-shadow: 1px 1px #00ff00, -1px -1px #00ff00;
             }
-            20% {
-                transform: skew(-5deg);
-                opacity: 0.8;
-                text-shadow: -2px 2px 0px #ff00ff, 2px -2px 0px #00ffff;
-            }
-            40% {
-                transform: translate(5px, -3px);
-                opacity: 1;
-                text-shadow: -3px 3px 0px #ff00ff, 3px -3px 0px #00ffff;
-            }
-            60% {
-                transform: translate(-5px, 3px);
-                opacity: 0.8;
-                text-shadow: -1px -1px 0px #ff00ff, 1px 1px 0px #00ffff;
-            }
-            80% {
-                transform: skew(5deg);
-                opacity: 1;
-                text-shadow: 2px -2px 0px #ff00ff, -2px 2px 0px #00ffff;
+            50% {
+                transform: translate(1px, -1px);
+                text-shadow: 2px 2px #00ff00, -2px -2px #00ff00;
             }
             100% {
                 transform: none;
-                opacity: 1;
-                text-shadow: 0 0 1px #ff00ff, 0 0 2px #ff00ff, 0 0 3px #ff00ff;
+                text-shadow: 1px 1px #00ff00, -1px -1px #00ff00;
             }
         }
 
@@ -80,7 +65,7 @@
         }
 
         body {
-            animation: flicker 2s infinite;
+            animation: flicker 3s infinite;
         }
 
         /* Stile del terminale per i CONTATTI */
@@ -122,8 +107,8 @@
         }
 
         #contacts-text {
-            white-space: pre-wrap; /* Mantieni il testo come nel terminale */
-            animation: typing 1s steps(20, end) forwards; /* Velocizzata l'animazione di scrittura */
+            white-space: pre-wrap;
+            animation: typing 1.5s steps(20, end) forwards;
             display: inline;
         }
 
@@ -145,9 +130,18 @@
             from { border-right-color: #00ff00; }
             to { border-right-color: transparent; }
         }
+
+        /* Effetto Matrix */
+        canvas#matrix {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
     </style>
 </head>
 <body>
+    <canvas id="matrix"></canvas> <!-- Effetto Matrix -->
     <div id="terminal-container"></div>
 
     <!-- Terminale per i CONTATTI -->
@@ -156,12 +150,19 @@
         <div id="email">obsidianvortex@proton.me</div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.1/howler.min.js"></script> <!-- Libreria per l'audio -->
+
     <script>
         const container = document.getElementById("terminal-container");
         const text = "unch4ined ";
         const maxTextCount = 2000; // Ridotto il numero totale per riempire più velocemente
-
+        const contactsTerminal = document.getElementById("contacts-terminal");
         let index = 0;
+
+        // Suoni di digitazione e glitch
+        const typingSound = new Howl({ src: ['typing.mp3'], volume: 0.2 });
+        const glitchSound = new Howl({ src: ['glitch.mp3'], volume: 0.2 });
+
         function fillScreen() {
             if (index < maxTextCount) {
                 const span = document.createElement("span");
@@ -169,25 +170,61 @@
                 span.textContent = text;
                 container.appendChild(span);
                 index++;
-
-                // Continua a scrivere fino a riempire la pagina
+                
                 if (container.scrollHeight <= window.innerHeight) {
-                    setTimeout(fillScreen, 0); // Velocizza ulteriormente la scrittura
+                    setTimeout(fillScreen, 1); // Velocità di scrittura rapida
+                    typingSound.play(); // Suono di digitazione
                 } else {
-                    setTimeout(showContactsTerminal, 4000 - (index * 0.005)); // Visualizza il terminale esattamente dopo 4 secondi
+                    showContactsTerminal();
                 }
+            } else {
+                showContactsTerminal();
             }
         }
 
         function showContactsTerminal() {
-            contactsTerminal.style.display = 'block';
-            container.style.display = 'none'; // Nascondi il contenitore con le scritte
-            contactsTerminal.style.animation = 'terminal-glitch 0.5s ease-in-out forwards'; // Attiva l'animazione glitch
+            setTimeout(() => {
+                contactsTerminal.style.display = 'block';
+                container.style.display = 'none';
+                glitchSound.play(); // Suono glitch al momento della visualizzazione
+                contactsTerminal.style.animation = 'terminal-glitch 0.5s ease-in-out forwards';
+            }, 1000);
         }
+
+        // Effetto Matrix
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const katakana = 'アカサタナハマヤラワ0123456789+-*/<=>~!';
+        const katakanaArray = katakana.split('');
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#00FF00';
+            ctx.font = `${fontSize}px monospace`;
+
+            drops.forEach((y, x) => {
+                const text = katakanaArray[Math.floor(Math.random() * katakanaArray.length)];
+                ctx.fillText(text, x * fontSize, y * fontSize);
+
+                if (y * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[x] = 0;
+                }
+                drops[x]++;
+            });
+        }
+        
+        setInterval(drawMatrix, 50); // Effetto Matrix ogni 50ms
 
         document.addEventListener("DOMContentLoaded", () => {
             fillScreen();
-            setTimeout(showContactsTerminal, 4000); // Forza l'apparizione del terminale dopo 4 secondi
         });
     </script>
 </body>
