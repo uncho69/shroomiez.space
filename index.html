@@ -20,21 +20,20 @@
         }
 
         #terminal-container {
-            display: flex;
+            display: block;
             flex-wrap: wrap;
             width: 100%;
             height: 100%;
             overflow: hidden;
             position: relative;
+            padding: 10px;
         }
 
-        .typed-text {
-            display: inline;
+        .typed-line {
             white-space: pre;
             font-size: 1.2em;
             line-height: 1.2em;
             color: #00ff00;
-            animation: typing 2s steps(50, end) infinite;
         }
 
         #contacts-terminal {
@@ -189,30 +188,44 @@
     <script>
         const container = document.getElementById("terminal-container");
         let text = "SHROOMIEZ NFT SHROOMIEZ NFT ";
-        let index = 0;
-        let speed = 100; // Velocità del typing in ms
+        let speed = 40; // Velocità di digitazione in ms
+        let lineIndex = 0;
+        let maxLines = 3000; // Numero massimo di linee prima di pulire e ricominciare
         let intervalId;
         
         function typeText() {
-            let currentText = '';
-            container.innerHTML = ''; // Reset container
-            let cursor = document.createElement("span");
-            cursor.className = "blinking-cursor"; 
-            container.appendChild(cursor);
-
+            clearInterval(intervalId); // Assicura che non ci siano più intervalli attivi
             intervalId = setInterval(() => {
-                if (index < text.length) {
-                    currentText += text.charAt(index);
-                    index++;
-                    cursor.insertAdjacentHTML('beforebegin', `<span class="typed-text">${currentText}</span>`);
-                } else {
-                    // Riparte la digitazione
-                    index = 0;
-                    currentText = '';
-                    container.innerHTML = ''; // Reset container
-                    container.appendChild(cursor); // Re-attach cursor
+                if (lineIndex >= maxLines) {
+                    container.innerHTML = ""; // Pulizia del contenitore
+                    lineIndex = 0;
                 }
-            }, speed);
+
+                const line = document.createElement("div");
+                line.className = "typed-line";
+
+                // Creazione del cursore lampeggiante
+                const cursor = document.createElement("span");
+                cursor.className = "blinking-cursor";
+
+                let charIndex = 0;
+                let currentText = '';
+
+                const typingInterval = setInterval(() => {
+                    if (charIndex < text.length) {
+                        currentText += text.charAt(charIndex);
+                        line.textContent = currentText;
+                        charIndex++;
+                    } else {
+                        clearInterval(typingInterval);
+                        line.appendChild(cursor);
+                        lineIndex++;
+                        typeText(); // Inizia a scrivere la prossima linea
+                    }
+                }, speed); // Velocità di digitazione per ogni carattere
+                
+                container.appendChild(line);
+            }, 0); // Scrive la riga successiva subito dopo aver completato quella precedente
         }
 
         document.addEventListener("DOMContentLoaded", () => {
@@ -240,7 +253,7 @@
         });
 
         speedSlider.addEventListener("input", () => {
-            speed = 2000 / speedSlider.value; // Cambia la velocità in base allo slider
+            speed = 200 / speedSlider.value; // Cambia la velocità in base allo slider
             clearInterval(intervalId); // Ferma l'intervallo corrente
             typeText(); // Riparte con la nuova velocità
         });
