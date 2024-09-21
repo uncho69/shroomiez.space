@@ -3,157 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shroomiez</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <title>unch4ined</title>
     <style>
         body {
+            background-color: #0d0d0d; /* Colore di sfondo scuro */
+            color: #00ff00; /* Testo verde in stile hacker */
+            font-family: 'Courier New', Courier, monospace; /* Font da terminale */
             margin: 0;
-            padding: 0;
-            height: 100vh;
+            padding: 10px;
+            overflow: hidden;
             display: flex;
             justify-content: center;
-            align-items: center;
-            background-color: #000; /* Sfondo nero */
+            align-items: flex-start;
+            flex-wrap: wrap;
+            height: 100vh;
+        }
+
+        #terminal-container {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            height: 100%;
             overflow: hidden;
         }
 
-        .access-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            background-color: rgba(0, 0, 0, 0.8);
-            color: white;
-            font-family: Arial, sans-serif;
-            z-index: 1;
-            transition: opacity 1s ease, visibility 1s ease;
+        .text {
+            white-space: pre; /* Mantieni il testo senza interruzioni */
+            font-size: 1.2em;
+            line-height: 1.2em;
+            position: relative;
+            animation: glitch 2s infinite;
+            color: #00ff00;
         }
 
-        .keypad {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
+        @keyframes glitch {
+            0% {
+                transform: none;
+                opacity: 1;
+                text-shadow: 0 0 1px #ff00ff, 0 0 2px #ff00ff, 0 0 3px #ff00ff;
+            }
+            20% {
+                transform: skew(-5deg);
+                opacity: 0.8;
+                text-shadow: -2px 2px 0px #ff00ff, 2px -2px 0px #00ffff;
+            }
+            40% {
+                transform: translate(5px, -3px);
+                opacity: 1;
+                text-shadow: -3px 3px 0px #ff00ff, 3px -3px 0px #00ffff;
+            }
+            60% {
+                transform: translate(-5px, 3px);
+                opacity: 0.8;
+                text-shadow: -1px -1px 0px #ff00ff, 1px 1px 0px #00ffff;
+            }
+            80% {
+                transform: skew(5deg);
+                opacity: 1;
+                text-shadow: 2px -2px 0px #ff00ff, -2px 2px 0px #00ffff;
+            }
+            100% {
+                transform: none;
+                opacity: 1;
+                text-shadow: 0 0 1px #ff00ff, 0 0 2px #ff00ff, 0 0 3px #ff00ff;
+            }
         }
 
-        .key {
-            background-color: #333;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            padding: 10px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+        /* Effetto lampeggiante per la pagina */
+        @keyframes flicker {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% {
+                opacity: 1;
+            }
+            20%, 24%, 55% {
+                opacity: 0.1;
+            }
         }
 
-        .key:hover {
-            background-color: #000;
-        }
-
-        #codeInput {
-            font-size: 1.5rem;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            background-color: #222;
-            color: white;
-        }
-
-        #submitCode {
-            font-size: 1.5rem;
-            padding: 10px;
-            background-color: #333;
-            border: none;
-            border-radius: 5px;
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        #submitCode:hover {
-            background-color: #555;
-        }
-
-        #message {
-            font-size: 1.5rem;
-            margin-top: 10px;
+        body {
+            animation: flicker 3s infinite;
         }
     </style>
 </head>
 <body>
-    <div class="access-container">
-        <h2>Enter Code to Access</h2>
-        <div class="keypad">
-            <!-- Bottoni del tastierino -->
-            <button class="key">C</button>
-            <button class="key">E</button>
-            <button class="key">M</button>
-            <button class="key">B</button>
-            <button class="key">I</button>
-            <button class="key">L</button>
-            <button class="key">M</button>
-            <button class="key">L</button>
-            <button class="key">S</button>
-            <button class="key">Y</button>
-            <button class="key">C</button>
-            <button class="key">K</button>
-            <button class="key">U</button>
-            <button class="key">A</button>
-            <button class="key">O</button>
-        </div>
-        <input type="text" id="codeInput" placeholder="Enter code" readonly />
-        <button id="submitCode">Submit</button>
-        <p id="message"></p>
-    </div>
+    <div id="terminal-container"></div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const accessContainer = document.querySelector('.access-container');
-            const codeInput = document.getElementById('codeInput');
-            const submitButton = document.getElementById('submitCode');
-            const message = document.getElementById('message');
-            const body = document.querySelector('body');
+        const container = document.getElementById("terminal-container");
+        const text = "unch4ined ";
+        const maxTextCount = 3000; // Aumenta questo numero per ottenere più testo
 
-            // Gestione dei clic sui tasti
-            document.querySelectorAll('.key').forEach(button => {
-                button.addEventListener('click', () => {
-                    codeInput.value += button.textContent;
-                });
-            });
-
-            // Gestione del submit del codice
-            submitButton.addEventListener('click', () => {
-                if (codeInput.value === 'MYCELIUM') {
-                    message.textContent = 'Access Granted!';
-                    message.style.color = 'green';
-                    
-                    // Nascondi il tastierino e cambia lo sfondo
-                    accessContainer.style.opacity = '0';
-                    accessContainer.style.visibility = 'hidden';
-
-                    // Cambia lo sfondo
-                    body.style.backgroundImage = 'none'; // Rimuove l'immagine di sfondo
-
-                    // Forza un reflow per applicare le modifiche di stile
-                    accessContainer.offsetHeight; // Trigger reflow
-                    
-                    // Reindirizza alla pagina hp.html
-                    setTimeout(() => {
-                        window.location.href = 'hp.html';
-                    }, 1000); // Ritardo per permettere l'animazione
-                } else {
-                    message.textContent = 'Access Denied!';
-                    message.style.color = 'red';
-                    codeInput.value = ''; // Resetta il campo di input
+        let index = 0;
+        function fillScreen() {
+            if (index < maxTextCount) {
+                const span = document.createElement("span");
+                span.className = "text";
+                span.textContent = text;
+                container.appendChild(span);
+                index++;
+                
+                // Calcola se la pagina è stata riempita completamente
+                if (container.scrollHeight <= window.innerHeight) {
+                    setTimeout(fillScreen, 2); // Velocità di scrittura rapida
                 }
-            });
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            fillScreen();
         });
     </script>
 </body>
