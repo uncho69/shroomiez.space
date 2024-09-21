@@ -166,11 +166,12 @@
         let intervalId;
 
         function fillScreen() {
+            if (intervalId) clearInterval(intervalId); // Clear any existing interval
             intervalId = setInterval(() => {
+                // Reimposta l'indice e ripulisce il contenitore quando arriva a 3000 per un loop infinito
                 if (index >= 3000) {
-                    clearInterval(intervalId);
-                    showContactsTerminal();
-                    return;
+                    container.innerHTML = ""; // Pulizia del contenitore
+                    index = 0; // Reset dell'indice
                 }
 
                 const span = document.createElement("span");
@@ -185,6 +186,7 @@
             setTimeout(() => {
                 contactsTerminal.style.display = 'block';
                 container.style.display = 'none'; 
+                clearInterval(intervalId); // Ferma il riempimento quando il terminale viene visualizzato
             }, 1000); 
         }
 
@@ -221,7 +223,6 @@
 
         speedSlider.addEventListener("input", () => {
             speed = speedSlider.value;
-            clearInterval(intervalId); // Stop current interval
             fillScreen(); // Restart with updated speed
         });
 
@@ -247,8 +248,7 @@
             speedSlider.value = 4;
             fontSizeSlider.value = 13;
             fontPicker.value = "'Courier New', Courier, monospace";
-            clearInterval(intervalId); // Stop current interval
-            fillScreen(); // Restart with default speed
+            fillScreen(); // Restart with default settings
         });
     </script>
 </body>
