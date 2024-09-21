@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content-width=device-width, initial-scale=1.0">
     <title>unch4ined</title>
     <style>
         body {
@@ -32,7 +32,7 @@
             font-size: 1.2em;
             line-height: 1.2em;
             position: relative;
-            animation: glitch 2s infinite;
+            animation: glitch 1.5s infinite; /* Velocità dell'effetto glitch */
             color: #00ff00;
         }
 
@@ -80,7 +80,7 @@
         }
 
         body {
-            animation: flicker 3s infinite;
+            animation: flicker 2s infinite;
         }
 
         /* Stile del terminale per i CONTATTI */
@@ -99,12 +99,31 @@
             border: 2px solid #00ff00;
             box-shadow: 0px 0px 15px #00ff00;
             text-align: center;
+            animation: terminal-glitch 0.5s ease-in-out forwards; /* Animazione di comparsa glitch */
+        }
+
+        @keyframes terminal-glitch {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.95);
+            }
+            50% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.05);
+                border: 2px solid #ff00ff;
+                box-shadow: 0px 0px 10px #ff00ff;
+            }
+            100% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+                border: 2px solid #00ff00;
+                box-shadow: 0px 0px 15px #00ff00;
+            }
         }
 
         #contacts-text {
             white-space: pre-wrap; /* Mantieni il testo come nel terminale */
-            animation: typing 2s steps(20, end) forwards, blinkCursor 0.7s steps(40) infinite normal;
-            border-right: 2px solid #00ff00; /* Cursore lampeggiante */
+            animation: typing 1s steps(20, end) forwards; /* Velocizzata l'animazione di scrittura */
             display: inline;
         }
 
@@ -113,8 +132,8 @@
             color: #00ff00;
             font-family: 'Courier New', Courier, monospace;
             display: inline;
-            animation: typing 3s steps(40, end) forwards, blinkCursor 0.7s steps(40) infinite normal;
-            border-right: 2px solid #00ff00;
+            animation: typing 1.5s steps(40, end) forwards, blinkCursor 0.7s steps(40) infinite normal;
+            border-right: 2px solid #00ff00; /* Cursore lampeggiante solo per l'email */
         }
 
         @keyframes typing {
@@ -140,10 +159,9 @@
     <script>
         const container = document.getElementById("terminal-container");
         const text = "unch4ined ";
-        const maxTextCount = 3000; // Aumenta questo numero per ottenere più testo
-        const contactsTerminal = document.getElementById("contacts-terminal");
-        let index = 0;
+        const maxTextCount = 1000; // Ridotto il numero totale per velocizzare il riempimento
 
+        let index = 0;
         function fillScreen() {
             if (index < maxTextCount) {
                 const span = document.createElement("span");
@@ -152,15 +170,13 @@
                 container.appendChild(span);
                 index++;
 
-                // Continua a scrivere finché la pagina non è piena
+                // Continua a scrivere fino a riempire la pagina
                 if (container.scrollHeight <= window.innerHeight) {
-                    setTimeout(fillScreen, 2); // Velocità di scrittura rapida
+                    setTimeout(fillScreen, 1); // Velocizza la scrittura
                 } else {
-                    // Quando ha finito di scrivere, mostra il terminale dei contatti
                     showContactsTerminal();
                 }
             } else {
-                // Se il maxTextCount è raggiunto, mostra il terminale dei contatti
                 showContactsTerminal();
             }
         }
@@ -169,7 +185,8 @@
             setTimeout(() => {
                 contactsTerminal.style.display = 'block';
                 container.style.display = 'none'; // Nascondi il contenitore con le scritte
-            }, 1000); // Attendi un secondo prima di mostrare il terminale dei contatti
+                contactsTerminal.style.animation = 'terminal-glitch 0.5s ease-in-out forwards'; // Attiva l'animazione glitch
+            }, 500); // Ridotto il tempo di attesa a mezzo secondo
         }
 
         document.addEventListener("DOMContentLoaded", () => {
