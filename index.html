@@ -21,6 +21,7 @@
 
         #terminal-container {
             display: block;
+            flex-wrap: wrap;
             width: 100%;
             height: 100%;
             overflow: hidden;
@@ -33,6 +34,24 @@
             font-size: 1.2em;
             line-height: 1.2em;
             color: #00ff00;
+        }
+
+        #contacts-terminal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            background-color: rgba(0, 0, 0, 0.9); 
+            padding: 20px;
+            color: #00ff00;
+            font-family: 'Courier New', Courier, monospace; 
+            font-size: 1.5em;
+            display: none; 
+            border: 2px solid #00ff00;
+            box-shadow: 0px 0px 15px #00ff00;
+            text-align: center;
+            z-index: 20;
         }
 
         #settings-panel {
@@ -68,12 +87,12 @@
             padding: 5px 10px;
             cursor: pointer;
             font-size: 1em;
-            margin-right: 10px;
+            margin-right: 15px; /* Margine aumentato per maggiore distanza */
             z-index: 15;
         }
 
         #settings-button {
-            right: 100px;
+            right: 140px;
         }
 
         #contacts-button {
@@ -117,6 +136,12 @@
 <body>
     <div id="terminal-container"></div>
 
+    <!-- Terminale per i CONTATTI -->
+    <div id="contacts-terminal">
+        <div id="contacts-text">CONTACTS</div>
+        <div id="email">shroomiez@proton.me</div>
+    </div>
+
     <!-- Pannello Settings -->
     <div id="settings-panel">
         <h3>Settings</h3>
@@ -154,19 +179,20 @@
 
     <script>
         const container = document.getElementById("terminal-container");
-        let text = "SHROOMIEZ.SPACE COMING SOON "; 
-        let speed = 80; 
-        let currentColor = "#00ff00"; 
-        let currentFont = "'Courier New', Courier, monospace"; 
+        let text = "SHROOMIEZ.SPACE COMING SOON "; // Testo da digitare
+        let speed = 100; // Velocità della digitazione in ms
+        let currentColor = "#00ff00"; // Colore predefinito
+        let currentFont = "'Courier New', Courier, monospace"; // Font predefinito
         let lineIndex = 0;
+        let maxLines = 100; // Numero massimo di linee prima di pulire e ricominciare
         let intervalId;
 
+        // Funzione per digitare il testo
         function typeText() {
             clearInterval(intervalId);
-
-            if (container.scrollHeight >= window.innerHeight) {
+            if (lineIndex >= maxLines) {
                 container.innerHTML = ""; 
-                lineIndex = 0; 
+                lineIndex = 0;
             }
 
             const line = document.createElement("div");
@@ -183,7 +209,13 @@
                 } else {
                     clearInterval(typingInterval);
                     lineIndex++;
-                    typeText(); 
+                    if (container.scrollHeight <= window.innerHeight) {
+                        setTimeout(typeText, speed); 
+                    } else {
+                        container.innerHTML = ""; // Pulisce il contenitore quando raggiunge la fine
+                        lineIndex = 0;
+                        typeText(); // Ricomincia dal principio
+                    }
                 }
             }, speed); 
         }
@@ -217,7 +249,7 @@
         });
 
         speedSlider.addEventListener("input", () => {
-            speed = 300 / speedSlider.value; 
+            speed = 250 / speedSlider.value; 
             clearInterval(intervalId); 
             typeText(); 
         });
@@ -246,3 +278,4 @@
     </script>
 </body>
 </html>
+
