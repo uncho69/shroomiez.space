@@ -87,12 +87,12 @@
             padding: 5px 10px;
             cursor: pointer;
             font-size: 1em;
-            margin-right: 10px;
+            margin-right: 15px; /* Margine aumentato per maggiore distanza */
             z-index: 15;
         }
 
         #settings-button {
-            right: 100px;
+            right: 140px;
         }
 
         #contacts-button {
@@ -130,6 +130,15 @@
             51%, 100% {
                 opacity: 0;
             }
+        }
+
+        /* Stile del serpentino */
+        #snake {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #00ff00;
+            z-index: 5;
         }
     </style>
 </head>
@@ -177,27 +186,33 @@
     <button id="settings-button">Settings</button>
     <button id="contacts-button">Contacts</button>
 
+    <!-- Serpentino -->
+    <div id="snake">=========</div>
+
     <script>
         const container = document.getElementById("terminal-container");
+        const snake = document.getElementById("snake");
         let text = "SHROOMIEZ.SPACE COMING SOON "; // Testo da digitare
-        let speed = 100; // Velocità della digitazione in ms (leggermente più veloce)
+        let speed = 100; // Velocità della digitazione in ms
+        let snakeSpeed = 100; // Velocità iniziale del serpentino
         let currentColor = "#00ff00"; // Colore predefinito
         let currentFont = "'Courier New', Courier, monospace"; // Font predefinito
         let lineIndex = 0;
         let maxLines = 100; // Numero massimo di linee prima di pulire e ricominciare
         let intervalId;
 
+        // Funzione per digitare il testo
         function typeText() {
             clearInterval(intervalId);
             if (lineIndex >= maxLines) {
-                container.innerHTML = ""; // Pulizia del contenitore
+                container.innerHTML = ""; 
                 lineIndex = 0;
             }
 
             const line = document.createElement("div");
             line.className = "typed-line";
-            line.style.color = currentColor; // Imposta il colore corrente
-            line.style.fontFamily = currentFont; // Imposta il font corrente
+            line.style.color = currentColor;
+            line.style.fontFamily = currentFont;
             container.appendChild(line);
 
             let charIndex = 0;
@@ -208,14 +223,42 @@
                 } else {
                     clearInterval(typingInterval);
                     lineIndex++;
-                    setTimeout(typeText, speed); // Scrivi la riga successiva con una pausa minima
+                    setTimeout(typeText, speed); 
                 }
             }, speed); 
         }
 
         document.addEventListener("DOMContentLoaded", () => {
-            typeText(); // Avvia la digitazione
+            typeText(); 
+            moveSnake(); 
         });
+
+        // Funzione per muovere il serpentino
+        let snakeDirection = "right";
+        let snakeLength = 10;
+        function moveSnake() {
+            let x = 0;
+            let y = 0;
+
+            setInterval(() => {
+                if (snakeDirection === "right") x += 2;
+                if (snakeDirection === "left") x -= 2;
+                if (snakeDirection === "up") y -= 2;
+                if (snakeDirection === "down") y += 2;
+
+                // Mantieni il serpentino dentro il box
+                if (x >= window.innerWidth - snakeLength * 10) snakeDirection = "down";
+                if (x <= 0) snakeDirection = "up";
+                if (y <= 0) snakeDirection = "right";
+                if (y >= window.innerHeight - 10) snakeDirection = "left";
+
+                snake.style.left = `${x}px`;
+                snake.style.top = `${y}px`;
+                snake.style.width = `${snakeLength * 10}px`; 
+
+                snakeLength += 0.01; // Aumenta la lunghezza gradualmente
+            }, snakeSpeed);
+        }
 
         // Eventi dei pulsanti
         const settingsButton = document.getElementById("settings-button");
@@ -242,7 +285,8 @@
         });
 
         speedSlider.addEventListener("input", () => {
-            speed = 250 / speedSlider.value; // Cambia la velocità in base allo slider (leggermente più veloce)
+            speed = 250 / speedSlider.value; 
+            snakeSpeed = 300 / speedSlider.value; // Cambia anche la velocità del serpentino
             clearInterval(intervalId); 
             typeText(); 
         });
@@ -266,8 +310,10 @@
                 document.querySelectorAll('.typed-line').forEach(el => {
                     el.style.color = currentColor;
                 });
+                snake.style.backgroundColor = currentColor; // Cambia anche il colore del serpentino
             });
         });
     </script>
 </body>
 </html>
+
