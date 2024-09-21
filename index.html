@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shroomiez</title>
+    <title>shroomiez</title>
     <style>
         body {
             background-color: #0d0d0d; 
@@ -25,14 +25,16 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
+            position: relative;
         }
 
-        .text {
-            white-space: pre; 
+        .typed-text {
+            display: inline;
+            white-space: pre;
             font-size: 1.2em;
             line-height: 1.2em;
-            position: relative;
             color: #00ff00;
+            animation: typing 2s steps(50, end) infinite;
         }
 
         #contacts-terminal {
@@ -118,6 +120,25 @@
             cursor: pointer;
             border: 2px solid #000;
         }
+
+        /* Effetto del cursore lampeggiante */
+        .blinking-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 1.2em;
+            background-color: #00ff00;
+            animation: blink 0.7s steps(1) infinite;
+            vertical-align: bottom;
+        }
+
+        @keyframes blink {
+            0%, 50% {
+                opacity: 1;
+            }
+            51%, 100% {
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -167,52 +188,42 @@
 
     <script>
         const container = document.getElementById("terminal-container");
-        let text = "SHROOMIEZ NFT SHROOMIEZ NFT "; 
-        const contactsTerminal = document.getElementById("contacts-terminal");
+        let text = "SHROOMIEZ NFT SHROOMIEZ NFT ";
         let index = 0;
-        let speed = 4;
+        let speed = 100; // Velocità del typing in ms
         let intervalId;
-        let intervalDelay = 500; // Set the interval delay to slow down the process
+        
+        function typeText() {
+            let currentText = '';
+            container.innerHTML = ''; // Reset container
+            let cursor = document.createElement("span");
+            cursor.className = "blinking-cursor"; 
+            container.appendChild(cursor);
 
-        function fillScreen() {
-            if (intervalId) clearInterval(intervalId);
             intervalId = setInterval(() => {
-                // Loop infinito, rallentato
-                if (index >= 100) { // Un numero basso per rallentare il riempimento
-                    container.innerHTML = ""; 
+                if (index < text.length) {
+                    currentText += text.charAt(index);
+                    index++;
+                    cursor.insertAdjacentHTML('beforebegin', `<span class="typed-text">${currentText}</span>`);
+                } else {
+                    // Riparte la digitazione
                     index = 0;
+                    currentText = '';
+                    container.innerHTML = ''; // Reset container
+                    container.appendChild(cursor); // Re-attach cursor
                 }
-
-                const span = document.createElement("span");
-                span.className = "text";
-                span.textContent = text;
-                container.appendChild(span);
-                index++;
-            }, intervalDelay);
-        }
-
-        function showContactsTerminal() {
-            setTimeout(() => {
-                contactsTerminal.style.display = 'block';
-                container.style.display = 'none'; 
-                clearInterval(intervalId);
-            }, 1000);
+            }, speed);
         }
 
         document.addEventListener("DOMContentLoaded", () => {
-            fillScreen();
+            typeText();
         });
 
-        // Pannello settings
+        // Eventi dei pulsanti
         const settingsButton = document.getElementById("settings-button");
         const contactsButton = document.getElementById("contacts-button");
         const settingsPanel = document.getElementById("settings-panel");
         const speedSlider = document.getElementById("speed-slider");
-        const fontSizeSlider = document.getElementById("font-size-slider");
-        const fontPicker = document.getElementById("font-picker");
-        const resetButton = document.getElementById("reset-button");
-        const closeButton = document.getElementById("close-button");
-        const colorChoices = document.querySelectorAll(".color-choice");
 
         settingsButton.addEventListener("click", () => {
             settingsPanel.style.display = "block";
@@ -222,50 +233,16 @@
             settingsPanel.style.display = "none";
         });
 
-        colorChoices.forEach(choice => {
-            choice.addEventListener("click", () => {
-                const color = choice.getAttribute("data-color");
-                document.querySelectorAll('.text').forEach(el => {
-                    el.style.color = color;
-                });
-            });
+        contactsButton.addEventListener("click", () => {
+            text = "CONTACT SHROOMIEZ6969@PROTON.ME ";
+            clearInterval(intervalId); // Ferma l'intervallo precedente
+            typeText(); // Ricomincia la digitazione
         });
 
         speedSlider.addEventListener("input", () => {
-            speed = speedSlider.value;
-            intervalDelay = 500 / speed; // Rallentare la velocità
-            fillScreen();
-        });
-
-        fontSizeSlider.addEventListener("input", () => {
-            document.querySelectorAll('.text').forEach(el => {
-                el.style.fontSize = fontSizeSlider.value + "px";
-            });
-        });
-
-        fontPicker.addEventListener("change", () => {
-            document.querySelectorAll('.text').forEach(el => {
-                el.style.fontFamily = fontPicker.value;
-            });
-        });
-
-        resetButton.addEventListener("click", () => {
-            document.querySelectorAll('.text').forEach(el => {
-                el.style.color = "#00ff00";
-                el.style.fontSize = "13px";
-                el.style.fontFamily = "'Courier New', Courier, monospace";
-            });
-            speed = 4;
-            speedSlider.value = 4;
-            intervalDelay = 500;
-            fontSizeSlider.value = 13;
-            fontPicker.value = "'Courier New', Courier, monospace";
-            fillScreen(); 
-        });
-
-        contactsButton.addEventListener("click", () => {
-            text = "CONTACT SHROOMIEZ6969@PROTON.ME "; 
-            fillScreen();
+            speed = 2000 / speedSlider.value; // Cambia la velocità in base allo slider
+            clearInterval(intervalId); // Ferma l'intervallo corrente
+            typeText(); // Riparte con la nuova velocità
         });
     </script>
 </body>
