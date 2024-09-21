@@ -21,7 +21,6 @@
 
         #terminal-container {
             display: block;
-            flex-wrap: wrap;
             width: 100%;
             height: 100%;
             overflow: hidden;
@@ -30,28 +29,10 @@
         }
 
         .typed-line {
-            white-space: pre;
+            white-space: pre-wrap; 
             font-size: 1.2em;
             line-height: 1.2em;
             color: #00ff00;
-        }
-
-        #contacts-terminal {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 60%;
-            background-color: rgba(0, 0, 0, 0.9); 
-            padding: 20px;
-            color: #00ff00;
-            font-family: 'Courier New', Courier, monospace; 
-            font-size: 1.5em;
-            display: none; 
-            border: 2px solid #00ff00;
-            box-shadow: 0px 0px 15px #00ff00;
-            text-align: center;
-            z-index: 20;
         }
 
         #settings-panel {
@@ -68,16 +49,6 @@
             text-align: left;
         }
 
-        #settings-panel input[type="range"],
-        #settings-panel select {
-            width: 100%;
-        }
-
-        #settings-panel label {
-            display: block;
-            margin: 10px 0 5px;
-        }
-
         #settings-button, #contacts-button {
             position: fixed;
             bottom: 20px;
@@ -87,7 +58,7 @@
             padding: 5px 10px;
             cursor: pointer;
             font-size: 1em;
-            margin-right: 15px; /* Margine aumentato per maggiore distanza */
+            margin-right: 15px; 
             z-index: 15;
         }
 
@@ -113,7 +84,6 @@
             border: 2px solid #000;
         }
 
-        /* Effetto del cursore lampeggiante */
         .blinking-cursor {
             display: inline-block;
             width: 8px;
@@ -136,16 +106,8 @@
 <body>
     <div id="terminal-container"></div>
 
-    <!-- Terminale per i CONTATTI -->
-    <div id="contacts-terminal">
-        <div id="contacts-text">CONTACTS</div>
-        <div id="email">shroomiez@proton.me</div>
-    </div>
-
-    <!-- Pannello Settings -->
     <div id="settings-panel">
         <h3>Settings</h3>
-        
         <label for="color-picker">Color</label>
         <div id="color-options">
             <div class="color-choice" data-color="#00ff00" style="background-color: #00ff00;"></div>
@@ -173,58 +135,57 @@
         <button id="close-button">Close</button>
     </div>
 
-    <!-- Pulsanti per aprire il pannello settings e contacts -->
     <button id="settings-button">Settings</button>
     <button id="contacts-button">Contacts</button>
 
     <script>
         const container = document.getElementById("terminal-container");
-        let text = "SHROOMIEZ.SPACE COMING SOON "; // Testo da digitare
-        let speed = 100; // Velocità della digitazione in ms
-        let currentColor = "#00ff00"; // Colore predefinito
-        let currentFont = "'Courier New', Courier, monospace"; // Font predefinito
+        let text = "SHROOMIEZ.SPACE COMING SOON "; 
+        let speed = 80; 
+        let currentColor = "#00ff00"; 
+        let currentFont = "'Courier New', Courier, monospace"; 
         let lineIndex = 0;
-        let maxLines = 100; // Numero massimo di linee prima di pulire e ricominciare
-        let intervalId;
+        let maxLines = 100; 
 
-        // Funzione per digitare il testo
         function typeText() {
             clearInterval(intervalId);
-            if (lineIndex >= maxLines) {
-                container.innerHTML = ""; 
-                lineIndex = 0;
-            }
-
-            const line = document.createElement("div");
+            let line = document.createElement("div");
             line.className = "typed-line";
             line.style.color = currentColor;
             line.style.fontFamily = currentFont;
             container.appendChild(line);
 
             let charIndex = 0;
-            let typingInterval = setInterval(() => {
+
+            function typeLoop() {
+                if (container.scrollHeight >= window.innerHeight) {
+                    container.innerHTML = ""; 
+                    lineIndex = 0;
+                    line = document.createElement("div");
+                    line.className = "typed-line";
+                    line.style.color = currentColor;
+                    line.style.fontFamily = currentFont;
+                    container.appendChild(line);
+                }
+
                 if (charIndex < text.length) {
                     line.textContent += text.charAt(charIndex);
                     charIndex++;
+                    setTimeout(typeLoop, speed);
                 } else {
-                    clearInterval(typingInterval);
-                    lineIndex++;
-                    if (container.scrollHeight <= window.innerHeight) {
-                        setTimeout(typeText, speed); 
-                    } else {
-                        container.innerHTML = ""; // Pulisce il contenitore quando raggiunge la fine
-                        lineIndex = 0;
-                        typeText(); // Ricomincia dal principio
-                    }
+                    charIndex = 0; 
+                    line.textContent += " "; 
+                    setTimeout(typeLoop, speed);
                 }
-            }, speed); 
+            }
+
+            typeLoop();
         }
 
         document.addEventListener("DOMContentLoaded", () => {
             typeText(); 
         });
 
-        // Eventi dei pulsanti
         const settingsButton = document.getElementById("settings-button");
         const contactsButton = document.getElementById("contacts-button");
         const settingsPanel = document.getElementById("settings-panel");
@@ -249,7 +210,7 @@
         });
 
         speedSlider.addEventListener("input", () => {
-            speed = 250 / speedSlider.value; 
+            speed = 300 / speedSlider.value; 
             clearInterval(intervalId); 
             typeText(); 
         });
@@ -278,4 +239,3 @@
     </script>
 </body>
 </html>
-
