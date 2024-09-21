@@ -6,9 +6,9 @@
     <title>unch4ined</title>
     <style>
         body {
-            background-color: #0d0d0d; /* Colore di sfondo scuro */
-            color: #00ff00; /* Testo verde in stile hacker */
-            font-family: 'Courier New', Courier, monospace; /* Font da terminale */
+            background-color: #0d0d0d; 
+            color: #00ff00; 
+            font-family: 'Courier New', Courier, monospace; 
             margin: 0;
             padding: 10px;
             overflow: hidden;
@@ -28,105 +28,80 @@
         }
 
         .text {
-            white-space: nowrap; /* Impedisce la rottura del testo su dispositivi mobili */
+            white-space: pre; 
             font-size: 1.2em;
             line-height: 1.2em;
             position: relative;
             color: #00ff00;
         }
 
-        /* Effetto lampeggiante per la pagina */
-        @keyframes flicker {
-            0%, 18%, 22%, 25%, 53%, 57%, 100% {
-                opacity: 1;
-            }
-            20%, 24%, 55% {
-                opacity: 0.1;
-            }
-        }
-
-        body {
-            animation: flicker 3s infinite;
-        }
-
-        /* Stile del terminale per i CONTATTI */
         #contacts-terminal {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 60%;
-            background-color: rgba(0, 0, 0, 0.9);
+            background-color: rgba(0, 0, 0, 0.9); 
             padding: 20px;
             color: #00ff00;
-            font-family: 'Courier New', Courier, monospace;
+            font-family: 'Courier New', Courier, monospace; 
             font-size: 1.5em;
-            display: none;
+            display: none; 
             border: 2px solid #00ff00;
             box-shadow: 0px 0px 15px #00ff00;
             text-align: center;
         }
 
-        #contacts-text {
-            white-space: pre-wrap;
-            animation: typing 2s steps(20, end) forwards;
-            display: inline;
-        }
-
-        #email {
-            margin-left: 10px;
+        #settings-panel {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: black;
             color: #00ff00;
-            font-family: 'Courier New', Courier, monospace;
-            display: inline;
-            animation: typing 3s steps(40, end) forwards, blinkCursor 0.7s steps(40) infinite normal;
-            border-right: 2px solid #00ff00;
+            padding: 20px;
+            border: 2px solid #00ff00;
+            display: none; /* Nascondi il pannello inizialmente */
+            z-index: 10;
+            text-align: left;
         }
 
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
+        #settings-panel input[type="range"],
+        #settings-panel select {
+            width: 100%;
         }
 
-        @keyframes blinkCursor {
-            from { border-right-color: #00ff00; }
-            to { border-right-color: transparent; }
+        #settings-panel label {
+            display: block;
+            margin: 10px 0 5px;
         }
 
-        /* Media queries per la versione mobile */
-        @media (max-width: 768px) {
-            .text {
-                font-size: 0.8em; /* Riduce la dimensione del testo per dispositivi mobili */
-                line-height: 1em;
-            }
-
-            #contacts-terminal {
-                width: 90%; /* Rende il box dei contatti più piccolo su dispositivi mobili */
-                padding: 10px;
-                font-size: 1em; /* Riduce la dimensione del testo all'interno del terminale */
-            }
-
-            #email {
-                display: block; /* Posiziona l'email su una nuova riga per dispositivi mobili */
-                margin: 5px 0 0 0;
-                border-right: none; /* Rimuove il cursore lampeggiante per migliorare la leggibilità */
-            }
-
-            body {
-                padding: 5px; /* Aggiusta il padding su dispositivi mobili */
-            }
+        #settings-panel button {
+            margin-top: 10px;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            color: #00ff00;
+            font-size: 1em;
         }
 
-        /* Media query per tablet */
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .text {
-                font-size: 1.1em; /* Adatta la dimensione del testo per tablet */
-            }
-
-            #contacts-terminal {
-                width: 70%; /* Adatta la larghezza del terminale per tablet */
-                font-size: 1.2em;
-            }
+        #settings-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: transparent;
+            border: 2px solid #00ff00;
+            color: #00ff00;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 1em;
         }
+
+        #settings-button:hover, #settings-panel button:hover {
+            background: #00ff00;
+            color: #0d0d0d;
+        }
+
     </style>
 </head>
 <body>
@@ -138,25 +113,49 @@
         <div id="email">unch4ined69@proton.me</div>
     </div>
 
+    <!-- Pannello Settings -->
+    <div id="settings-panel">
+        <h3>Settings</h3>
+        <label for="color-picker">Color</label>
+        <input type="color" id="color-picker" value="#00ff00">
+
+        <label for="speed-slider">Speed</label>
+        <input type="range" id="speed-slider" min="1" max="10" value="4">
+
+        <label for="font-size-slider">Font Size</label>
+        <input type="range" id="font-size-slider" min="10" max="30" value="13">
+
+        <label for="font-picker">Font</label>
+        <select id="font-picker">
+            <option value="'Courier New', Courier, monospace">Courier</option>
+            <option value="'Arial', sans-serif">Arial</option>
+            <option value="'Times New Roman', Times, serif">Times</option>
+            <option value="'Lucida Console', Monaco, monospace">Lucida Console</option>
+        </select>
+
+        <button id="reset-button">Reset</button>
+        <button id="close-button">Close</button>
+    </div>
+
+    <!-- Pulsante per aprire il pannello settings -->
+    <button id="settings-button">Settings</button>
+
     <script>
         const container = document.getElementById("terminal-container");
-        const text = "UNCH4INED MT "; // Testo da ripetere
+        const text = "UNCH4INED MT "; 
         const contactsTerminal = document.getElementById("contacts-terminal");
         let index = 0;
-
-        // Incrementato maxTextCount per dispositivi mobili
-        let maxTextCount = window.innerWidth < 768 ? 5000 : 1500;
-
+        let speed = 4;
+        let intervalId;
+        
         function fillScreen() {
-            if (index < maxTextCount) {
+            if (index < 3000) {
                 const span = document.createElement("span");
                 span.className = "text";
                 span.textContent = text;
                 container.appendChild(span);
                 index++;
-
-                // Continua a scrivere anche se il container sembra pieno
-                setTimeout(fillScreen, 1); // Velocità di scrittura ancora più rapida
+                setTimeout(fillScreen, 100 / speed); 
             } else {
                 showContactsTerminal();
             }
@@ -165,13 +164,68 @@
         function showContactsTerminal() {
             setTimeout(() => {
                 contactsTerminal.style.display = 'block';
-                container.style.display = 'none'; // Nascondi il contenitore con le scritte
-            }, 1000); // Attendi un secondo prima di mostrare il terminale dei contatti
+                container.style.display = 'none'; 
+            }, 1000); 
         }
 
         document.addEventListener("DOMContentLoaded", () => {
             fillScreen();
         });
+
+        // Pannello settings
+        const settingsButton = document.getElementById("settings-button");
+        const settingsPanel = document.getElementById("settings-panel");
+        const colorPicker = document.getElementById("color-picker");
+        const speedSlider = document.getElementById("speed-slider");
+        const fontSizeSlider = document.getElementById("font-size-slider");
+        const fontPicker = document.getElementById("font-picker");
+        const resetButton = document.getElementById("reset-button");
+        const closeButton = document.getElementById("close-button");
+
+        settingsButton.addEventListener("click", () => {
+            settingsPanel.style.display = "block";
+        });
+
+        closeButton.addEventListener("click", () => {
+            settingsPanel.style.display = "none";
+        });
+
+        colorPicker.addEventListener("input", () => {
+            document.documentElement.style.setProperty('--text-color', colorPicker.value);
+            document.querySelectorAll('.text').forEach(el => {
+                el.style.color = colorPicker.value;
+            });
+        });
+
+        speedSlider.addEventListener("input", () => {
+            speed = speedSlider.value;
+        });
+
+        fontSizeSlider.addEventListener("input", () => {
+            document.querySelectorAll('.text').forEach(el => {
+                el.style.fontSize = fontSizeSlider.value + "px";
+            });
+        });
+
+        fontPicker.addEventListener("change", () => {
+            document.querySelectorAll('.text').forEach(el => {
+                el.style.fontFamily = fontPicker.value;
+            });
+        });
+
+        resetButton.addEventListener("click", () => {
+            colorPicker.value = "#00ff00";
+            speedSlider.value = 4;
+            fontSizeSlider.value = 13;
+            fontPicker.value = "'Courier New', Courier, monospace";
+            document.querySelectorAll('.text').forEach(el => {
+                el.style.color = "#00ff00";
+                el.style.fontSize = "13px";
+                el.style.fontFamily = "'Courier New', Courier, monospace";
+            });
+            speed = 4;
+        });
     </script>
 </body>
 </html>
+
