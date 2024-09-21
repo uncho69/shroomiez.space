@@ -87,19 +87,19 @@
             padding: 5px 10px;
             cursor: pointer;
             font-size: 1em;
-            margin-right: 15px; /* Margine aumentato per maggiore distanza */
+            margin-right: 10px;
             z-index: 15;
         }
 
         #settings-button {
-            right: 140px;
+            right: 100px;
         }
 
         #contacts-button {
             right: 20px;
         }
 
-        #settings-button:hover, #contacts-button:hover {
+        #settings-button:hover, #contacts-button:hover, #settings-panel button:hover {
             background: #00ff00;
             color: #0d0d0d;
         }
@@ -190,7 +190,7 @@
         // Funzione per digitare il testo
         function typeText() {
             clearInterval(intervalId);
-            if (lineIndex >= maxLines) {
+            if (lineIndex >= maxLines || container.scrollHeight >= window.innerHeight) {
                 container.innerHTML = ""; 
                 lineIndex = 0;
             }
@@ -209,13 +209,11 @@
                 } else {
                     clearInterval(typingInterval);
                     lineIndex++;
-                    if (container.scrollHeight <= window.innerHeight) {
-                        setTimeout(typeText, speed); 
-                    } else {
-                        container.innerHTML = ""; // Pulisce il contenitore quando raggiunge la fine
+                    if (container.scrollHeight >= window.innerHeight) {
+                        container.innerHTML = ""; // Pulisce il contenitore
                         lineIndex = 0;
-                        typeText(); // Ricomincia dal principio
                     }
+                    typeText(); // Ricomincia immediatamente
                 }
             }, speed); 
         }
