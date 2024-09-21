@@ -32,42 +32,11 @@
             font-size: 1.2em;
             line-height: 1.2em;
             position: relative;
-            animation: glitch 2s infinite;
             color: #00ff00;
+            /* Rimosso l'animazione glitch per ridurre il lag */
         }
 
-        @keyframes glitch {
-            0% {
-                transform: none;
-                opacity: 1;
-                text-shadow: 0 0 1px #ff00ff, 0 0 2px #ff00ff, 0 0 3px #ff00ff;
-            }
-            20% {
-                transform: skew(-5deg);
-                opacity: 0.8;
-                text-shadow: -2px 2px 0px #ff00ff, 2px -2px 0px #00ffff;
-            }
-            40% {
-                transform: translate(5px, -3px);
-                opacity: 1;
-                text-shadow: -3px 3px 0px #ff00ff, 3px -3px 0px #00ffff;
-            }
-            60% {
-                transform: translate(-5px, 3px);
-                opacity: 0.8;
-                text-shadow: -1px -1px 0px #ff00ff, 1px 1px 0px #00ffff;
-            }
-            80% {
-                transform: skew(5deg);
-                opacity: 1;
-                text-shadow: 2px -2px 0px #ff00ff, -2px 2px 0px #00ffff;
-            }
-            100% {
-                transform: none;
-                opacity: 1;
-                text-shadow: 0 0 1px #ff00ff, 0 0 2px #ff00ff, 0 0 3px #ff00ff;
-            }
-        }
+        /* Rimosso l'effetto glitch per ridurre il lag */
 
         /* Effetto lampeggiante per la pagina */
         @keyframes flicker {
@@ -93,7 +62,7 @@
             background-color: rgba(0, 0, 0, 0.9); /* Sfondo nero con trasparenza */
             padding: 20px;
             color: #00ff00;
-            font-family: 'Courier New', Courier, monospace;
+            font-family: 'Courier New', Courier, monospace; /* Font da terminale */
             font-size: 1.5em;
             display: none; /* Nascondi il terminale inizialmente */
             border: 2px solid #00ff00;
@@ -103,8 +72,7 @@
 
         #contacts-text {
             white-space: pre-wrap; /* Mantieni il testo come nel terminale */
-            animation: typing 2s steps(20, end) forwards, blinkCursor 0.7s steps(40) infinite normal;
-            border-right: 2px solid #00ff00; /* Cursore lampeggiante */
+            animation: typing 2s steps(20, end) forwards;
             display: inline;
         }
 
@@ -139,8 +107,8 @@
 
     <script>
         const container = document.getElementById("terminal-container");
-        const text = "unch4ined ";
-        const maxTextCount = 3000; // Aumenta questo numero per ottenere più testo
+        const text = "UNCH4INED MT "; // Aggiornato per mostrare "UNCH4INED MT"
+        const maxTextCount = 1500; // Ridotto il numero per ridurre il lag e velocizzare il riempimento
         const contactsTerminal = document.getElementById("contacts-terminal");
         let index = 0;
 
@@ -154,7 +122,7 @@
 
                 // Continua a scrivere finché la pagina non è piena
                 if (container.scrollHeight <= window.innerHeight) {
-                    setTimeout(fillScreen, 2); // Velocità di scrittura rapida
+                    setTimeout(fillScreen, 1); // Velocità di scrittura ancora più rapida
                 } else {
                     // Quando ha finito di scrivere, mostra il terminale dei contatti
                     showContactsTerminal();
@@ -178,4 +146,3 @@
     </script>
 </body>
 </html>
-
