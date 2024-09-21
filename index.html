@@ -159,7 +159,7 @@
     <script>
         const container = document.getElementById("terminal-container");
         const text = "unch4ined ";
-        const maxTextCount = 1000; // Ridotto il numero totale per velocizzare il riempimento
+        const maxTextCount = 2000; // Ridotto il numero totale per riempire più velocemente
 
         let index = 0;
         function fillScreen() {
@@ -172,25 +172,22 @@
 
                 // Continua a scrivere fino a riempire la pagina
                 if (container.scrollHeight <= window.innerHeight) {
-                    setTimeout(fillScreen, 1); // Velocizza la scrittura
+                    setTimeout(fillScreen, 0); // Velocizza ulteriormente la scrittura
                 } else {
-                    showContactsTerminal();
+                    setTimeout(showContactsTerminal, 4000 - (index * 0.005)); // Visualizza il terminale esattamente dopo 4 secondi
                 }
-            } else {
-                showContactsTerminal();
             }
         }
 
         function showContactsTerminal() {
-            setTimeout(() => {
-                contactsTerminal.style.display = 'block';
-                container.style.display = 'none'; // Nascondi il contenitore con le scritte
-                contactsTerminal.style.animation = 'terminal-glitch 0.5s ease-in-out forwards'; // Attiva l'animazione glitch
-            }, 500); // Ridotto il tempo di attesa a mezzo secondo
+            contactsTerminal.style.display = 'block';
+            container.style.display = 'none'; // Nascondi il contenitore con le scritte
+            contactsTerminal.style.animation = 'terminal-glitch 0.5s ease-in-out forwards'; // Attiva l'animazione glitch
         }
 
         document.addEventListener("DOMContentLoaded", () => {
             fillScreen();
+            setTimeout(showContactsTerminal, 4000); // Forza l'apparizione del terminale dopo 4 secondi
         });
     </script>
 </body>
