@@ -28,7 +28,7 @@
         }
 
         .text {
-            white-space: pre; /* Mantieni il testo senza interruzioni */
+            white-space: nowrap; /* Impedisce la rottura del testo su dispositivi mobili */
             font-size: 1.2em;
             line-height: 1.2em;
             position: relative;
@@ -56,19 +56,19 @@
             left: 50%;
             transform: translate(-50%, -50%);
             width: 60%;
-            background-color: rgba(0, 0, 0, 0.9); /* Sfondo nero con trasparenza */
+            background-color: rgba(0, 0, 0, 0.9);
             padding: 20px;
             color: #00ff00;
-            font-family: 'Courier New', Courier, monospace; /* Font da terminale */
+            font-family: 'Courier New', Courier, monospace;
             font-size: 1.5em;
-            display: none; /* Nascondi il terminale inizialmente */
+            display: none;
             border: 2px solid #00ff00;
             box-shadow: 0px 0px 15px #00ff00;
             text-align: center;
         }
 
         #contacts-text {
-            white-space: pre-wrap; /* Mantieni il testo come nel terminale */
+            white-space: pre-wrap;
             animation: typing 2s steps(20, end) forwards;
             display: inline;
         }
@@ -95,7 +95,7 @@
         /* Media queries per la versione mobile */
         @media (max-width: 768px) {
             .text {
-                font-size: 0.9em; /* Riduce ulteriormente la dimensione del testo per dispositivi mobili */
+                font-size: 0.8em; /* Riduce la dimensione del testo per dispositivi mobili */
                 line-height: 1em;
             }
 
@@ -124,7 +124,7 @@
 
             #contacts-terminal {
                 width: 70%; /* Adatta la larghezza del terminale per tablet */
-                font-size: 1.2em; /* Leggermente più piccolo sui tablet */
+                font-size: 1.2em;
             }
         }
     </style>
@@ -140,12 +140,12 @@
 
     <script>
         const container = document.getElementById("terminal-container");
-        const text = "UNCH4INED MT "; // Aggiornato per mostrare "UNCH4INED MT"
+        const text = "UNCH4INED MT "; // Testo da ripetere
         const contactsTerminal = document.getElementById("contacts-terminal");
         let index = 0;
 
-        // Adattare il maxTextCount in base alle dimensioni dello schermo
-        let maxTextCount = window.innerWidth < 768 ? 3000 : 1500; // Incrementato il maxTextCount per dispositivi mobili
+        // Incrementato maxTextCount per dispositivi mobili
+        let maxTextCount = window.innerWidth < 768 ? 5000 : 1500;
 
         function fillScreen() {
             if (index < maxTextCount) {
@@ -155,15 +155,9 @@
                 container.appendChild(span);
                 index++;
 
-                // Continua a scrivere finché la pagina non è piena
-                if (container.scrollHeight <= window.innerHeight) {
-                    setTimeout(fillScreen, 1); // Velocità di scrittura ancora più rapida
-                } else {
-                    // Quando ha finito di scrivere, mostra il terminale dei contatti
-                    showContactsTerminal();
-                }
+                // Continua a scrivere anche se il container sembra pieno
+                setTimeout(fillScreen, 1); // Velocità di scrittura ancora più rapida
             } else {
-                // Se il maxTextCount è raggiunto, mostra il terminale dei contatti
                 showContactsTerminal();
             }
         }
