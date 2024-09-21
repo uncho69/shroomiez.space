@@ -95,8 +95,8 @@
         /* Media queries per la versione mobile */
         @media (max-width: 768px) {
             .text {
-                font-size: 1em; /* Riduce la dimensione del testo per dispositivi mobili */
-                line-height: 1.1em;
+                font-size: 0.9em; /* Riduce ulteriormente la dimensione del testo per dispositivi mobili */
+                line-height: 1em;
             }
 
             #contacts-terminal {
@@ -141,9 +141,11 @@
     <script>
         const container = document.getElementById("terminal-container");
         const text = "UNCH4INED MT "; // Aggiornato per mostrare "UNCH4INED MT"
-        const maxTextCount = 1500; // Ridotto il numero per ridurre il lag e velocizzare il riempimento
         const contactsTerminal = document.getElementById("contacts-terminal");
         let index = 0;
+
+        // Adattare il maxTextCount in base alle dimensioni dello schermo
+        let maxTextCount = window.innerWidth < 768 ? 3000 : 1500; // Incrementato il maxTextCount per dispositivi mobili
 
         function fillScreen() {
             if (index < maxTextCount) {
