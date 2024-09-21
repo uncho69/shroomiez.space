@@ -188,7 +188,12 @@
                 container.style.display = 'none';
                 glitchSound.play(); // Suono glitch al momento della visualizzazione
                 contactsTerminal.style.animation = 'terminal-glitch 0.5s ease-in-out forwards';
-            }, 1000);
+
+                // Rimuove gli effetti dal background
+                document.getElementById('matrix').style.display = 'none'; // Nasconde l'effetto Matrix
+                document.body.style.animation = 'none'; // Ferma l'effetto flicker
+                
+            }, 3000); // Il terminale appare dopo 3 secondi
         }
 
         // Effetto Matrix
