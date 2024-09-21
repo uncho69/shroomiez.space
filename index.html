@@ -82,17 +82,56 @@
         body {
             animation: flicker 3s infinite;
         }
+
+        /* Stile del terminale per i CONTATTI */
+        #contacts-terminal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            background-color: rgba(0, 0, 0, 0.9); /* Sfondo nero con trasparenza */
+            padding: 20px;
+            color: #00ff00;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.5em;
+            display: none; /* Nascondi il terminale inizialmente */
+            border: 2px solid #00ff00;
+            box-shadow: 0px 0px 15px #00ff00;
+        }
+
+        #contacts-text {
+            white-space: pre-wrap; /* Mantieni il testo come nel terminale */
+            animation: typing 2s steps(20, end) forwards, blinkCursor 0.7s steps(40) infinite normal;
+            border-right: 2px solid #00ff00; /* Cursore lampeggiante */
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blinkCursor {
+            from { border-right-color: #00ff00; }
+            to { border-right-color: transparent; }
+        }
     </style>
 </head>
 <body>
     <div id="terminal-container"></div>
 
+    <!-- Terminale per i CONTATTI -->
+    <div id="contacts-terminal">
+        <div id="contacts-text">CONTACTS</div>
+    </div>
+
     <script>
         const container = document.getElementById("terminal-container");
         const text = "unch4ined ";
         const maxTextCount = 3000; // Aumenta questo numero per ottenere più testo
-
+        const contactsTerminal = document.getElementById("contacts-terminal");
         let index = 0;
+
         function fillScreen() {
             if (index < maxTextCount) {
                 const span = document.createElement("span");
@@ -100,12 +139,24 @@
                 span.textContent = text;
                 container.appendChild(span);
                 index++;
-                
-                // Calcola se la pagina è stata riempita completamente
+
+                // Continua a scrivere finché la pagina non è piena
                 if (container.scrollHeight <= window.innerHeight) {
                     setTimeout(fillScreen, 2); // Velocità di scrittura rapida
+                } else {
+                    // Quando ha finito di scrivere, mostra il terminale dei contatti
+                    showContactsTerminal();
                 }
+            } else {
+                // Se il maxTextCount è raggiunto, mostra il terminale dei contatti
+                showContactsTerminal();
             }
+        }
+
+        function showContactsTerminal() {
+            setTimeout(() => {
+                contactsTerminal.style.display = 'block';
+            }, 1000); // Attendi un secondo prima di mostrare il terminale dei contatti
         }
 
         document.addEventListener("DOMContentLoaded", () => {
