@@ -33,7 +33,7 @@
             white-space: pre;
             font-size: 1.2em;
             line-height: 1.2em;
-            color: #00ff00; /* Colore predefinito */
+            color: #00ff00;
         }
 
         #contacts-terminal {
@@ -189,8 +189,8 @@
 
     <script>
         const container = document.getElementById("terminal-container");
-        let text = "SHROOMIEZ.SPACE COMING SOON "; // Testo aggiornato
-        let speed = 120; // Velocità di digitazione leggermente più lenta
+        let text = "SHROOMIEZ.SPACE COMING SOON "; // Testo da digitare
+        let speed = 120; // Velocità della digitazione in ms
         let currentColor = "#00ff00"; // Colore predefinito
         let currentFont = "'Courier New', Courier, monospace"; // Font predefinito
         let lineIndex = 0;
@@ -199,39 +199,32 @@
 
         function typeText() {
             clearInterval(intervalId);
-            intervalId = setInterval(() => {
-                if (lineIndex >= maxLines) {
-                    container.innerHTML = "";
-                    lineIndex = 0;
+            if (lineIndex >= maxLines) {
+                container.innerHTML = ""; // Pulizia del contenitore
+                lineIndex = 0;
+            }
+
+            const line = document.createElement("div");
+            line.className = "typed-line";
+            line.style.color = currentColor; // Imposta il colore corrente
+            line.style.fontFamily = currentFont; // Imposta il font corrente
+            container.appendChild(line);
+
+            let charIndex = 0;
+            let typingInterval = setInterval(() => {
+                if (charIndex < text.length) {
+                    line.textContent += text.charAt(charIndex);
+                    charIndex++;
+                } else {
+                    clearInterval(typingInterval);
+                    lineIndex++;
+                    setTimeout(typeText, speed); // Scrivi la riga successiva con una pausa minima
                 }
-
-                const line = document.createElement("div");
-                line.className = "typed-line";
-                line.style.color = currentColor; // Imposta il colore corrente
-                line.style.fontFamily = currentFont; // Imposta il font corrente
-
-                let charIndex = 0;
-                let currentText = '';
-
-                const typingInterval = setInterval(() => {
-                    if (charIndex < text.length) {
-                        currentText += text.charAt(charIndex);
-                        line.textContent = currentText;
-                        charIndex++;
-                    } else {
-                        clearInterval(typingInterval);
-                        container.appendChild(line);
-                        lineIndex++;
-                        typeText(); // Inizia a scrivere la prossima linea
-                    }
-                }, speed); 
-                
-                container.appendChild(line);
-            }, 0);
+            }, speed); 
         }
 
         document.addEventListener("DOMContentLoaded", () => {
-            typeText();
+            typeText(); // Avvia la digitazione
         });
 
         // Eventi dei pulsanti
@@ -260,7 +253,7 @@
         });
 
         speedSlider.addEventListener("input", () => {
-            speed = 400 / speedSlider.value;
+            speed = 300 / speedSlider.value; // Cambia la velocità in base allo slider
             clearInterval(intervalId); 
             typeText(); 
         });
@@ -282,17 +275,15 @@
             currentColor = "#00ff00"; 
             currentFont = "'Courier New', Courier, monospace";
             speed = 120; 
-
             document.querySelectorAll('.typed-line').forEach(el => {
                 el.style.color = currentColor;
                 el.style.fontSize = "13px";
                 el.style.fontFamily = currentFont;
             });
-
             speedSlider.value = 4;
             fontSizeSlider.value = 13;
             fontPicker.value = currentFont;
-            clearInterval(intervalId); 
+            clearInterval(intervalId);
             typeText(); 
         });
 
@@ -307,3 +298,4 @@
     </script>
 </body>
 </html>
+
