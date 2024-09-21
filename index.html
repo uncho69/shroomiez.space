@@ -131,15 +131,6 @@
                 opacity: 0;
             }
         }
-
-        /* Stile del serpentino */
-        #snake {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background-color: #00ff00;
-            z-index: 5;
-        }
     </style>
 </head>
 <body>
@@ -186,15 +177,10 @@
     <button id="settings-button">Settings</button>
     <button id="contacts-button">Contacts</button>
 
-    <!-- Serpentino -->
-    <div id="snake">=========</div>
-
     <script>
         const container = document.getElementById("terminal-container");
-        const snake = document.getElementById("snake");
         let text = "SHROOMIEZ.SPACE COMING SOON "; // Testo da digitare
         let speed = 100; // Velocità della digitazione in ms
-        let snakeSpeed = 100; // Velocità iniziale del serpentino
         let currentColor = "#00ff00"; // Colore predefinito
         let currentFont = "'Courier New', Courier, monospace"; // Font predefinito
         let lineIndex = 0;
@@ -223,42 +209,20 @@
                 } else {
                     clearInterval(typingInterval);
                     lineIndex++;
-                    setTimeout(typeText, speed); 
+                    if (container.scrollHeight <= window.innerHeight) {
+                        setTimeout(typeText, speed); 
+                    } else {
+                        container.innerHTML = ""; // Pulisce il contenitore quando raggiunge la fine
+                        lineIndex = 0;
+                        typeText(); // Ricomincia dal principio
+                    }
                 }
             }, speed); 
         }
 
         document.addEventListener("DOMContentLoaded", () => {
             typeText(); 
-            moveSnake(); 
         });
-
-        // Funzione per muovere il serpentino
-        let snakeDirection = "right";
-        let snakeLength = 10;
-        function moveSnake() {
-            let x = 0;
-            let y = 0;
-
-            setInterval(() => {
-                if (snakeDirection === "right") x += 2;
-                if (snakeDirection === "left") x -= 2;
-                if (snakeDirection === "up") y -= 2;
-                if (snakeDirection === "down") y += 2;
-
-                // Mantieni il serpentino dentro il box
-                if (x >= window.innerWidth - snakeLength * 10) snakeDirection = "down";
-                if (x <= 0) snakeDirection = "up";
-                if (y <= 0) snakeDirection = "right";
-                if (y >= window.innerHeight - 10) snakeDirection = "left";
-
-                snake.style.left = `${x}px`;
-                snake.style.top = `${y}px`;
-                snake.style.width = `${snakeLength * 10}px`; 
-
-                snakeLength += 0.01; // Aumenta la lunghezza gradualmente
-            }, snakeSpeed);
-        }
 
         // Eventi dei pulsanti
         const settingsButton = document.getElementById("settings-button");
@@ -286,7 +250,6 @@
 
         speedSlider.addEventListener("input", () => {
             speed = 250 / speedSlider.value; 
-            snakeSpeed = 300 / speedSlider.value; // Cambia anche la velocità del serpentino
             clearInterval(intervalId); 
             typeText(); 
         });
@@ -310,10 +273,8 @@
                 document.querySelectorAll('.typed-line').forEach(el => {
                     el.style.color = currentColor;
                 });
-                snake.style.backgroundColor = currentColor; // Cambia anche il colore del serpentino
             });
         });
     </script>
 </body>
 </html>
-
