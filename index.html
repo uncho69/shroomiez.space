@@ -163,18 +163,22 @@
         const contactsTerminal = document.getElementById("contacts-terminal");
         let index = 0;
         let speed = 4;
-        
+        let intervalId;
+
         function fillScreen() {
-            if (index < 3000) {
+            intervalId = setInterval(() => {
+                if (index >= 3000) {
+                    clearInterval(intervalId);
+                    showContactsTerminal();
+                    return;
+                }
+
                 const span = document.createElement("span");
                 span.className = "text";
                 span.textContent = text;
                 container.appendChild(span);
                 index++;
-                setTimeout(fillScreen, 100 / speed); 
-            } else {
-                showContactsTerminal();
-            }
+            }, 100 / speed);
         }
 
         function showContactsTerminal() {
@@ -217,6 +221,8 @@
 
         speedSlider.addEventListener("input", () => {
             speed = speedSlider.value;
+            clearInterval(intervalId); // Stop current interval
+            fillScreen(); // Restart with updated speed
         });
 
         fontSizeSlider.addEventListener("input", () => {
@@ -241,6 +247,8 @@
             speedSlider.value = 4;
             fontSizeSlider.value = 13;
             fontPicker.value = "'Courier New', Courier, monospace";
+            clearInterval(intervalId); // Stop current interval
+            fillScreen(); // Restart with default speed
         });
     </script>
 </body>
