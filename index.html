@@ -34,6 +34,7 @@
             font-size: 1.2em;
             line-height: 1.2em;
             color: #00ff00;
+            text-align: left; /* Allineamento iniziale */
         }
 
         #contacts-terminal {
@@ -66,25 +67,6 @@
             display: none; 
             z-index: 20;
             text-align: left;
-        }
-
-        #settings-panel input[type="range"],
-        #settings-panel select {
-            width: 100%;
-        }
-
-        #settings-panel label {
-            display: block;
-            margin: 10px 0 5px;
-        }
-
-        #settings-panel button {
-            margin-top: 10px;
-            cursor: pointer;
-            background: transparent;
-            border: none;
-            color: #00ff00;
-            font-size: 1em;
         }
 
         #settings-button, #contacts-button {
@@ -194,20 +176,22 @@
         let currentColor = "#00ff00"; // Colore predefinito
         let currentFont = "'Courier New', Courier, monospace"; // Font predefinito
         let lineIndex = 0;
-        let maxLines = 100; // Numero massimo di linee prima di pulire e ricominciare
-        let intervalId;
+        let maxLines = 100; 
+        let isLeftAligned = true; // Variabile per tracciare l'allineamento corrente
 
         function typeText() {
             clearInterval(intervalId);
             if (lineIndex >= maxLines) {
-                container.innerHTML = ""; // Pulizia del contenitore
+                container.innerHTML = ""; 
                 lineIndex = 0;
+                isLeftAligned = true; // Ripristina allineamento a sinistra all'inizio
             }
 
             const line = document.createElement("div");
             line.className = "typed-line";
-            line.style.color = currentColor; // Imposta il colore corrente
-            line.style.fontFamily = currentFont; // Imposta il font corrente
+            line.style.color = currentColor; 
+            line.style.fontFamily = currentFont; 
+            line.style.textAlign = isLeftAligned ? "left" : "right"; // Cambia allineamento
             container.appendChild(line);
 
             let charIndex = 0;
@@ -218,16 +202,17 @@
                 } else {
                     clearInterval(typingInterval);
                     lineIndex++;
-                    setTimeout(typeText, speed); // Scrivi la riga successiva con una pausa minima
+                    // Alterna l'allineamento per la riga successiva
+                    isLeftAligned = !isLeftAligned;
+                    setTimeout(typeText, speed);
                 }
             }, speed); 
         }
 
         document.addEventListener("DOMContentLoaded", () => {
-            typeText(); // Avvia la digitazione
+            typeText(); 
         });
 
-        // Eventi dei pulsanti
         const settingsButton = document.getElementById("settings-button");
         const contactsButton = document.getElementById("contacts-button");
         const settingsPanel = document.getElementById("settings-panel");
@@ -253,7 +238,7 @@
         });
 
         speedSlider.addEventListener("input", () => {
-            speed = 300 / speedSlider.value; // Cambia la velocità in base allo slider
+            speed = 300 / speedSlider.value; 
             clearInterval(intervalId); 
             typeText(); 
         });
@@ -298,4 +283,5 @@
     </script>
 </body>
 </html>
+
 
