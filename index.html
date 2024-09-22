@@ -14,18 +14,23 @@
             overflow: hidden;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
+            align-items: center; /* Centra verticalmente */
             flex-wrap: wrap;
             height: 100vh;
+            position: relative;
         }
 
         #terminal-container {
-            display: block;
-            flex-wrap: wrap;
+            display: flex;
+            flex-direction: column; /* Posiziona le righe una sotto l'altra */
+            justify-content: center; /* Centra orizzontalmente */
+            align-items: center; /* Centra verticalmente */
             width: 100%;
             height: 100%;
             overflow: hidden;
-            position: relative;
+            position: absolute; /* Posiziona sopra altri elementi */
+            top: 50%;
+            transform: translateY(-50%); /* Centra esattamente */
             padding: 10px;
         }
 
@@ -34,14 +39,24 @@
             font-size: 1.2em;
             line-height: 1.2em;
             color: #00ff00;
+            text-align: center; /* Testo centrato */
         }
 
-        #contacts-terminal {
+        #view-counter {
+            position: fixed;
+            top: 10px;
+            right: 20px;
+            color: #00ff00;
+            font-family: 'Courier New', Courier, monospace; 
+            z-index: 50;
+            font-size: 1.2em;
+        }
+
+        #contacts-terminal, #settings-panel {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 60%;
             background-color: rgba(0, 0, 0, 0.9); 
             padding: 20px;
             color: #00ff00;
@@ -50,22 +65,21 @@
             display: none; 
             border: 2px solid #00ff00;
             box-shadow: 0px 0px 15px #00ff00;
-            text-align: center;
             z-index: 20;
         }
 
         #settings-panel {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: black;
-            color: #00ff00;
-            padding: 20px;
-            border: 2px solid #00ff00;
-            display: none; 
-            z-index: 20;
             text-align: left;
+        }
+
+        #settings-panel input[type="range"],
+        #settings-panel select {
+            width: 100%;
+        }
+
+        #settings-panel label {
+            display: block;
+            margin: 10px 0 5px;
         }
 
         #settings-button, #contacts-button {
@@ -103,7 +117,6 @@
             border: 2px solid #000;
         }
 
-        /* Effetto del cursore lampeggiante */
         .blinking-cursor {
             display: inline-block;
             width: 8px;
@@ -111,18 +124,6 @@
             background-color: #00ff00;
             animation: blink 0.7s steps(1) infinite;
             vertical-align: bottom;
-        }
-
-        #view-counter {
-            position: fixed;
-            top: 10px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.8);
-            color: #00ff00;
-            padding: 5px 10px;
-            border: 1px solid #00ff00;
-            font-size: 1em;
-            z-index: 15;
         }
 
         @keyframes blink {
@@ -136,16 +137,14 @@
     </style>
 </head>
 <body>
+    <div id="view-counter">Visitors: <span id="counter">0</span></div>
     <div id="terminal-container"></div>
-    <div id="view-counter">Views: <span id="view-count">0</span></div>
 
-    <!-- Terminale per i CONTATTI -->
     <div id="contacts-terminal">
         <div id="contacts-text">CONTACTS</div>
         <div id="email">shroomiez@proton.me</div>
     </div>
 
-    <!-- Pannello Settings -->
     <div id="settings-panel">
         <h3>Settings</h3>
         
@@ -176,33 +175,29 @@
         <button id="close-button">Close</button>
     </div>
 
-    <!-- Pulsanti per aprire il pannello settings e contacts -->
     <button id="settings-button">Settings</button>
     <button id="contacts-button">Contacts</button>
 
     <script>
         const container = document.getElementById("terminal-container");
-        const viewCountElement = document.getElementById("view-count");
-        let text = "SHROOMIEZ.SPACE COMING SOON "; // Testo da digitare
-        let speed = 100; // Velocità della digitazione in ms
-        let currentColor = "#00ff00"; // Colore predefinito
-        let currentFont = "'Courier New', Courier, monospace"; // Font predefinito
+        let text = "SHROOMIEZ NFT COMING SOON "; 
+        let speed = 120; 
+        let currentColor = "#00ff00"; 
+        let currentFont = "'Courier New', Courier, monospace"; 
         let lineIndex = 0;
-        let side = "left"; // Traccia se il testo deve essere allineato a sinistra o destra
+        let intervalId;
 
         function typeText() {
             clearInterval(intervalId);
-            if (lineIndex >= maxLines) {
-                container.innerHTML = ""; // Pulizia del contenitore
+            if (lineIndex >= 100) {
+                container.innerHTML = ""; 
                 lineIndex = 0;
-                side = (side === "left") ? "right" : "left"; 
             }
 
             const line = document.createElement("div");
             line.className = "typed-line";
             line.style.color = currentColor; 
             line.style.fontFamily = currentFont; 
-            line.style.textAlign = side === "left" ? "left" : "right"; 
             container.appendChild(line);
 
             let charIndex = 0;
@@ -213,30 +208,14 @@
                 } else {
                     clearInterval(typingInterval);
                     lineIndex++;
-                    setTimeout(typeText, speed); // Scrivi la riga successiva con una pausa minima
+                    typeText(); 
                 }
             }, speed); 
         }
 
         document.addEventListener("DOMContentLoaded", () => {
-            typeText(); 
-            
-            // Inizializza il contatore delle visualizzazioni
-            fetch('https://api.countapi.xyz/hit/shroomiez.space/visits')
-                .then(response => response.json())
-                .then(data => {
-                    viewCountElement.textContent = data.value;
-                });
+            typeText();
         });
-
-        const settingsButton = document.getElementById("settings-button");
-        const contactsButton = document.getElementById("contacts-button");
-        const settingsPanel = document.getElementById("settings-panel");
-        const closeButton = document.getElementById("close-button");
-        const speedSlider = document.getElementById("speed-slider");
-        const fontSizeSlider = document.getElementById("font-size-slider");
-        const fontPicker = document.getElementById("font-picker");
-        const colorChoices = document.querySelectorAll(".color-choice");
 
         settingsButton.addEventListener("click", () => {
             settingsPanel.style.display = "block";
@@ -252,25 +231,6 @@
             typeText(); 
         });
 
-        speedSlider.addEventListener("input", () => {
-            speed = 300 / speedSlider.value; 
-            clearInterval(intervalId); 
-            typeText(); 
-        });
-
-        fontSizeSlider.addEventListener("input", () => {
-            document.querySelectorAll('.typed-line').forEach(el => {
-                el.style.fontSize = fontSizeSlider.value + "px";
-            });
-        });
-
-        fontPicker.addEventListener("change", () => {
-            currentFont = fontPicker.value; 
-            document.querySelectorAll('.typed-line').forEach(el => {
-                el.style.fontFamily = currentFont;
-            });
-        });
-
         colorChoices.forEach(choice => {
             choice.addEventListener("click", () => {
                 currentColor = choice.getAttribute("data-color");
@@ -279,6 +239,16 @@
                 });
             });
         });
+
+        function updateCounter() {
+            fetch('https://api.countapi.xyz/hit/shroomiez/visits')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('counter').textContent = data.value;
+                });
+        }
+
+        updateCounter(); 
     </script>
 </body>
 </html>
