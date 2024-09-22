@@ -21,6 +21,7 @@
 
         #terminal-container {
             display: block;
+            flex-wrap: wrap;
             width: 100%;
             height: 100%;
             overflow: hidden;
@@ -29,10 +30,28 @@
         }
 
         .typed-line {
-            white-space: pre-wrap; 
+            white-space: pre;
             font-size: 1.2em;
             line-height: 1.2em;
             color: #00ff00;
+        }
+
+        #contacts-terminal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            background-color: rgba(0, 0, 0, 0.9); 
+            padding: 20px;
+            color: #00ff00;
+            font-family: 'Courier New', Courier, monospace; 
+            font-size: 1.5em;
+            display: none; 
+            border: 2px solid #00ff00;
+            box-shadow: 0px 0px 15px #00ff00;
+            text-align: center;
+            z-index: 20;
         }
 
         #settings-panel {
@@ -49,6 +68,25 @@
             text-align: left;
         }
 
+        #settings-panel input[type="range"],
+        #settings-panel select {
+            width: 100%;
+        }
+
+        #settings-panel label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        #settings-panel button {
+            margin-top: 10px;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            color: #00ff00;
+            font-size: 1em;
+        }
+
         #settings-button, #contacts-button {
             position: fixed;
             bottom: 20px;
@@ -58,19 +96,19 @@
             padding: 5px 10px;
             cursor: pointer;
             font-size: 1em;
-            margin-right: 15px; 
+            margin-right: 10px;
             z-index: 15;
         }
 
         #settings-button {
-            right: 140px;
+            right: 100px;
         }
 
         #contacts-button {
             right: 20px;
         }
 
-        #settings-button:hover, #contacts-button:hover {
+        #settings-button:hover, #contacts-button:hover, #settings-panel button:hover {
             background: #00ff00;
             color: #0d0d0d;
         }
@@ -84,6 +122,7 @@
             border: 2px solid #000;
         }
 
+        /* Effetto del cursore lampeggiante */
         .blinking-cursor {
             display: inline-block;
             width: 8px;
@@ -106,8 +145,16 @@
 <body>
     <div id="terminal-container"></div>
 
+    <!-- Terminale per i CONTATTI -->
+    <div id="contacts-terminal">
+        <div id="contacts-text">CONTACTS</div>
+        <div id="email">shroomiez@proton.me</div>
+    </div>
+
+    <!-- Pannello Settings -->
     <div id="settings-panel">
         <h3>Settings</h3>
+        
         <label for="color-picker">Color</label>
         <div id="color-options">
             <div class="color-choice" data-color="#00ff00" style="background-color: #00ff00;"></div>
@@ -132,60 +179,55 @@
             <option value="'Lucida Console', Monaco, monospace">Lucida Console</option>
         </select>
 
+        <button id="reset-button">Reset</button>
         <button id="close-button">Close</button>
     </div>
 
+    <!-- Pulsanti per aprire il pannello settings e contacts -->
     <button id="settings-button">Settings</button>
     <button id="contacts-button">Contacts</button>
 
     <script>
         const container = document.getElementById("terminal-container");
-        let text = "SHROOMIEZ.SPACE COMING SOON "; 
-        let speed = 80; 
-        let currentColor = "#00ff00"; 
-        let currentFont = "'Courier New', Courier, monospace"; 
+        let text = "SHROOMIEZ.SPACE COMING SOON "; // Testo da digitare
+        let speed = 120; // Velocità della digitazione in ms
+        let currentColor = "#00ff00"; // Colore predefinito
+        let currentFont = "'Courier New', Courier, monospace"; // Font predefinito
         let lineIndex = 0;
-        let maxLines = 100; 
+        let maxLines = 100; // Numero massimo di linee prima di pulire e ricominciare
+        let intervalId;
 
         function typeText() {
             clearInterval(intervalId);
-            let line = document.createElement("div");
+            if (lineIndex >= maxLines) {
+                container.innerHTML = ""; // Pulizia del contenitore
+                lineIndex = 0;
+            }
+
+            const line = document.createElement("div");
             line.className = "typed-line";
-            line.style.color = currentColor;
-            line.style.fontFamily = currentFont;
+            line.style.color = currentColor; // Imposta il colore corrente
+            line.style.fontFamily = currentFont; // Imposta il font corrente
             container.appendChild(line);
 
             let charIndex = 0;
-
-            function typeLoop() {
-                if (container.scrollHeight >= window.innerHeight) {
-                    container.innerHTML = ""; 
-                    lineIndex = 0;
-                    line = document.createElement("div");
-                    line.className = "typed-line";
-                    line.style.color = currentColor;
-                    line.style.fontFamily = currentFont;
-                    container.appendChild(line);
-                }
-
+            let typingInterval = setInterval(() => {
                 if (charIndex < text.length) {
                     line.textContent += text.charAt(charIndex);
                     charIndex++;
-                    setTimeout(typeLoop, speed);
                 } else {
-                    charIndex = 0; 
-                    line.textContent += " "; 
-                    setTimeout(typeLoop, speed);
+                    clearInterval(typingInterval);
+                    lineIndex++;
+                    setTimeout(typeText, speed); // Scrivi la riga successiva con una pausa minima
                 }
-            }
-
-            typeLoop();
+            }, speed); 
         }
 
         document.addEventListener("DOMContentLoaded", () => {
-            typeText(); 
+            typeText(); // Avvia la digitazione
         });
 
+        // Eventi dei pulsanti
         const settingsButton = document.getElementById("settings-button");
         const contactsButton = document.getElementById("contacts-button");
         const settingsPanel = document.getElementById("settings-panel");
@@ -193,6 +235,7 @@
         const speedSlider = document.getElementById("speed-slider");
         const fontSizeSlider = document.getElementById("font-size-slider");
         const fontPicker = document.getElementById("font-picker");
+        const resetButton = document.getElementById("reset-button");
         const colorChoices = document.querySelectorAll(".color-choice");
 
         settingsButton.addEventListener("click", () => {
@@ -210,7 +253,7 @@
         });
 
         speedSlider.addEventListener("input", () => {
-            speed = 300 / speedSlider.value; 
+            speed = 300 / speedSlider.value; // Cambia la velocità in base allo slider
             clearInterval(intervalId); 
             typeText(); 
         });
@@ -228,6 +271,22 @@
             });
         });
 
+        resetButton.addEventListener("click", () => {
+            currentColor = "#00ff00"; 
+            currentFont = "'Courier New', Courier, monospace";
+            speed = 120; 
+            document.querySelectorAll('.typed-line').forEach(el => {
+                el.style.color = currentColor;
+                el.style.fontSize = "13px";
+                el.style.fontFamily = currentFont;
+            });
+            speedSlider.value = 4;
+            fontSizeSlider.value = 13;
+            fontPicker.value = currentFont;
+            clearInterval(intervalId);
+            typeText(); 
+        });
+
         colorChoices.forEach(choice => {
             choice.addEventListener("click", () => {
                 currentColor = choice.getAttribute("data-color");
@@ -239,3 +298,4 @@
     </script>
 </body>
 </html>
+
