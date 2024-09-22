@@ -1,21 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- ... (resto dell'head rimane invariato) ... -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>shroomiez</title>
     <style>
-        /* ... (altri stili rimangono invariati) ... */
-
-        /* Modifiche per i pulsanti */
-        #buttons-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
+        body {
+            background-color: #0d0d0d; 
+            color: #00ff00; 
+            font-family: 'Courier New', Courier, monospace; 
+            margin: 0;
+            padding: 10px;
+            overflow: hidden;
             display: flex;
-            flex-direction: row;
-            z-index: 15;
+            justify-content: center;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            height: 100vh;
         }
 
-        #buttons-container button {
+        #terminal-container {
+            display: block;
+            flex-wrap: wrap;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+            padding: 10px;
+        }
+
+        .typed-line {
+            white-space: pre;
+            font-size: 1.2em;
+            line-height: 1.2em;
+            color: #00ff00;
+        }
+
+        #contacts-terminal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            background-color: rgba(0, 0, 0, 0.9); 
+            padding: 20px;
+            color: #00ff00;
+            font-family: 'Courier New', Courier, monospace; 
+            font-size: 1.5em;
+            display: none; 
+            border: 2px solid #00ff00;
+            box-shadow: 0px 0px 15px #00ff00;
+            text-align: center;
+            z-index: 20;
+        }
+
+        #settings-panel {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: black;
+            color: #00ff00;
+            padding: 20px;
+            border: 2px solid #00ff00;
+            display: none; 
+            z-index: 20;
+            text-align: left;
+        }
+
+        #settings-panel input[type="range"],
+        #settings-panel select {
+            width: 100%;
+        }
+
+        #settings-panel label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        #settings-panel button {
+            margin-top: 10px;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            color: #00ff00;
+            font-size: 1em;
+        }
+
+        #settings-button, #contacts-button {
+            position: fixed;
+            bottom: 20px;
             background: rgba(0, 0, 0, 0.8); 
             border: 2px solid #00ff00;
             color: #00ff00;
@@ -23,17 +97,47 @@
             cursor: pointer;
             font-size: 1em;
             margin-right: 10px;
+            z-index: 15;
         }
 
-        /* Media query per dispositivi mobili */
-        @media screen and (max-width: 600px) {
-            #buttons-container {
-                flex-direction: column;
-            }
+        #settings-button {
+            right: 100px;
+        }
 
-            #buttons-container button {
-                margin-right: 0;
-                margin-bottom: 10px;
+        #contacts-button {
+            right: 20px;
+        }
+
+        #settings-button:hover, #contacts-button:hover, #settings-panel button:hover {
+            background: #00ff00;
+            color: #0d0d0d;
+        }
+
+        .color-choice {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin: 0 5px;
+            cursor: pointer;
+            border: 2px solid #000;
+        }
+
+        /* Effetto del cursore lampeggiante */
+        .blinking-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 1.2em;
+            background-color: #00ff00;
+            animation: blink 0.7s steps(1) infinite;
+            vertical-align: bottom;
+        }
+
+        @keyframes blink {
+            0%, 50% {
+                opacity: 1;
+            }
+            51%, 100% {
+                opacity: 0;
             }
         }
     </style>
@@ -49,51 +153,62 @@
 
     <!-- Pannello Settings -->
     <div id="settings-panel">
-        <!-- ... (contenuto del pannello settings) ... -->
+        <h3>Settings</h3>
+        
+        <label for="color-picker">Color</label>
+        <div id="color-options">
+            <div class="color-choice" data-color="#00ff00" style="background-color: #00ff00;"></div>
+            <div class="color-choice" data-color="#ff0000" style="background-color: #ff0000;"></div>
+            <div class="color-choice" data-color="#0000ff" style="background-color: #0000ff;"></div>
+            <div class="color-choice" data-color="#ff00ff" style="background-color: #ff00ff;"></div>
+            <div class="color-choice" data-color="#ffff00" style="background-color: #ffff00;"></div>
+            <div class="color-choice" data-color="#ffa500" style="background-color: #ffa500;"></div>
+        </div>
+
+        <label for="speed-slider">Speed</label>
+        <input type="range" id="speed-slider" min="1" max="10" value="4">
+
+        <label for="font-size-slider">Font Size</label>
+        <input type="range" id="font-size-slider" min="10" max="30" value="13">
+
+        <label for="font-picker">Font</label>
+        <select id="font-picker">
+            <option value="'Courier New', Courier, monospace">Courier</option>
+            <option value="'Arial', sans-serif">Arial</option>
+            <option value="'Times New Roman', Times, serif">Times</option>
+            <option value="'Lucida Console', Monaco, monospace">Lucida Console</option>
+        </select>
+
+        <button id="reset-button">Reset</button>
+        <button id="close-button">Close</button>
     </div>
 
-    <!-- Contenitore per i pulsanti -->
-    <div id="buttons-container">
-        <button id="settings-button">Settings</button>
-        <button id="contacts-button">Contacts</button>
-    </div>
+    <!-- Pulsanti per aprire il pannello settings e contacts -->
+    <button id="settings-button">Settings</button>
+    <button id="contacts-button">Contacts</button>
 
     <script>
         const container = document.getElementById("terminal-container");
-        let text = "SHROOMIEZ.SPACE COMING SOON ";
-        let typingSpeed = 120; // Velocità di digitazione per carattere in ms
-        let lineDelay = 0; // Ritardo tra le linee in ms
-        let currentColor = "#00ff00";
-        let currentFont = "'Courier New', Courier, monospace";
-        let currentFontSize = 13; // Dimensione del font corrente
+        let text = "SHROOMIEZ.SPACE COMING SOON "; // Testo da digitare
+        let speed = 120; // Velocità della digitazione in ms
+        let currentColor = "#00ff00"; // Colore predefinito
+        let currentFont = "'Courier New', Courier, monospace"; // Font predefinito
         let lineIndex = 0;
+        let maxLines = 100; // Numero massimo di linee prima di pulire e ricominciare
         let intervalId;
-
-        function calculateMaxLines() {
-            const line = document.createElement('div');
-            line.className = 'typed-line';
-            line.style.fontSize = currentFontSize + 'px';
-            line.style.visibility = 'hidden';
-            line.textContent = 'Test';
-            container.appendChild(line);
-            const lineHeight = line.offsetHeight;
-            container.removeChild(line);
-        }
 
         function typeText() {
             clearInterval(intervalId);
+            if (lineIndex >= maxLines) {
+                container.innerHTML = ""; // Pulizia del contenitore
+                lineIndex = 0;
+            }
 
             const line = document.createElement("div");
             line.className = "typed-line";
-            line.style.color = currentColor;
-            line.style.fontFamily = currentFont;
-            line.style.fontSize = currentFontSize + "px";
+            line.style.color = currentColor; // Imposta il colore corrente
+            line.style.fontFamily = currentFont; // Imposta il font corrente
             container.appendChild(line);
-
-            if (container.scrollHeight > container.clientHeight) {
-                container.innerHTML = "";
-                lineIndex = 0;
-            }
 
             let charIndex = 0;
             let typingInterval = setInterval(() => {
@@ -103,14 +218,13 @@
                 } else {
                     clearInterval(typingInterval);
                     lineIndex++;
-                    setTimeout(typeText, lineDelay); // Inizia immediatamente la prossima linea
+                    setTimeout(typeText, speed); // Scrivi la riga successiva con una pausa minima
                 }
-            }, typingSpeed);
+            }, speed); 
         }
 
         document.addEventListener("DOMContentLoaded", () => {
-            calculateMaxLines();
-            typeText();
+            typeText(); // Avvia la digitazione
         });
 
         // Eventi dei pulsanti
@@ -139,17 +253,15 @@
         });
 
         speedSlider.addEventListener("input", () => {
-            typingSpeed = 300 / speedSlider.value;
+            speed = 300 / speedSlider.value; // Cambia la velocità in base allo slider
             clearInterval(intervalId); 
             typeText(); 
         });
 
         fontSizeSlider.addEventListener("input", () => {
-            currentFontSize = fontSizeSlider.value;
             document.querySelectorAll('.typed-line').forEach(el => {
-                el.style.fontSize = currentFontSize + "px";
+                el.style.fontSize = fontSizeSlider.value + "px";
             });
-            calculateMaxLines();
         });
 
         fontPicker.addEventListener("change", () => {
@@ -162,12 +274,10 @@
         resetButton.addEventListener("click", () => {
             currentColor = "#00ff00"; 
             currentFont = "'Courier New', Courier, monospace";
-            typingSpeed = 120; 
-            currentFontSize = 13;
-            lineDelay = 0;
+            speed = 120; 
             document.querySelectorAll('.typed-line').forEach(el => {
                 el.style.color = currentColor;
-                el.style.fontSize = currentFontSize + "px";
+                el.style.fontSize = "13px";
                 el.style.fontFamily = currentFont;
             });
             speedSlider.value = 4;
@@ -188,3 +298,5 @@
     </script>
 </body>
 </html>
+
+
