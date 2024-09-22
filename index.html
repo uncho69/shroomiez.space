@@ -184,17 +184,16 @@
         const container = document.getElementById("terminal-container");
         const viewCountElement = document.getElementById("view-count");
         let text = "SHROOMIEZ.SPACE COMING SOON "; // Testo da digitare
-        let speed = 120; 
-        let currentColor = "#00ff00"; 
-        let currentFont = "'Courier New', Courier, monospace"; 
+        let speed = 100; // Velocità della digitazione in ms
+        let currentColor = "#00ff00"; // Colore predefinito
+        let currentFont = "'Courier New', Courier, monospace"; // Font predefinito
         let lineIndex = 0;
-        let maxLines = 100; 
         let side = "left"; // Traccia se il testo deve essere allineato a sinistra o destra
 
         function typeText() {
             clearInterval(intervalId);
             if (lineIndex >= maxLines) {
-                container.innerHTML = ""; 
+                container.innerHTML = ""; // Pulizia del contenitore
                 lineIndex = 0;
                 side = (side === "left") ? "right" : "left"; 
             }
@@ -203,7 +202,7 @@
             line.className = "typed-line";
             line.style.color = currentColor; 
             line.style.fontFamily = currentFont; 
-            line.style.textAlign = side; 
+            line.style.textAlign = side === "left" ? "left" : "right"; 
             container.appendChild(line);
 
             let charIndex = 0;
@@ -214,18 +213,20 @@
                 } else {
                     clearInterval(typingInterval);
                     lineIndex++;
-                    setTimeout(typeText, speed); 
+                    setTimeout(typeText, speed); // Scrivi la riga successiva con una pausa minima
                 }
             }, speed); 
         }
 
         document.addEventListener("DOMContentLoaded", () => {
             typeText(); 
-            // Contatore di visualizzazioni
-            let viewCount = localStorage.getItem("viewCount") || 0;
-            viewCount++;
-            localStorage.setItem("viewCount", viewCount);
-            viewCountElement.textContent = viewCount;
+            
+            // Inizializza il contatore delle visualizzazioni
+            fetch('https://api.countapi.xyz/hit/shroomiez.space/visits')
+                .then(response => response.json())
+                .then(data => {
+                    viewCountElement.textContent = data.value;
+                });
         });
 
         const settingsButton = document.getElementById("settings-button");
@@ -252,7 +253,7 @@
         });
 
         speedSlider.addEventListener("input", () => {
-            speed = 300 / speedSlider.value;
+            speed = 300 / speedSlider.value; 
             clearInterval(intervalId); 
             typeText(); 
         });
