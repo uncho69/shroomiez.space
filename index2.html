@@ -56,6 +56,8 @@
     .button-container {
       display: flex;
       gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
     .button {
@@ -67,6 +69,7 @@
       font-size: 20px;
       text-transform: uppercase;
       transition: 0.3s;
+      text-align: center;
     }
 
     .button:hover {
@@ -116,6 +119,40 @@
     #main-content {
       animation: showContent 3.5s ease-in-out forwards;
       display: flex;
+    }
+
+    /* Stili responsivi per schermi piccoli */
+    @media (max-width: 768px) {
+      .logo-container img {
+        width: 120px;
+      }
+
+      .button {
+        padding: 10px 20px;
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+
+      .button-container {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo-container img {
+        width: 100px;
+      }
+
+      .button {
+        padding: 8px 15px;
+        font-size: 14px;
+      }
+
+      #welcome-logo img {
+        width: 40px;
+        height: 40px;
+      }
     }
   </style>
 </head>
