@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MT Portfolio</title>
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      color: #f0f0f0;
+      background-color: #1b1b1b;
+      text-align: center;
+    }
+
+    /* Header */
+    header {
+      padding: 50px 0;
+    }
+
+    header h1 {
+      font-size: 4em;
+      position: relative;
+      display: inline-block;
+      color: #ff0066;
+    }
+
+    .tagline {
+      font-size: 1.2em;
+      color: #888;
+      margin-top: 10px;
+    }
+
+    /* Glitch Effect */
+    .glitch {
+      position: relative;
+      color: #ff0066;
+      font-weight: bold;
+      animation: glitch 2s infinite;
+    }
+
+    .glitch::before,
+    .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0.8;
+    }
+
+    .glitch::before {
+      left: 2px;
+      text-shadow: -2px 0 #00ffcc;
+      animation: glitch-skew 1.5s infinite linear;
+    }
+
+    .glitch::after {
+      left: -2px;
+      text-shadow: -2px 0 #ff0066;
+      animation: glitch-skew 1s infinite linear reverse;
+    }
+
+    @keyframes glitch {
+      0%, 100% { transform: translate(0); }
+      10% { transform: translate(-3px, 3px); }
+      20% { transform: translate(3px, -3px); }
+      30% { transform: translate(-3px, -3px); }
+      40% { transform: translate(3px, 3px); }
+      50% { transform: translate(-3px, 3px); }
+    }
+
+    @keyframes glitch-skew {
+      0%, 100% { transform: skew(0deg); }
+      10% { transform: skew(10deg); }
+      20% { transform: skew(-10deg); }
+      30% { transform: skew(5deg); }
+      40% { transform: skew(-5deg); }
+      50% { transform: skew(2deg); }
+    }
+
+    /* Portfolio Section */
+    .portfolio {
+      padding: 50px 0;
+    }
+
+    .portfolio h2 {
+      font-size: 2em;
+      margin-bottom: 30px;
+    }
+
+    .projects {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .project {
+      position: relative;
+      width: 300px;
+      height: 200px;
+      overflow: hidden;
+      border: 2px solid #333;
+    }
+
+    .project img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .project:hover img {
+      transform: scale(1.1);
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5em;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .project:hover .overlay {
+      opacity: 1;
+    }
+
+    /* Footer */
+    footer {
+      padding: 20px;
+      background-color: #222;
+    }
+
+    footer p, footer a {
+      color: #888;
+      font-size: 0.9em;
+    }
+
+    footer a:hover {
+      color: #ff0066;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 class="glitch" data-text="Your Name">Your Name</h1>
+    <p class="tagline">Glitchy VFX Artist & Visual Magician</p>
+  </header>
+
+  <main>
+    <section class="portfolio">
+      <h2>Featured Projects</h2>
+      <div class="projects">
+        <div class="project">
+          <img src="project1.jpg" alt="Project 1">
+          <div class="overlay">Project 1</div>
+        </div>
+        <div class="project">
+          <img src="project2.jpg" alt="Project 2">
+          <div class="overlay">Project 2</div>
+        </div>
+        <div class="project">
+          <img src="project3.jpg" alt="Project 3">
+          <div class="overlay">Project 3</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 MT</p>
+    <p>Connect with me on <a href="#">Instagram</a> | <a href="#">X</a> | <a href="#">Behance</a></p>
+  </footer>
+</body>
+</html>
