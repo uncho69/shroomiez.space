@@ -25,6 +25,32 @@
             }
         }
 
+        .social-icons {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icons a {
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .social-icons img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .social-icons img:hover {
+            transform: scale(1.1);
+            box-shadow: 0px 10px 20px rgba(255, 255, 255, 0.8);
+        }
+
         header {
             text-align: center;
             padding: 50px 20px;
@@ -109,23 +135,26 @@
     </style>
 </head>
 <body>
+    <!-- Social Icons Section -->
+    <div class="social-icons">
+        <a href="https://twitter.com/yourprofile" target="_blank">
+            <img src="tw.png" alt="Twitter">
+        </a>
+        <a href="https://instagram.com/yourprofile" target="_blank">
+            <img src="ig.png" alt="Instagram">
+        </a>
+        <a href="https://discord.com/invite/yourinvite" target="_blank">
+            <img src="discord.png" alt="Discord">
+        </a>
+    </div>
+
     <header>
         <h1>MT</h1>
         <p>A harmonic dive into vibrant frequencies.</p>
     </header>
+    <!-- Remaining content -->
     <section class="video-gallery">
-        <iframe src="https://www.youtube.com/embed/Aipyh4zzeDU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <iframe src="https://www.youtube.com/embed/obhs_S7UcXY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <iframe src="https://www.youtube.com/embed/tjZ6zhw9OwE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <iframe src="https://www.youtube.com/embed/ZN0B0ZYt8wc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <iframe src="https://www.youtube.com/embed/DxuVWxOfPOw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <iframe src="https://www.youtube.com/embed/UMm8VNoJ6WE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <iframe src="https://www.youtube.com/embed/t4JNTs4Zy6o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <iframe src="https://www.youtube.com/embed/ID_VIDEO_8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <iframe src="https://www.youtube.com/embed/ID_VIDEO_9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <iframe src="https://www.youtube.com/embed/ID_VIDEO_10" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <iframe src="https://www.youtube.com/embed/ID_VIDEO_11" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <iframe src="https://www.youtube.com/embed/ID_VIDEO_12" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <!-- Your existing video content -->
     </section>
     <section class="creative-process">
         <h2>My Creative Process</h2>
