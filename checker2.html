@@ -44,6 +44,17 @@
       z-index: 10;
     }
 
+    .title {
+      font-size: 26px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .description {
+      font-size: 18px;
+      margin: 20px 0; /* Aggiunto spazio sopra e sotto per migliorare la separazione */
+    }
+
     .popup {
       position: fixed;
       top: 0;
@@ -65,14 +76,15 @@
     }
 
     .popup-button, .voice-button, .wallet-button {
-      margin-top: 10px;
-      padding: 10px 20px;
+      margin-top: 15px;
+      padding: 15px 20px;
       font-size: 18px;
       background: #fbe7c6;
       border: none;
       cursor: pointer;
       font-weight: bold;
       border-radius: 5px;
+      width: 80%;
     }
 
     .token {
@@ -90,7 +102,8 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
+      gap: 15px; /* Distanza aumentata tra i bottoni */
+      margin-top: 20px; /* Distanza aumentata tra il testo e i bottoni */
     }
 
     .floating-logo {
@@ -174,3 +187,4 @@
   </script>
 </body>
 </html>
+
