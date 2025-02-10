@@ -24,9 +24,11 @@
       text-align: center;
     }
 
-    .logo {
-      width: 200px;
-      margin-bottom: 20px;
+    .floating-logo {
+      position: absolute;
+      width: 150px;
+      top: 50px;
+      left: 50px;
     }
 
     .container {
@@ -74,7 +76,7 @@
     Il tuo browser non supporta l'elemento audio.
   </audio>
   
-  <img src="logoshroomiez.png" alt="Shroomiez Logo" class="logo">
+  <img src="logoshroomiez.png" alt="Shroomiez Logo" class="floating-logo">
 
   <div class="container">
     <div class="title"><strong>RFC allocation for Shroomiez holders who held/traded</strong></div>
@@ -89,6 +91,35 @@
     function connectWallet() {
       alert("Wallet connection feature coming soon!");
     }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      let logo = document.querySelector(".floating-logo");
+      let xSpeed = 2; // Velocità orizzontale
+      let ySpeed = 2; // Velocità verticale
+      let xPos = Math.random() * window.innerWidth;
+      let yPos = Math.random() * window.innerHeight;
+
+      function moveLogo() {
+          let rect = logo.getBoundingClientRect();
+
+          if (rect.left <= 0 || rect.right >= window.innerWidth) {
+              xSpeed = -xSpeed;
+          }
+
+          if (rect.top <= 0 || rect.bottom >= window.innerHeight) {
+              ySpeed = -ySpeed;
+          }
+
+          xPos += xSpeed;
+          yPos += ySpeed;
+
+          logo.style.transform = `translate(${xPos}px, ${yPos}px)`;
+
+          requestAnimationFrame(moveLogo);
+      }
+
+      moveLogo();
+    });
   </script>
 </body>
 </html>
