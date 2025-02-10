@@ -52,7 +52,7 @@
 
     .description {
       font-size: 18px;
-      margin: 20px 0; /* Aggiunto spazio sopra e sotto per migliorare la separazione */
+      margin: 20px 0;
     }
 
     .popup {
@@ -75,7 +75,7 @@
       text-align: center;
     }
 
-    .popup-button, .voice-button, .wallet-button {
+    .popup-button, .voice-button, .wallet-button, .share-button {
       margin-top: 15px;
       padding: 15px 20px;
       font-size: 18px;
@@ -102,8 +102,8 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 15px; /* Distanza aumentata tra i bottoni */
-      margin-top: 20px; /* Distanza aumentata tra il testo e i bottoni */
+      gap: 15px;
+      margin-top: 20px;
     }
 
     .floating-logo {
@@ -150,6 +150,7 @@
     <div class="button-container">
       <button class="wallet-button" onclick="connectWallet()">CONNECT WALLET ADDRESS</button>
       <button class="voice-button" onclick="playVoice()">Click here if u don't know how to read</button>
+      <button class="share-button" onclick="shareOnX()">Share on X</button>
     </div>
   </div>
 
@@ -184,7 +185,14 @@
         bgAudio.play(); // Quando la voce finisce, la musica riprende
       };
     }
+
+    function shareOnX() {
+      const tweetText = encodeURIComponent("I've just claimed my RFC allocation with Shroomiez! 🍄🚀 #Shroomiez #RFC");
+      const tweetUrl = `https://twitter.com/intent/tweet?text=${tweetText}`;
+      window.open(tweetUrl, "_blank");
+    }
   </script>
 </body>
 </html>
+
 
