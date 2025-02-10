@@ -21,6 +21,7 @@
       justify-content: center;
       align-items: center;
       overflow: hidden;
+      flex-direction: column;
     }
 
     #welcome-logo {
@@ -75,34 +76,37 @@
       cursor: pointer;
     }
 
-    /* Animazioni */
+    .check-button {
+      margin-top: 20px;
+      padding: 15px 30px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 2px solid white;
+      color: white;
+      text-decoration: none;
+      font-size: 20px;
+      text-transform: uppercase;
+      transition: 0.3s;
+    }
+
+    .check-button:hover {
+      background-color: white;
+      color: black;
+      cursor: pointer;
+    }
+
     @keyframes fadeOut {
-      0% {
-        opacity: 1;
-      }
-      80% {
-        opacity: 0;
-      }
-      100% {
-        opacity: 0;
-        display: none;
-      }
+      0% { opacity: 1; }
+      80% { opacity: 0; }
+      100% { opacity: 0; display: none; }
     }
 
     @keyframes scaleUp {
-      0% {
-        transform: scale(1);
-      }
-      100% {
-        transform: scale(40);
-      }
+      0% { transform: scale(1); }
+      100% { transform: scale(40); }
     }
 
-    /* Mostra il contenuto dopo l'animazione */
     @keyframes showContent {
-      100% {
-        display: flex;
-      }
+      100% { display: flex; }
     }
 
     #welcome-logo {
@@ -120,12 +124,10 @@
   </style>
 </head>
 <body>
-  <!-- Logo di benvenuto -->
   <div id="welcome-logo">
     <img src="logoshroomiez.png" alt="Shroomiez Logo">
   </div>
 
-  <!-- Contenuto principale -->
   <div id="main-content">
     <div class="logo-container">
       <img src="logocentrale.png" alt="Logo Centrale">
@@ -136,6 +138,8 @@
       <a href="https://x.com/ShroomiezNFTs" class="button">X</a>
       <a href="https://discord.gg/AnTwX7YS3S" class="button">DISCORD</a>
     </div>
+    <a href="/checker.html" class="check-button">CHECK YOUR RFC ALLOCATION</a>
   </div>
 </body>
 </html>
+
