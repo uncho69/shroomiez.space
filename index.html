@@ -140,6 +140,40 @@
     </div>
     <a href="/checker.html" class="check-button">CHECK YOUR RFC ALLOCATION</a>
   </div>
+  <!-- Nascondo il player YouTube -->
+<div id="player" style="display: none;"></div>
+
+<script>
+  // Carica l'API di YouTube
+  var tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+  var player;
+
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player('player', {
+      videoId: 'https://www.youtube.com/watch?v=uNNk-V08J7k&ab_channel=Speedsound', // Sostituisci con l'ID del video YouTube
+      playerVars: {
+        'autoplay': 1, // Avvio automatico
+        'controls': 0, // Nasconde i controlli
+        'showinfo': 0, // Nasconde informazioni
+        'modestbranding': 1, // Rimuove il branding di YouTube
+        'loop': 1, // Fa ripetere la canzone
+        'playlist': 'YOUR_VIDEO_ID' // Necessario per il loop
+      },
+      events: {
+        'onReady': onPlayerReady
+      }
+    });
+  }
+
+  function onPlayerReady(event) {
+    event.target.setVolume(100); // Imposta il volume al massimo
+    event.target.playVideo(); // Avvia automaticamente la riproduzione
+  }
+</script>
 </body>
 </html>
 
