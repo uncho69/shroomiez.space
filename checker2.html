@@ -64,7 +64,7 @@
       text-align: center;
     }
 
-    .popup-button, .voice-button {
+    .popup-button, .voice-button, .wallet-button {
       margin-top: 10px;
       padding: 10px 20px;
       font-size: 18px;
@@ -90,6 +90,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      gap: 10px;
     }
 
     .floating-logo {
@@ -134,8 +135,7 @@
       Check your <strong>BERA</strong> token eligibility by connecting your wallet address.
     </div>
     <div class="button-container">
-      <button class="button" onclick="connectWallet()">CONNECT WALLET ADDRESS</button>
-      <br>
+      <button class="wallet-button" onclick="connectWallet()">CONNECT WALLET ADDRESS</button>
       <button class="voice-button" onclick="playVoice()">Click here if u don't know how to read</button>
     </div>
   </div>
