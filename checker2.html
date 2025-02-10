@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shroomiez - Check RFC Allocation</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      height: 100vh;
+      background-image: url('sfondosito.png'); /* Stesso sfondo di index.html */
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .floating-logo {
+      position: absolute;
+      width: 150px;
+      top: 50px;
+      left: 50px;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      max-width: 700px;
+      text-align: center;
+    }
+
+    .popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .popup-content {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .popup-button, .voice-button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 18px;
+      background: #fbe7c6;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 5px;
+    }
+
+    .token {
+      position: absolute;
+      width: 50px;
+      animation: fall linear forwards;
+    }
+
+    @keyframes fall {
+      from { transform: translateY(-100px); opacity: 1; }
+      to { transform: translateY(100vh); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="popup" id="welcome-popup">
+    <div class="popup-content">
+      <h2>HENLO MR SHROOM</h2>
+      <button class="popup-button" onclick="startTokens()">OOGA BOOGA</button>
+    </div>
+  </div>
+
+  <audio id="background-audio" loop>
+    <source src="spacerwoman.mp3" type="audio/mpeg">
+    Il tuo browser non supporta l'elemento audio.
+  </audio>
+  
+  <audio id="voice-audio">
+    <source src="voce.mp3" type="audio/mpeg">
+    Il tuo browser non supporta l'elemento audio.
+  </audio>
+
+  <img src="logoshroomiez.png" alt="Shroomiez Logo" class="floating-logo">
+
+  <div class="container">
+    <div class="title"><strong>RFC allocation for Shroomiez holders who held/traded</strong></div>
+    <div class="title"><strong>BeraShroomiez, Mad Shroomiez & Fermented Shroomiez on bArtio</strong></div>
+    <div class="description">
+      Check your <strong>BERA</strong> token eligibility by connecting your wallet address.
+    </div>
+    <button class="button" onclick="connectWallet()">CONNECT WALLET ADDRESS</button>
+    <br><br>
+    <button class="voice-button" onclick="playVoice()">Click here if u don't know how to read</button>
+  </div>
+
+  <script>
+    function connectWallet() {
+      alert("Wallet connection feature coming soon!");
+    }
+
+    function startTokens() {
+      document.getElementById("welcome-popup").style.display = "none";
+      document.getElementById("background-audio").play();
+
+      const numTokens = 10;
+      for (let i = 0; i < numTokens; i++) {
+        let token = document.createElement("img");
+        token.src = "token.png";
+        token.className = "token";
+        token.style.left = Math.random() * window.innerWidth + "px";
+        token.style.animationDuration = (2 + Math.random() * 3) + "s";
+        document.body.appendChild(token);
+      }
+    }
+
+    function playVoice() {
+      let bgAudio = document.getElementById("background-audio");
+      let voiceAudio = document.getElementById("voice-audio");
+      
+      bgAudio.pause(); // Ferma la musica
+      voiceAudio.play();
+      
+      voiceAudio.onended = function() {
+        bgAudio.play(); // Quando la voce finisce, la musica riprende
+      };
+    }
+  </script>
+</body>
+</html>
