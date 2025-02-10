@@ -60,7 +60,7 @@
       text-align: center;
     }
 
-    .popup-button {
+    .popup-button, .voice-button {
       margin-top: 10px;
       padding: 10px 20px;
       font-size: 18px;
@@ -114,6 +114,11 @@
     Il tuo browser non supporta l'elemento audio.
   </audio>
   
+  <audio id="voice-audio">
+    <source src="voce.mp3" type="audio/mpeg">
+    Il tuo browser non supporta l'elemento audio.
+  </audio>
+
   <img src="logoshroomiez.png" alt="Shroomiez Logo" class="floating-logo">
 
   <div class="container">
@@ -123,6 +128,8 @@
       Check your <strong>BERA</strong> token eligibility by connecting your wallet address.
     </div>
     <button class="button" onclick="connectWallet()">CONNECT WALLET ADDRESS</button>
+    <br><br>
+    <button class="voice-button" onclick="playVoice()">Click here if u don't know how to read</button>
   </div>
 
   <script>
@@ -135,10 +142,22 @@
       document.getElementById("background-audio").play();
     }
 
+    function playVoice() {
+      let bgAudio = document.getElementById("background-audio");
+      let voiceAudio = document.getElementById("voice-audio");
+      
+      bgAudio.pause(); // Ferma la musica
+      voiceAudio.play();
+      
+      voiceAudio.onended = function() {
+        bgAudio.play(); // Quando la voce finisce, la musica riprende
+      };
+    }
+
     document.addEventListener("DOMContentLoaded", function () {
       let logo = document.querySelector(".floating-logo");
-      let xSpeed = 2; // Velocità orizzontale
-      let ySpeed = 2; // Velocità verticale
+      let xSpeed = 2;
+      let ySpeed = 2;
       let xPos = Math.random() * window.innerWidth;
       let yPos = Math.random() * window.innerHeight;
 
@@ -166,3 +185,4 @@
   </script>
 </body>
 </html>
+
